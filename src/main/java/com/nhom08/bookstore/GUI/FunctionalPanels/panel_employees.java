@@ -27,7 +27,7 @@ public class panel_employees extends javax.swing.JPanel {
         private void initComponents() {
 
                 panelCustom1 = new com.nhom08.bookstore.GUI.PanelCustom();
-                panelCustom2 = new com.nhom08.bookstore.GUI.PanelCustom();
+                panel_TableArea = new com.nhom08.bookstore.GUI.PanelCustom();
 
                 setBackground(new java.awt.Color(255, 255, 255));
                 setPreferredSize(new java.awt.Dimension(1056, 740));
@@ -52,28 +52,28 @@ public class panel_employees extends javax.swing.JPanel {
 
                 add(panelCustom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(725, 25, 305, 665));
 
-                panelCustom2.setRoundBottomLeft(20);
-                panelCustom2.setRoundBottomRight(20);
-                panelCustom2.setRoundTopLeft(20);
-                panelCustom2.setRoundTopRight(20);
+                panel_TableArea.setRoundBottomLeft(20);
+                panel_TableArea.setRoundBottomRight(20);
+                panel_TableArea.setRoundTopLeft(20);
+                panel_TableArea.setRoundTopRight(20);
 
-                javax.swing.GroupLayout panelCustom2Layout = new javax.swing.GroupLayout(panelCustom2);
-                panelCustom2.setLayout(panelCustom2Layout);
-                panelCustom2Layout.setHorizontalGroup(
-                        panelCustom2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                javax.swing.GroupLayout panel_TableAreaLayout = new javax.swing.GroupLayout(panel_TableArea);
+                panel_TableArea.setLayout(panel_TableAreaLayout);
+                panel_TableAreaLayout.setHorizontalGroup(
+                        panel_TableAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGap(0, 664, Short.MAX_VALUE)
                 );
-                panelCustom2Layout.setVerticalGroup(
-                        panelCustom2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                panel_TableAreaLayout.setVerticalGroup(
+                        panel_TableAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGap(0, 578, Short.MAX_VALUE)
                 );
 
-                add(panelCustom2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 109, 664, 578));
+                add(panel_TableArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 109, 664, 578));
         }// </editor-fold>//GEN-END:initComponents
 
 
         // Variables declaration - do not modify//GEN-BEGIN:variables
         private com.nhom08.bookstore.GUI.PanelCustom panelCustom1;
-        private com.nhom08.bookstore.GUI.PanelCustom panelCustom2;
+        private com.nhom08.bookstore.GUI.PanelCustom panel_TableArea;
         // End of variables declaration//GEN-END:variables
 }
