@@ -48,11 +48,18 @@ public class panel_employeeDetails extends javax.swing.JPanel {
                 jPanel7 = new javax.swing.JPanel();
                 textFieldCustom8 = new com.nhom08.bookstore.GUI.TextFieldCustom();
                 jLabel8 = new javax.swing.JLabel();
-                lbl_backIcon1 = new javax.swing.JLabel();
+                panel_editBtn = new com.nhom08.bookstore.GUI.PanelCustom();
+                jLabel5 = new javax.swing.JLabel();
+                panel_saveBtn = new com.nhom08.bookstore.GUI.PanelCustom();
+                jLabel9 = new javax.swing.JLabel();
+                panel_cancelBtn = new com.nhom08.bookstore.GUI.PanelCustom();
+                jLabel10 = new javax.swing.JLabel();
+                panel_backBtn = new com.nhom08.bookstore.GUI.PanelCustom();
+                jLabel12 = new javax.swing.JLabel();
                 panel_TableArea = new com.nhom08.bookstore.GUI.PanelCustom();
 
                 setBackground(new java.awt.Color(255, 255, 255));
-                setPreferredSize(new java.awt.Dimension(1056, 740));
+                setPreferredSize(new java.awt.Dimension(1280, 740));
                 setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
                 panelCustom1.setBackground(new java.awt.Color(137, 207, 245));
@@ -174,10 +181,53 @@ public class panel_employeeDetails extends javax.swing.JPanel {
 
                 panelCustom1.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 450, 300, -1));
 
-                lbl_backIcon1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/arrow-small-left.png"))); // NOI18N
-                panelCustom1.add(lbl_backIcon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 600, 40, 40));
+                panel_editBtn.setRoundBottomLeft(20);
+                panel_editBtn.setRoundBottomRight(20);
+                panel_editBtn.setRoundTopLeft(20);
+                panel_editBtn.setRoundTopRight(20);
+                panel_editBtn.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-                add(panelCustom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(725, 25, 305, 665));
+                jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/edit.png"))); // NOI18N
+                panel_editBtn.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 40, 38));
+
+                panelCustom1.add(panel_editBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 616, 50, 50));
+
+                panel_saveBtn.setRoundBottomLeft(20);
+                panel_saveBtn.setRoundBottomRight(20);
+                panel_saveBtn.setRoundTopLeft(20);
+                panel_saveBtn.setRoundTopRight(20);
+                panel_saveBtn.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+                jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/save.png"))); // NOI18N
+                panel_saveBtn.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 40, 38));
+
+                panelCustom1.add(panel_saveBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 616, 50, 50));
+
+                panel_cancelBtn.setRoundBottomLeft(20);
+                panel_cancelBtn.setRoundBottomRight(20);
+                panel_cancelBtn.setRoundTopLeft(20);
+                panel_cancelBtn.setRoundTopRight(20);
+                panel_cancelBtn.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+                jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cancle.png"))); // NOI18N
+                panel_cancelBtn.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 40, 38));
+
+                panelCustom1.add(panel_cancelBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 616, 50, 50));
+
+                panel_backBtn.setBackground(new java.awt.Color(137, 207, 245));
+                panel_backBtn.setRoundBottomLeft(20);
+                panel_backBtn.setRoundBottomRight(20);
+                panel_backBtn.setRoundTopLeft(20);
+                panel_backBtn.setRoundTopRight(20);
+                panel_backBtn.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+                jLabel12.setBackground(new java.awt.Color(137, 207, 245));
+                jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/arrow-small-left.png"))); // NOI18N
+                panel_backBtn.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 50));
+
+                panelCustom1.add(panel_backBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 616, 50, 50));
+
+                add(panelCustom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(945, 25, 305, 690));
 
                 panel_TableArea.setRoundBottomLeft(20);
                 panel_TableArea.setRoundBottomRight(20);
@@ -188,14 +238,14 @@ public class panel_employeeDetails extends javax.swing.JPanel {
                 panel_TableArea.setLayout(panel_TableAreaLayout);
                 panel_TableAreaLayout.setHorizontalGroup(
                         panel_TableAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 664, Short.MAX_VALUE)
+                        .addGap(0, 873, Short.MAX_VALUE)
                 );
                 panel_TableAreaLayout.setVerticalGroup(
                         panel_TableAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 578, Short.MAX_VALUE)
+                        .addGap(0, 606, Short.MAX_VALUE)
                 );
 
-                add(panel_TableArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 109, 664, 578));
+                add(panel_TableArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 118, 873, 606));
         }// </editor-fold>//GEN-END:initComponents
 
         private void textFieldCustom1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldCustom1ActionPerformed
@@ -229,12 +279,16 @@ public class panel_employeeDetails extends javax.swing.JPanel {
 
         // Variables declaration - do not modify//GEN-BEGIN:variables
         private javax.swing.JLabel jLabel1;
+        private javax.swing.JLabel jLabel10;
+        private javax.swing.JLabel jLabel12;
         private javax.swing.JLabel jLabel2;
         private javax.swing.JLabel jLabel3;
         private javax.swing.JLabel jLabel4;
+        private javax.swing.JLabel jLabel5;
         private javax.swing.JLabel jLabel6;
         private javax.swing.JLabel jLabel7;
         private javax.swing.JLabel jLabel8;
+        private javax.swing.JLabel jLabel9;
         private javax.swing.JPanel jPanel1;
         private javax.swing.JPanel jPanel2;
         private javax.swing.JPanel jPanel3;
@@ -242,9 +296,12 @@ public class panel_employeeDetails extends javax.swing.JPanel {
         private javax.swing.JPanel jPanel5;
         private javax.swing.JPanel jPanel6;
         private javax.swing.JPanel jPanel7;
-        private javax.swing.JLabel lbl_backIcon1;
         private com.nhom08.bookstore.GUI.PanelCustom panelCustom1;
         private com.nhom08.bookstore.GUI.PanelCustom panel_TableArea;
+        private com.nhom08.bookstore.GUI.PanelCustom panel_backBtn;
+        private com.nhom08.bookstore.GUI.PanelCustom panel_cancelBtn;
+        private com.nhom08.bookstore.GUI.PanelCustom panel_editBtn;
+        private com.nhom08.bookstore.GUI.PanelCustom panel_saveBtn;
         private com.nhom08.bookstore.GUI.TextFieldCustom textFieldCustom1;
         private com.nhom08.bookstore.GUI.TextFieldCustom textFieldCustom2;
         private com.nhom08.bookstore.GUI.TextFieldCustom textFieldCustom3;

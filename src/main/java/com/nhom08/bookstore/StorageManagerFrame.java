@@ -4,38 +4,34 @@
  */
 package com.nhom08.bookstore;
 
-
-import com.nhom08.bookstore.GUI.FunctionalPanels.panel_accounts;
+import com.nhom08.bookstore.GUI.FunctionalPanels.panel_authors;
 import com.nhom08.bookstore.GUI.FunctionalPanels.panel_books;
-import com.nhom08.bookstore.GUI.FunctionalPanels.panel_employees;
 import com.nhom08.bookstore.GUI.FunctionalPanels.panel_home;
-import com.nhom08.bookstore.GUI.FunctionalPanels.panel_publishers;
-import com.nhom08.bookstore.GUI.FunctionalPanels.panel_statistics;
+import com.nhom08.bookstore.GUI.FunctionalPanels.panel_iReceipt;
 import com.nhom08.bookstore.GUI.PanelCustom;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
 
 /**
  *
  * @author quythuong
  */
-public class ManagerFrame extends javax.swing.JFrame {
+public class StorageManagerFrame extends javax.swing.JFrame {
 
 	/**
-	 * Creates new form MainFrame
+	 * Creates new form StorageManagerFrame
 	 */
 	public PanelCustom preTabBtn;
 	public Color clickedButtonBackgroundColor = new Color(126, 152, 255);
 	public Color sideBarBackgroundColor = new Color(149,189,255);
-	public ManagerFrame() {
+	public StorageManagerFrame() {
 		initComponents();
-		this.setSize(1280, 800);
+		this.setSize(new Dimension(1280, 800));
 		
 		TabbedPane.addTab("Home", new panel_home());
-		TabbedPane.addTab("Employees", new panel_employees());
-		TabbedPane.addTab("Publishers", new panel_publishers());
+		TabbedPane.addTab("Authors", new panel_authors());
 		TabbedPane.addTab("Books", new panel_books());
-		TabbedPane.addTab("Statistics", new panel_statistics());
-		TabbedPane.addTab("Accounts", new panel_accounts());
+		TabbedPane.addTab("I-Receipt", new panel_iReceipt());
 		
 		preTabBtn = panel_homeBtn;
 		panel_homeBtn.setBackground(clickedButtonBackgroundColor);
@@ -54,19 +50,13 @@ public class ManagerFrame extends javax.swing.JFrame {
                 panel_homeBtn = new com.nhom08.bookstore.GUI.PanelCustom();
                 jLabel1 = new javax.swing.JLabel();
                 jLabel2 = new javax.swing.JLabel();
-                panel_employeeBtn = new com.nhom08.bookstore.GUI.PanelCustom();
+                panel_authorBtn = new com.nhom08.bookstore.GUI.PanelCustom();
                 jLabel3 = new javax.swing.JLabel();
                 jLabel4 = new javax.swing.JLabel();
-                panel_publisherBtn = new com.nhom08.bookstore.GUI.PanelCustom();
-                jLabel5 = new javax.swing.JLabel();
-                jLabel6 = new javax.swing.JLabel();
                 panel_bookBtn = new com.nhom08.bookstore.GUI.PanelCustom();
                 jLabel7 = new javax.swing.JLabel();
                 jLabel8 = new javax.swing.JLabel();
-                panel_statsBtn = new com.nhom08.bookstore.GUI.PanelCustom();
-                jLabel9 = new javax.swing.JLabel();
-                jLabel10 = new javax.swing.JLabel();
-                panel_accountBtn = new com.nhom08.bookstore.GUI.PanelCustom();
+                panel_iReceiptBtn = new com.nhom08.bookstore.GUI.PanelCustom();
                 jLabel11 = new javax.swing.JLabel();
                 jLabel12 = new javax.swing.JLabel();
                 panel_logoutBtn = new com.nhom08.bookstore.GUI.PanelCustom();
@@ -80,10 +70,6 @@ public class ManagerFrame extends javax.swing.JFrame {
                 TabbedPane = new javax.swing.JTabbedPane();
 
                 setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-                setTitle("Book Store");
-                setBackground(new java.awt.Color(204, 204, 204));
-                setResizable(false);
-                setSize(new java.awt.Dimension(1280, 800));
                 getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
                 panel_Sidebar.setBackground(new java.awt.Color(149, 189, 255));
@@ -113,49 +99,27 @@ public class ManagerFrame extends javax.swing.JFrame {
 
                 panel_Sidebar.add(panel_homeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 106, 198, 65));
 
-                panel_employeeBtn.setBackground(new java.awt.Color(149, 189, 255));
-                panel_employeeBtn.setRoundBottomLeft(20);
-                panel_employeeBtn.setRoundBottomRight(20);
-                panel_employeeBtn.setRoundTopLeft(20);
-                panel_employeeBtn.setRoundTopRight(20);
-                panel_employeeBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+                panel_authorBtn.setBackground(new java.awt.Color(149, 189, 255));
+                panel_authorBtn.setRoundBottomLeft(20);
+                panel_authorBtn.setRoundBottomRight(20);
+                panel_authorBtn.setRoundTopLeft(20);
+                panel_authorBtn.setRoundTopRight(20);
+                panel_authorBtn.addMouseListener(new java.awt.event.MouseAdapter() {
                         public void mouseClicked(java.awt.event.MouseEvent evt) {
-                                panel_employeeBtnMouseClicked(evt);
+                                panel_authorBtnMouseClicked(evt);
                         }
                 });
-                panel_employeeBtn.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+                panel_authorBtn.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-                jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/employee.png"))); // NOI18N
-                panel_employeeBtn.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 40, 40));
+                jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/publisher.png"))); // NOI18N
+                panel_authorBtn.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 40, 40));
 
                 jLabel4.setFont(new java.awt.Font("Lexend SemiBold", 0, 20)); // NOI18N
                 jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-                jLabel4.setText("Employees");
-                panel_employeeBtn.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 110, 30));
+                jLabel4.setText("Authors");
+                panel_authorBtn.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 110, 30));
 
-                panel_Sidebar.add(panel_employeeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 204, 198, 65));
-
-                panel_publisherBtn.setBackground(new java.awt.Color(149, 189, 255));
-                panel_publisherBtn.setRoundBottomLeft(20);
-                panel_publisherBtn.setRoundBottomRight(20);
-                panel_publisherBtn.setRoundTopLeft(20);
-                panel_publisherBtn.setRoundTopRight(20);
-                panel_publisherBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-                        public void mouseClicked(java.awt.event.MouseEvent evt) {
-                                panel_publisherBtnMouseClicked(evt);
-                        }
-                });
-                panel_publisherBtn.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-                jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/publisher.png"))); // NOI18N
-                panel_publisherBtn.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 40, 40));
-
-                jLabel6.setFont(new java.awt.Font("Lexend SemiBold", 0, 20)); // NOI18N
-                jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-                jLabel6.setText("Publishers");
-                panel_publisherBtn.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 110, 30));
-
-                panel_Sidebar.add(panel_publisherBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 302, 198, 65));
+                panel_Sidebar.add(panel_authorBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 204, 198, 65));
 
                 panel_bookBtn.setBackground(new java.awt.Color(149, 189, 255));
                 panel_bookBtn.setRoundBottomLeft(20);
@@ -177,51 +141,29 @@ public class ManagerFrame extends javax.swing.JFrame {
                 jLabel8.setText("Books");
                 panel_bookBtn.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 110, 30));
 
-                panel_Sidebar.add(panel_bookBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 396, 198, 65));
+                panel_Sidebar.add(panel_bookBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 302, 198, 65));
 
-                panel_statsBtn.setBackground(new java.awt.Color(149, 189, 255));
-                panel_statsBtn.setRoundBottomLeft(20);
-                panel_statsBtn.setRoundBottomRight(20);
-                panel_statsBtn.setRoundTopLeft(20);
-                panel_statsBtn.setRoundTopRight(20);
-                panel_statsBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+                panel_iReceiptBtn.setBackground(new java.awt.Color(149, 189, 255));
+                panel_iReceiptBtn.setRoundBottomLeft(20);
+                panel_iReceiptBtn.setRoundBottomRight(20);
+                panel_iReceiptBtn.setRoundTopLeft(20);
+                panel_iReceiptBtn.setRoundTopRight(20);
+                panel_iReceiptBtn.addMouseListener(new java.awt.event.MouseAdapter() {
                         public void mouseClicked(java.awt.event.MouseEvent evt) {
-                                panel_statsBtnMouseClicked(evt);
+                                panel_iReceiptBtnMouseClicked(evt);
                         }
                 });
-                panel_statsBtn.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+                panel_iReceiptBtn.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-                jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/stats.png"))); // NOI18N
-                panel_statsBtn.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 40, 40));
-
-                jLabel10.setFont(new java.awt.Font("Lexend SemiBold", 0, 20)); // NOI18N
-                jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-                jLabel10.setText("Statistics");
-                panel_statsBtn.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 110, 30));
-
-                panel_Sidebar.add(panel_statsBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 492, 198, 65));
-
-                panel_accountBtn.setBackground(new java.awt.Color(149, 189, 255));
-                panel_accountBtn.setRoundBottomLeft(20);
-                panel_accountBtn.setRoundBottomRight(20);
-                panel_accountBtn.setRoundTopLeft(20);
-                panel_accountBtn.setRoundTopRight(20);
-                panel_accountBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-                        public void mouseClicked(java.awt.event.MouseEvent evt) {
-                                panel_accountBtnMouseClicked(evt);
-                        }
-                });
-                panel_accountBtn.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-                jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user_filled.png"))); // NOI18N
-                panel_accountBtn.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 40, 40));
+                jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/receipt.png"))); // NOI18N
+                panel_iReceiptBtn.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 40, 40));
 
                 jLabel12.setFont(new java.awt.Font("Lexend SemiBold", 0, 20)); // NOI18N
                 jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-                jLabel12.setText("Accounts");
-                panel_accountBtn.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 110, 30));
+                jLabel12.setText("I-Receipt");
+                panel_iReceiptBtn.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 110, 30));
 
-                panel_Sidebar.add(panel_accountBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 588, 198, 65));
+                panel_Sidebar.add(panel_iReceiptBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 400, 198, 65));
 
                 panel_logoutBtn.setBackground(new java.awt.Color(149, 189, 255));
                 panel_logoutBtn.setRoundBottomLeft(20);
@@ -260,7 +202,6 @@ public class ManagerFrame extends javax.swing.JFrame {
                 panel_Header.add(textFieldCustom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 11, 338, 41));
 
                 getContentPane().add(panel_Header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 60));
-                panel_Header.getAccessibleContext().setAccessibleName("");
 
                 TabbedPane.setBackground(new java.awt.Color(0, 204, 0));
                 getContentPane().add(TabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(224, 30, 1056, 770));
@@ -268,66 +209,47 @@ public class ManagerFrame extends javax.swing.JFrame {
                 pack();
         }// </editor-fold>//GEN-END:initComponents
 
+	
         private void panel_homeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_homeBtnMouseClicked
                 // TODO add your handling code here:
-		TabbedPane.setSelectedIndex(0);
-		if(panel_homeBtn.getBackground().equals(clickedButtonBackgroundColor))
+                TabbedPane.setSelectedIndex(0);
+                if(panel_homeBtn.getBackground().equals(clickedButtonBackgroundColor))
 			return;
-		panel_homeBtn.setBackground(clickedButtonBackgroundColor);
-		preTabBtn.setBackground(sideBarBackgroundColor);
-		preTabBtn = panel_homeBtn;
+                panel_homeBtn.setBackground(clickedButtonBackgroundColor);
+                preTabBtn.setBackground(sideBarBackgroundColor);
+                preTabBtn = panel_homeBtn;
         }//GEN-LAST:event_panel_homeBtnMouseClicked
 
-        private void panel_employeeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_employeeBtnMouseClicked
+        private void panel_authorBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_authorBtnMouseClicked
                 // TODO add your handling code here:
-		TabbedPane.setSelectedIndex(1);
-		if(panel_employeeBtn.getBackground().equals(clickedButtonBackgroundColor))
+                TabbedPane.setSelectedIndex(1);
+                if(panel_authorBtn.getBackground().equals(clickedButtonBackgroundColor))
 			return;
-		panel_employeeBtn.setBackground(clickedButtonBackgroundColor);
-		preTabBtn.setBackground(sideBarBackgroundColor);
-		preTabBtn = panel_employeeBtn;
-        }//GEN-LAST:event_panel_employeeBtnMouseClicked
-
-        private void panel_publisherBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_publisherBtnMouseClicked
-                // TODO add your handling code here:
-		TabbedPane.setSelectedIndex(2);
-		if(panel_publisherBtn.getBackground().equals(clickedButtonBackgroundColor))
-			return;
-		panel_publisherBtn.setBackground(clickedButtonBackgroundColor);
-		preTabBtn.setBackground(sideBarBackgroundColor);
-		preTabBtn = panel_publisherBtn;
-        }//GEN-LAST:event_panel_publisherBtnMouseClicked
+                panel_authorBtn.setBackground(clickedButtonBackgroundColor);
+                preTabBtn.setBackground(sideBarBackgroundColor);
+                preTabBtn = panel_authorBtn;
+        }//GEN-LAST:event_panel_authorBtnMouseClicked
 
         private void panel_bookBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_bookBtnMouseClicked
                 // TODO add your handling code here:
-		TabbedPane.setSelectedIndex(3);
-		if(panel_bookBtn.getBackground().equals(clickedButtonBackgroundColor))
+                TabbedPane.setSelectedIndex(2);
+                if(panel_bookBtn.getBackground().equals(clickedButtonBackgroundColor))
 			return;
-		panel_bookBtn.setBackground(clickedButtonBackgroundColor);
-		preTabBtn.setBackground(sideBarBackgroundColor);
-		preTabBtn = panel_bookBtn;
+                panel_bookBtn.setBackground(clickedButtonBackgroundColor);
+                preTabBtn.setBackground(sideBarBackgroundColor);
+                preTabBtn = panel_bookBtn;
         }//GEN-LAST:event_panel_bookBtnMouseClicked
 
-        private void panel_statsBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_statsBtnMouseClicked
+        private void panel_iReceiptBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_iReceiptBtnMouseClicked
                 // TODO add your handling code here:
-		TabbedPane.setSelectedIndex(4);
-		if(panel_statsBtn.getBackground().equals(clickedButtonBackgroundColor))
+                TabbedPane.setSelectedIndex(3);
+                if(panel_iReceiptBtn.getBackground().equals(clickedButtonBackgroundColor))
 			return;
-		panel_statsBtn.setBackground(clickedButtonBackgroundColor);
-		preTabBtn.setBackground(sideBarBackgroundColor);
-		preTabBtn = panel_statsBtn;
-        }//GEN-LAST:event_panel_statsBtnMouseClicked
+                panel_iReceiptBtn.setBackground(clickedButtonBackgroundColor);
+                preTabBtn.setBackground(sideBarBackgroundColor);
+                preTabBtn = panel_iReceiptBtn;
 
-        private void panel_accountBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_accountBtnMouseClicked
-                // TODO add your handling code here:
-		TabbedPane.setSelectedIndex(5);
-		if(panel_accountBtn.getBackground().equals(clickedButtonBackgroundColor))
-			return;
-		panel_accountBtn.setBackground(clickedButtonBackgroundColor);
-		preTabBtn.setBackground(sideBarBackgroundColor);
-		preTabBtn = panel_accountBtn;
-		
-        }//GEN-LAST:event_panel_accountBtnMouseClicked
+        }//GEN-LAST:event_panel_iReceiptBtnMouseClicked
 
 	/**
 	 * @param args the command line arguments
@@ -346,23 +268,20 @@ public class ManagerFrame extends javax.swing.JFrame {
 				}
 			}
 		} catch (ClassNotFoundException ex) {
-			java.util.logging.Logger.getLogger(ManagerFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(StorageManagerFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		} catch (InstantiationException ex) {
-			java.util.logging.Logger.getLogger(ManagerFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(StorageManagerFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		} catch (IllegalAccessException ex) {
-			java.util.logging.Logger.getLogger(ManagerFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(StorageManagerFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-			java.util.logging.Logger.getLogger(ManagerFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(StorageManagerFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		}
-		//</editor-fold>
-		//</editor-fold>
-		//</editor-fold>
 		//</editor-fold>
 
 		/* Create and display the form */
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new ManagerFrame().setVisible(true);
+				new StorageManagerFrame().setVisible(true);
 			}
 		});
 	}
@@ -370,7 +289,6 @@ public class ManagerFrame extends javax.swing.JFrame {
         // Variables declaration - do not modify//GEN-BEGIN:variables
         private javax.swing.JTabbedPane TabbedPane;
         private javax.swing.JLabel jLabel1;
-        private javax.swing.JLabel jLabel10;
         private javax.swing.JLabel jLabel11;
         private javax.swing.JLabel jLabel12;
         private javax.swing.JLabel jLabel13;
@@ -378,23 +296,18 @@ public class ManagerFrame extends javax.swing.JFrame {
         private javax.swing.JLabel jLabel2;
         private javax.swing.JLabel jLabel3;
         private javax.swing.JLabel jLabel4;
-        private javax.swing.JLabel jLabel5;
-        private javax.swing.JLabel jLabel6;
         private javax.swing.JLabel jLabel7;
         private javax.swing.JLabel jLabel8;
-        private javax.swing.JLabel jLabel9;
         private javax.swing.JLabel lbl_accountName;
         private javax.swing.JLabel lbl_menuIcon1;
         private javax.swing.JLabel lbl_userIcon;
         private javax.swing.JPanel panel_Header;
         private com.nhom08.bookstore.GUI.PanelCustom panel_Sidebar;
-        private com.nhom08.bookstore.GUI.PanelCustom panel_accountBtn;
+        private com.nhom08.bookstore.GUI.PanelCustom panel_authorBtn;
         private com.nhom08.bookstore.GUI.PanelCustom panel_bookBtn;
-        private com.nhom08.bookstore.GUI.PanelCustom panel_employeeBtn;
         private com.nhom08.bookstore.GUI.PanelCustom panel_homeBtn;
+        private com.nhom08.bookstore.GUI.PanelCustom panel_iReceiptBtn;
         private com.nhom08.bookstore.GUI.PanelCustom panel_logoutBtn;
-        private com.nhom08.bookstore.GUI.PanelCustom panel_publisherBtn;
-        private com.nhom08.bookstore.GUI.PanelCustom panel_statsBtn;
         private com.nhom08.bookstore.GUI.TextFieldCustom textFieldCustom1;
         // End of variables declaration//GEN-END:variables
 }
