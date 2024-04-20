@@ -59,6 +59,7 @@ public class panel_iReceipt extends javax.swing.JPanel {
         jLabel12 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 254, 251));
+        setPreferredSize(new java.awt.Dimension(1056, 740));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Lexend", 0, 30)); // NOI18N

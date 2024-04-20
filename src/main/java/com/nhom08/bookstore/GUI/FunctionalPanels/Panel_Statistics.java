@@ -36,6 +36,7 @@ public class Panel_Statistics extends javax.swing.JPanel {
         panelCustom4 = new Custom.PanelCustom();
 
         setBackground(new java.awt.Color(255, 254, 251));
+        setPreferredSize(new java.awt.Dimension(1056, 740));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Lexend", 0, 30)); // NOI18N

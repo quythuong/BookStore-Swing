@@ -13,6 +13,6 @@ public class BookStoreApp {
         (new LoginFrame()).setVisible(true);
 	(new ManagerFrame()).setVisible(true);
         (new StorageManagerFrame()).setVisible(true);
-        
+        (new CashierFrame()).setVisible(true);
     }
 }
