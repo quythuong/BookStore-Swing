@@ -47,8 +47,9 @@ public class Panel_ReceiptItem extends javax.swing.JPanel {
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        lb_iconTrash.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb_iconTrash.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/trash-xmark.png"))); // NOI18N
-        add(lb_iconTrash, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 26, -1, -1));
+        add(lb_iconTrash, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 26, 20, 20));
 
         jLabel9.setFont(new java.awt.Font("Lexend", 0, 15)); // NOI18N
         jLabel9.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");

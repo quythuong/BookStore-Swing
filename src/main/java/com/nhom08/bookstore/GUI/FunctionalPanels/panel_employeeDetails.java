@@ -58,7 +58,7 @@ public class panel_employeeDetails extends javax.swing.JPanel {
         jLabel12 = new javax.swing.JLabel();
         panel_TableArea = new com.nhom08.bookstore.GUI.PanelCustom();
 
-        setBackground(new java.awt.Color(255, 255, 255));
+        setBackground(new java.awt.Color(255, 254, 251));
         setPreferredSize(new java.awt.Dimension(1280, 740));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 

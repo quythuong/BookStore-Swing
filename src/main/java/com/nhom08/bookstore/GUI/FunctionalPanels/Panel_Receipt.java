@@ -28,11 +28,6 @@ public class Panel_Receipt extends javax.swing.JPanel {
 
         jPanel8 = new javax.swing.JPanel();
         panelCustom1 = new Custom.PanelCustom();
-        panelCustom3 = new Custom.PanelCustom();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         panelCustom2 = new Custom.PanelCustom();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -53,45 +48,6 @@ public class Panel_Receipt extends javax.swing.JPanel {
         buttonCustom4 = new Custom.ButtonCustom();
         panelCustom18 = new Custom.PanelCustom();
         jLabel12 = new javax.swing.JLabel();
-        panelCustom19 = new Custom.PanelCustom();
-        lb_iconTrash2 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        buttonCustom5 = new Custom.ButtonCustom();
-        buttonCustom6 = new Custom.ButtonCustom();
-        panelCustom20 = new Custom.PanelCustom();
-        jLabel14 = new javax.swing.JLabel();
-        panelCustom23 = new Custom.PanelCustom();
-        lb_iconTrash4 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        buttonCustom9 = new Custom.ButtonCustom();
-        buttonCustom10 = new Custom.ButtonCustom();
-        panelCustom24 = new Custom.PanelCustom();
-        jLabel18 = new javax.swing.JLabel();
-        panelCustom11 = new Custom.PanelCustom();
-        jLabel29 = new javax.swing.JLabel();
-        jLabel30 = new javax.swing.JLabel();
-        jLabel31 = new javax.swing.JLabel();
-        jLabel32 = new javax.swing.JLabel();
-        panelCustom12 = new Custom.PanelCustom();
-        jLabel33 = new javax.swing.JLabel();
-        jLabel34 = new javax.swing.JLabel();
-        jLabel35 = new javax.swing.JLabel();
-        jLabel36 = new javax.swing.JLabel();
-        panelCustom13 = new Custom.PanelCustom();
-        jLabel37 = new javax.swing.JLabel();
-        jLabel38 = new javax.swing.JLabel();
-        jLabel39 = new javax.swing.JLabel();
-        jLabel40 = new javax.swing.JLabel();
-        panelCustom14 = new Custom.PanelCustom();
-        jLabel41 = new javax.swing.JLabel();
-        jLabel42 = new javax.swing.JLabel();
-        jLabel43 = new javax.swing.JLabel();
-        jLabel44 = new javax.swing.JLabel();
-        panelCustom15 = new Custom.PanelCustom();
-        jLabel45 = new javax.swing.JLabel();
-        jLabel46 = new javax.swing.JLabel();
-        jLabel47 = new javax.swing.JLabel();
-        jLabel48 = new javax.swing.JLabel();
         panelCustom4 = new Custom.PanelCustom();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
@@ -113,61 +69,6 @@ public class Panel_Receipt extends javax.swing.JPanel {
 
         panelCustom1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel8.add(panelCustom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1398, 187, -1, -1));
-
-        panelCustom3.setBackground(new java.awt.Color(243, 243, 243));
-        panelCustom3.setPreferredSize(new java.awt.Dimension(206, 299));
-        panelCustom3.setRoundBottomLeft(30);
-        panelCustom3.setRoundBottomRigt(30);
-        panelCustom3.setRoundTopLeft(30);
-        panelCustom3.setRoundTopRigt(30);
-
-        jLabel5.setBackground(new java.awt.Color(255, 255, 0));
-        jLabel5.setText("HÌNH ANH");
-
-        jLabel6.setFont(new java.awt.Font("Lexend Light", 0, 15)); // NOI18N
-        jLabel6.setText("ThongTin");
-
-        jLabel7.setFont(new java.awt.Font("Lexend Light", 0, 15)); // NOI18N
-        jLabel7.setText("Quantity:");
-
-        jLabel8.setFont(new java.awt.Font("Lexend Light", 0, 15)); // NOI18N
-        jLabel8.setText("Price:");
-
-        javax.swing.GroupLayout panelCustom3Layout = new javax.swing.GroupLayout(panelCustom3);
-        panelCustom3.setLayout(panelCustom3Layout);
-        panelCustom3Layout.setHorizontalGroup(
-            panelCustom3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCustom3Layout.createSequentialGroup()
-                .addGroup(panelCustom3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelCustom3Layout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(jLabel6))
-                    .addGroup(panelCustom3Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addGroup(panelCustom3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCustom3Layout.createSequentialGroup()
-                .addGap(0, 50, Short.MAX_VALUE)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45))
-        );
-        panelCustom3Layout.setVerticalGroup(
-            panelCustom3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCustom3Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addComponent(jLabel7)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel8)
-                .addGap(23, 23, 23))
-        );
-
-        jPanel8.add(panelCustom3, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 62, -1, -1));
 
         panelCustom2.setPreferredSize(new java.awt.Dimension(532, 87));
         panelCustom2.setRoundBottomLeft(30);
@@ -374,150 +275,6 @@ public class Panel_Receipt extends javax.swing.JPanel {
                 .addGap(13, 13, 13))
         );
 
-        panelCustom19.setBackground(new java.awt.Color(238, 238, 238));
-        panelCustom19.setPreferredSize(new java.awt.Dimension(519, 71));
-        panelCustom19.setRoundBottomLeft(30);
-        panelCustom19.setRoundBottomRigt(30);
-        panelCustom19.setRoundTopLeft(30);
-        panelCustom19.setRoundTopRigt(30);
-
-        jLabel13.setFont(new java.awt.Font("Lexend", 0, 15)); // NOI18N
-        jLabel13.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
-
-        buttonCustom5.setText("-");
-        buttonCustom5.setRadius(500);
-
-        buttonCustom6.setText("+");
-        buttonCustom6.setRadius(500);
-
-        panelCustom20.setBackground(new java.awt.Color(255, 255, 255));
-        panelCustom20.setPreferredSize(new java.awt.Dimension(519, 71));
-        panelCustom20.setRoundBottomLeft(30);
-        panelCustom20.setRoundBottomRigt(30);
-        panelCustom20.setRoundTopLeft(30);
-        panelCustom20.setRoundTopRigt(30);
-
-        javax.swing.GroupLayout panelCustom20Layout = new javax.swing.GroupLayout(panelCustom20);
-        panelCustom20.setLayout(panelCustom20Layout);
-        panelCustom20Layout.setHorizontalGroup(
-            panelCustom20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 57, Short.MAX_VALUE)
-        );
-        panelCustom20Layout.setVerticalGroup(
-            panelCustom20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 35, Short.MAX_VALUE)
-        );
-
-        jLabel14.setFont(new java.awt.Font("Lexend", 0, 14)); // NOI18N
-        jLabel14.setText("xxx.xxx.xxx VND");
-
-        javax.swing.GroupLayout panelCustom19Layout = new javax.swing.GroupLayout(panelCustom19);
-        panelCustom19.setLayout(panelCustom19Layout);
-        panelCustom19Layout.setHorizontalGroup(
-            panelCustom19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCustom19Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(lb_iconTrash2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonCustom5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelCustom20, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonCustom6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel14)
-                .addContainerGap(22, Short.MAX_VALUE))
-        );
-        panelCustom19Layout.setVerticalGroup(
-            panelCustom19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCustom19Layout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
-                .addGroup(panelCustom19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panelCustom19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panelCustom19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonCustom5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonCustom6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel14))
-                        .addComponent(lb_iconTrash2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(panelCustom20, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(13, 13, 13))
-        );
-
-        panelCustom23.setBackground(new java.awt.Color(238, 238, 238));
-        panelCustom23.setPreferredSize(new java.awt.Dimension(519, 71));
-        panelCustom23.setRoundBottomLeft(30);
-        panelCustom23.setRoundBottomRigt(30);
-        panelCustom23.setRoundTopLeft(30);
-        panelCustom23.setRoundTopRigt(30);
-
-        jLabel17.setFont(new java.awt.Font("Lexend", 0, 15)); // NOI18N
-        jLabel17.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
-
-        buttonCustom9.setText("-");
-        buttonCustom9.setRadius(500);
-
-        buttonCustom10.setText("+");
-        buttonCustom10.setRadius(500);
-
-        panelCustom24.setBackground(new java.awt.Color(255, 255, 255));
-        panelCustom24.setPreferredSize(new java.awt.Dimension(519, 71));
-        panelCustom24.setRoundBottomLeft(30);
-        panelCustom24.setRoundBottomRigt(30);
-        panelCustom24.setRoundTopLeft(30);
-        panelCustom24.setRoundTopRigt(30);
-
-        javax.swing.GroupLayout panelCustom24Layout = new javax.swing.GroupLayout(panelCustom24);
-        panelCustom24.setLayout(panelCustom24Layout);
-        panelCustom24Layout.setHorizontalGroup(
-            panelCustom24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 57, Short.MAX_VALUE)
-        );
-        panelCustom24Layout.setVerticalGroup(
-            panelCustom24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 35, Short.MAX_VALUE)
-        );
-
-        jLabel18.setFont(new java.awt.Font("Lexend", 0, 14)); // NOI18N
-        jLabel18.setText("xxx.xxx.xxx VND");
-
-        javax.swing.GroupLayout panelCustom23Layout = new javax.swing.GroupLayout(panelCustom23);
-        panelCustom23.setLayout(panelCustom23Layout);
-        panelCustom23Layout.setHorizontalGroup(
-            panelCustom23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCustom23Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(lb_iconTrash4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonCustom9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelCustom24, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonCustom10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel18)
-                .addContainerGap(22, Short.MAX_VALUE))
-        );
-        panelCustom23Layout.setVerticalGroup(
-            panelCustom23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCustom23Layout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
-                .addGroup(panelCustom23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panelCustom23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panelCustom23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonCustom9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonCustom10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel18))
-                        .addComponent(lb_iconTrash4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(panelCustom24, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(13, 13, 13))
-        );
-
         javax.swing.GroupLayout panelCustom9Layout = new javax.swing.GroupLayout(panelCustom9);
         panelCustom9.setLayout(panelCustom9Layout);
         panelCustom9Layout.setHorizontalGroup(
@@ -526,9 +283,7 @@ public class Panel_Receipt extends javax.swing.JPanel {
                 .addContainerGap(7, Short.MAX_VALUE)
                 .addGroup(panelCustom9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelCustom10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelCustom17, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelCustom19, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelCustom23, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelCustom17, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         panelCustom9Layout.setVerticalGroup(
@@ -538,289 +293,10 @@ public class Panel_Receipt extends javax.swing.JPanel {
                 .addComponent(panelCustom10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelCustom17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(panelCustom23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelCustom19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(208, Short.MAX_VALUE))
         );
 
         jPanel8.add(panelCustom9, new org.netbeans.lib.awtextra.AbsoluteConstraints(723, 130, -1, -1));
-
-        panelCustom11.setBackground(new java.awt.Color(243, 243, 243));
-        panelCustom11.setPreferredSize(new java.awt.Dimension(206, 299));
-        panelCustom11.setRoundBottomLeft(30);
-        panelCustom11.setRoundBottomRigt(30);
-        panelCustom11.setRoundTopLeft(30);
-        panelCustom11.setRoundTopRigt(30);
-
-        jLabel29.setBackground(new java.awt.Color(255, 255, 0));
-        jLabel29.setText("HÌNH ANH");
-
-        jLabel30.setFont(new java.awt.Font("Lexend Light", 0, 15)); // NOI18N
-        jLabel30.setText("ThongTin");
-
-        jLabel31.setFont(new java.awt.Font("Lexend Light", 0, 15)); // NOI18N
-        jLabel31.setText("Quantity:");
-
-        jLabel32.setFont(new java.awt.Font("Lexend Light", 0, 15)); // NOI18N
-        jLabel32.setText("Price:");
-
-        javax.swing.GroupLayout panelCustom11Layout = new javax.swing.GroupLayout(panelCustom11);
-        panelCustom11.setLayout(panelCustom11Layout);
-        panelCustom11Layout.setHorizontalGroup(
-            panelCustom11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCustom11Layout.createSequentialGroup()
-                .addGroup(panelCustom11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelCustom11Layout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(jLabel30))
-                    .addGroup(panelCustom11Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addGroup(panelCustom11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel31)
-                            .addComponent(jLabel32))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCustom11Layout.createSequentialGroup()
-                .addGap(0, 50, Short.MAX_VALUE)
-                .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45))
-        );
-        panelCustom11Layout.setVerticalGroup(
-            panelCustom11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCustom11Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
-                .addComponent(jLabel30)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addComponent(jLabel31)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel32)
-                .addGap(23, 23, 23))
-        );
-
-        jPanel8.add(panelCustom11, new org.netbeans.lib.awtextra.AbsoluteConstraints(257, 62, -1, -1));
-
-        panelCustom12.setBackground(new java.awt.Color(243, 243, 243));
-        panelCustom12.setPreferredSize(new java.awt.Dimension(206, 299));
-        panelCustom12.setRoundBottomLeft(30);
-        panelCustom12.setRoundBottomRigt(30);
-        panelCustom12.setRoundTopLeft(30);
-        panelCustom12.setRoundTopRigt(30);
-
-        jLabel33.setBackground(new java.awt.Color(255, 255, 0));
-        jLabel33.setText("HÌNH ANH");
-
-        jLabel34.setFont(new java.awt.Font("Lexend Light", 0, 15)); // NOI18N
-        jLabel34.setText("ThongTin");
-
-        jLabel35.setFont(new java.awt.Font("Lexend Light", 0, 15)); // NOI18N
-        jLabel35.setText("Quantity:");
-
-        jLabel36.setFont(new java.awt.Font("Lexend Light", 0, 15)); // NOI18N
-        jLabel36.setText("Price:");
-
-        javax.swing.GroupLayout panelCustom12Layout = new javax.swing.GroupLayout(panelCustom12);
-        panelCustom12.setLayout(panelCustom12Layout);
-        panelCustom12Layout.setHorizontalGroup(
-            panelCustom12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCustom12Layout.createSequentialGroup()
-                .addGroup(panelCustom12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelCustom12Layout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(jLabel34))
-                    .addGroup(panelCustom12Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addGroup(panelCustom12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel35)
-                            .addComponent(jLabel36))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCustom12Layout.createSequentialGroup()
-                .addGap(0, 50, Short.MAX_VALUE)
-                .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45))
-        );
-        panelCustom12Layout.setVerticalGroup(
-            panelCustom12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCustom12Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
-                .addComponent(jLabel34)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addComponent(jLabel35)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel36)
-                .addGap(23, 23, 23))
-        );
-
-        jPanel8.add(panelCustom12, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 403, -1, -1));
-
-        panelCustom13.setBackground(new java.awt.Color(243, 243, 243));
-        panelCustom13.setPreferredSize(new java.awt.Dimension(206, 299));
-        panelCustom13.setRoundBottomLeft(30);
-        panelCustom13.setRoundBottomRigt(30);
-        panelCustom13.setRoundTopLeft(30);
-        panelCustom13.setRoundTopRigt(30);
-
-        jLabel37.setBackground(new java.awt.Color(255, 255, 0));
-        jLabel37.setText("HÌNH ANH");
-
-        jLabel38.setFont(new java.awt.Font("Lexend Light", 0, 15)); // NOI18N
-        jLabel38.setText("ThongTin");
-
-        jLabel39.setFont(new java.awt.Font("Lexend Light", 0, 15)); // NOI18N
-        jLabel39.setText("Quantity:");
-
-        jLabel40.setFont(new java.awt.Font("Lexend Light", 0, 15)); // NOI18N
-        jLabel40.setText("Price:");
-
-        javax.swing.GroupLayout panelCustom13Layout = new javax.swing.GroupLayout(panelCustom13);
-        panelCustom13.setLayout(panelCustom13Layout);
-        panelCustom13Layout.setHorizontalGroup(
-            panelCustom13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCustom13Layout.createSequentialGroup()
-                .addGroup(panelCustom13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelCustom13Layout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(jLabel38))
-                    .addGroup(panelCustom13Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addGroup(panelCustom13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel39)
-                            .addComponent(jLabel40))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCustom13Layout.createSequentialGroup()
-                .addGap(0, 50, Short.MAX_VALUE)
-                .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45))
-        );
-        panelCustom13Layout.setVerticalGroup(
-            panelCustom13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCustom13Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(jLabel38)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
-                .addComponent(jLabel39)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel40)
-                .addGap(23, 23, 23))
-        );
-
-        jPanel8.add(panelCustom13, new org.netbeans.lib.awtextra.AbsoluteConstraints(489, 62, -1, -1));
-
-        panelCustom14.setBackground(new java.awt.Color(243, 243, 243));
-        panelCustom14.setPreferredSize(new java.awt.Dimension(206, 299));
-        panelCustom14.setRoundBottomLeft(30);
-        panelCustom14.setRoundBottomRigt(30);
-        panelCustom14.setRoundTopLeft(30);
-        panelCustom14.setRoundTopRigt(30);
-
-        jLabel41.setBackground(new java.awt.Color(255, 255, 0));
-        jLabel41.setText("HÌNH ANH");
-
-        jLabel42.setFont(new java.awt.Font("Lexend Light", 0, 15)); // NOI18N
-        jLabel42.setText("ThongTin");
-
-        jLabel43.setFont(new java.awt.Font("Lexend Light", 0, 15)); // NOI18N
-        jLabel43.setText("Quantity:");
-
-        jLabel44.setFont(new java.awt.Font("Lexend Light", 0, 15)); // NOI18N
-        jLabel44.setText("Price:");
-
-        javax.swing.GroupLayout panelCustom14Layout = new javax.swing.GroupLayout(panelCustom14);
-        panelCustom14.setLayout(panelCustom14Layout);
-        panelCustom14Layout.setHorizontalGroup(
-            panelCustom14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCustom14Layout.createSequentialGroup()
-                .addGroup(panelCustom14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelCustom14Layout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(jLabel42))
-                    .addGroup(panelCustom14Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addGroup(panelCustom14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel43)
-                            .addComponent(jLabel44))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCustom14Layout.createSequentialGroup()
-                .addGap(0, 50, Short.MAX_VALUE)
-                .addComponent(jLabel41, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45))
-        );
-        panelCustom14Layout.setVerticalGroup(
-            panelCustom14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCustom14Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(jLabel41, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
-                .addComponent(jLabel42)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addComponent(jLabel43)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel44)
-                .addGap(23, 23, 23))
-        );
-
-        jPanel8.add(panelCustom14, new org.netbeans.lib.awtextra.AbsoluteConstraints(257, 403, -1, -1));
-
-        panelCustom15.setBackground(new java.awt.Color(243, 243, 243));
-        panelCustom15.setPreferredSize(new java.awt.Dimension(206, 299));
-        panelCustom15.setRoundBottomLeft(30);
-        panelCustom15.setRoundBottomRigt(30);
-        panelCustom15.setRoundTopLeft(30);
-        panelCustom15.setRoundTopRigt(30);
-
-        jLabel45.setBackground(new java.awt.Color(255, 255, 0));
-        jLabel45.setText("HÌNH ANH");
-
-        jLabel46.setFont(new java.awt.Font("Lexend Light", 0, 15)); // NOI18N
-        jLabel46.setText("ThongTin");
-
-        jLabel47.setFont(new java.awt.Font("Lexend Light", 0, 15)); // NOI18N
-        jLabel47.setText("Quantity:");
-
-        jLabel48.setFont(new java.awt.Font("Lexend Light", 0, 15)); // NOI18N
-        jLabel48.setText("Price:");
-
-        javax.swing.GroupLayout panelCustom15Layout = new javax.swing.GroupLayout(panelCustom15);
-        panelCustom15.setLayout(panelCustom15Layout);
-        panelCustom15Layout.setHorizontalGroup(
-            panelCustom15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCustom15Layout.createSequentialGroup()
-                .addGroup(panelCustom15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelCustom15Layout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(jLabel46))
-                    .addGroup(panelCustom15Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addGroup(panelCustom15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel47)
-                            .addComponent(jLabel48))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCustom15Layout.createSequentialGroup()
-                .addGap(0, 50, Short.MAX_VALUE)
-                .addComponent(jLabel45, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45))
-        );
-        panelCustom15Layout.setVerticalGroup(
-            panelCustom15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCustom15Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(jLabel45, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
-                .addComponent(jLabel46)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addComponent(jLabel47)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel48)
-                .addGap(23, 23, 23))
-        );
-
-        jPanel8.add(panelCustom15, new org.netbeans.lib.awtextra.AbsoluteConstraints(489, 403, -1, -1));
 
         panelCustom4.setPreferredSize(new java.awt.Dimension(532, 183));
         panelCustom4.setRoundBottomLeft(30);
@@ -984,22 +460,14 @@ public class Panel_Receipt extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Custom.ButtonCustom buttonCustom1;
-    private Custom.ButtonCustom buttonCustom10;
     private Custom.ButtonCustom buttonCustom11;
     private Custom.ButtonCustom buttonCustom2;
     private Custom.ButtonCustom buttonCustom3;
     private Custom.ButtonCustom buttonCustom4;
-    private Custom.ButtonCustom buttonCustom5;
-    private Custom.ButtonCustom buttonCustom6;
-    private Custom.ButtonCustom buttonCustom9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
@@ -1011,55 +479,19 @@ public class Panel_Receipt extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel37;
-    private javax.swing.JLabel jLabel38;
-    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel40;
-    private javax.swing.JLabel jLabel41;
-    private javax.swing.JLabel jLabel42;
-    private javax.swing.JLabel jLabel43;
-    private javax.swing.JLabel jLabel44;
-    private javax.swing.JLabel jLabel45;
-    private javax.swing.JLabel jLabel46;
-    private javax.swing.JLabel jLabel47;
-    private javax.swing.JLabel jLabel48;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JLabel lb_iconTrash;
     private javax.swing.JLabel lb_iconTrash1;
-    private javax.swing.JLabel lb_iconTrash2;
-    private javax.swing.JLabel lb_iconTrash4;
     private javax.swing.JLabel lb_iconTrash5;
     private Custom.PanelCustom panelCustom1;
     private Custom.PanelCustom panelCustom10;
-    private Custom.PanelCustom panelCustom11;
-    private Custom.PanelCustom panelCustom12;
-    private Custom.PanelCustom panelCustom13;
-    private Custom.PanelCustom panelCustom14;
-    private Custom.PanelCustom panelCustom15;
     private Custom.PanelCustom panelCustom16;
     private Custom.PanelCustom panelCustom17;
     private Custom.PanelCustom panelCustom18;
-    private Custom.PanelCustom panelCustom19;
     private Custom.PanelCustom panelCustom2;
-    private Custom.PanelCustom panelCustom20;
-    private Custom.PanelCustom panelCustom23;
-    private Custom.PanelCustom panelCustom24;
-    private Custom.PanelCustom panelCustom3;
     private Custom.PanelCustom panelCustom4;
     private Custom.PanelCustom panelCustom5;
     private Custom.PanelCustom panelCustom9;

@@ -29,9 +29,11 @@ public class panel_publishers extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         panelCustom1 = new Custom.PanelCustom();
         buttonCustom1 = new Custom.ButtonCustom();
+        buttonCustom4 = new Custom.ButtonCustom();
         buttonCustom2 = new Custom.ButtonCustom();
         buttonCustom3 = new Custom.ButtonCustom();
         panelCustom2 = new Custom.PanelCustom();
+        panelCustom4 = new Custom.PanelCustom();
         panelCustom3 = new Custom.PanelCustom();
         jPanel1 = new javax.swing.JPanel();
         textFieldCustom3 = new com.nhom08.bookstore.GUI.TextFieldCustom();
@@ -51,19 +53,16 @@ public class panel_publishers extends javax.swing.JPanel {
         jPanel7 = new javax.swing.JPanel();
         textFieldCustom8 = new com.nhom08.bookstore.GUI.TextFieldCustom();
         jLabel9 = new javax.swing.JLabel();
-        jPanel8 = new javax.swing.JPanel();
-        textFieldCustom9 = new com.nhom08.bookstore.GUI.TextFieldCustom();
-        jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 254, 251));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Lexend", 0, 30)); // NOI18N
-        jLabel2.setText("Publishers Management");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(353, 25, -1, -1));
+        jLabel2.setText("Publishers - Authors Management");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(282, 25, -1, -1));
 
-        panelCustom1.setPreferredSize(new java.awt.Dimension(695, 68));
+        panelCustom1.setPreferredSize(new java.awt.Dimension(973, 68));
         panelCustom1.setRoundBottomLeft(10);
         panelCustom1.setRoundBottomRigt(10);
         panelCustom1.setRoundTopLeft(10);
@@ -72,10 +71,10 @@ public class panel_publishers extends javax.swing.JPanel {
 
         buttonCustom1.setBackground(new java.awt.Color(217, 217, 217));
         buttonCustom1.setBorder(null);
-        buttonCustom1.setText("Add");
         buttonCustom1.setBorderColor(new java.awt.Color(217, 217, 217));
         buttonCustom1.setFont(new java.awt.Font("Lexend", 0, 24)); // NOI18N
-        buttonCustom1.setPreferredSize(new java.awt.Dimension(160, 42));
+        buttonCustom1.setLabel("Add Publisher");
+        buttonCustom1.setPreferredSize(new java.awt.Dimension(195, 42));
         buttonCustom1.setRadius(20);
         buttonCustom1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,6 +82,20 @@ public class panel_publishers extends javax.swing.JPanel {
             }
         });
         panelCustom1.add(buttonCustom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 14, -1, -1));
+
+        buttonCustom4.setBackground(new java.awt.Color(217, 217, 217));
+        buttonCustom4.setBorder(null);
+        buttonCustom4.setBorderColor(new java.awt.Color(217, 217, 217));
+        buttonCustom4.setFont(new java.awt.Font("Lexend", 0, 24)); // NOI18N
+        buttonCustom4.setLabel("Add Publisher");
+        buttonCustom4.setPreferredSize(new java.awt.Dimension(195, 42));
+        buttonCustom4.setRadius(20);
+        buttonCustom4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCustom4ActionPerformed(evt);
+            }
+        });
+        panelCustom1.add(buttonCustom4, new org.netbeans.lib.awtextra.AbsoluteConstraints(273, 14, -1, -1));
 
         buttonCustom2.setBackground(new java.awt.Color(217, 217, 217));
         buttonCustom2.setBorder(null);
@@ -96,7 +109,7 @@ public class panel_publishers extends javax.swing.JPanel {
                 buttonCustom2ActionPerformed(evt);
             }
         });
-        panelCustom1.add(buttonCustom2, new org.netbeans.lib.awtextra.AbsoluteConstraints(266, 14, -1, -1));
+        panelCustom1.add(buttonCustom2, new org.netbeans.lib.awtextra.AbsoluteConstraints(532, 14, -1, -1));
 
         buttonCustom3.setBackground(new java.awt.Color(217, 217, 217));
         buttonCustom3.setBorder(null);
@@ -110,11 +123,11 @@ public class panel_publishers extends javax.swing.JPanel {
                 buttonCustom3ActionPerformed(evt);
             }
         });
-        panelCustom1.add(buttonCustom3, new org.netbeans.lib.awtextra.AbsoluteConstraints(519, 14, -1, -1));
+        panelCustom1.add(buttonCustom3, new org.netbeans.lib.awtextra.AbsoluteConstraints(791, 14, -1, -1));
 
         add(panelCustom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(41, 103, -1, -1));
 
-        panelCustom2.setPreferredSize(new java.awt.Dimension(695, 515));
+        panelCustom2.setPreferredSize(new java.awt.Dimension(695, 232));
         panelCustom2.setRoundBottomLeft(10);
         panelCustom2.setRoundBottomRigt(10);
         panelCustom2.setRoundTopLeft(10);
@@ -128,12 +141,31 @@ public class panel_publishers extends javax.swing.JPanel {
         );
         panelCustom2Layout.setVerticalGroup(
             panelCustom2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 515, Short.MAX_VALUE)
+            .addGap(0, 232, Short.MAX_VALUE)
         );
 
         add(panelCustom2, new org.netbeans.lib.awtextra.AbsoluteConstraints(41, 200, -1, -1));
 
-        panelCustom3.setPreferredSize(new java.awt.Dimension(248, 612));
+        panelCustom4.setPreferredSize(new java.awt.Dimension(695, 250));
+        panelCustom4.setRoundBottomLeft(10);
+        panelCustom4.setRoundBottomRigt(10);
+        panelCustom4.setRoundTopLeft(10);
+        panelCustom4.setRoundTopRigt(10);
+
+        javax.swing.GroupLayout panelCustom4Layout = new javax.swing.GroupLayout(panelCustom4);
+        panelCustom4.setLayout(panelCustom4Layout);
+        panelCustom4Layout.setHorizontalGroup(
+            panelCustom4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 695, Short.MAX_VALUE)
+        );
+        panelCustom4Layout.setVerticalGroup(
+            panelCustom4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 250, Short.MAX_VALUE)
+        );
+
+        add(panelCustom4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 462, -1, -1));
+
+        panelCustom3.setPreferredSize(new java.awt.Dimension(248, 506));
         panelCustom3.setRoundBottomLeft(10);
         panelCustom3.setRoundBottomRigt(10);
         panelCustom3.setRoundTopLeft(10);
@@ -236,26 +268,10 @@ public class panel_publishers extends javax.swing.JPanel {
 
         panelCustom3.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 366, -1, -1));
 
-        jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        textFieldCustom9.setPreferredSize(new java.awt.Dimension(210, 33));
-        textFieldCustom9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldCustom9ActionPerformed(evt);
-            }
-        });
-        jPanel8.add(textFieldCustom9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 210, 32));
-
-        jLabel10.setFont(new java.awt.Font("Lexend", 0, 15)); // NOI18N
-        jLabel10.setText("XXXXX.");
-        jPanel8.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
-
-        panelCustom3.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 435, -1, -1));
-
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cancle.png"))); // NOI18N
-        panelCustom3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 556, 40, 38));
+        panelCustom3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 453, 40, 38));
 
-        add(panelCustom3, new org.netbeans.lib.awtextra.AbsoluteConstraints(766, 103, -1, -1));
+        add(panelCustom3, new org.netbeans.lib.awtextra.AbsoluteConstraints(766, 205, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonCustom1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCustom1ActionPerformed
@@ -290,20 +306,20 @@ public class panel_publishers extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_textFieldCustom7ActionPerformed
 
+    private void buttonCustom4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCustom4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonCustom4ActionPerformed
+
     private void textFieldCustom8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldCustom8ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textFieldCustom8ActionPerformed
-
-    private void textFieldCustom9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldCustom9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldCustom9ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Custom.ButtonCustom buttonCustom1;
     private Custom.ButtonCustom buttonCustom2;
     private Custom.ButtonCustom buttonCustom3;
-    private javax.swing.JLabel jLabel10;
+    private Custom.ButtonCustom buttonCustom4;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
@@ -318,16 +334,15 @@ public class panel_publishers extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
     private Custom.PanelCustom panelCustom1;
     private Custom.PanelCustom panelCustom2;
     private Custom.PanelCustom panelCustom3;
+    private Custom.PanelCustom panelCustom4;
     private com.nhom08.bookstore.GUI.TextFieldCustom textFieldCustom3;
     private com.nhom08.bookstore.GUI.TextFieldCustom textFieldCustom4;
     private com.nhom08.bookstore.GUI.TextFieldCustom textFieldCustom5;
     private com.nhom08.bookstore.GUI.TextFieldCustom textFieldCustom6;
     private com.nhom08.bookstore.GUI.TextFieldCustom textFieldCustom7;
     private com.nhom08.bookstore.GUI.TextFieldCustom textFieldCustom8;
-    private com.nhom08.bookstore.GUI.TextFieldCustom textFieldCustom9;
     // End of variables declaration//GEN-END:variables
 }

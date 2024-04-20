@@ -39,8 +39,9 @@ public class Panel_BookItem extends javax.swing.JPanel {
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel37.setBackground(new java.awt.Color(255, 255, 0));
+        jLabel37.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel37.setText("HÌNH ANH");
-        add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, -1, -1));
+        add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 18, 144, 144));
 
         lbl_bookName.setFont(new java.awt.Font("Lexend", 0, 15)); // NOI18N
         lbl_bookName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

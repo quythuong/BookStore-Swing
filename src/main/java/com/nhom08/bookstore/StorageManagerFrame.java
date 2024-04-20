@@ -26,7 +26,7 @@ public class StorageManagerFrame extends javax.swing.JFrame {
 	public Color sideBarBackgroundColor = new Color(149,189,255);
 	public StorageManagerFrame() {
 		initComponents();
-		this.setSize(new Dimension(1280, 800));
+//		this.setSize(new Dimension(1280, 800));
 		
 		TabbedPane.addTab("Home", new panel_home());
 		TabbedPane.addTab("Authors", new panel_authors());

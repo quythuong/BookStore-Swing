@@ -55,6 +55,7 @@ public class panel_iReceipt extends javax.swing.JPanel {
         textFieldCustom9 = new com.nhom08.bookstore.GUI.TextFieldCustom();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 254, 251));
@@ -258,8 +259,32 @@ public class panel_iReceipt extends javax.swing.JPanel {
 
         add(panelCustom4, new org.netbeans.lib.awtextra.AbsoluteConstraints(766, 103, -1, -1));
 
+        jPanel2.setBackground(new java.awt.Color(255, 254, 251));
+
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/arrow-small-right.png"))); // NOI18N
-        add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(978, 25, 40, 38));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel12)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 38, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(978, 25, 40, 38));
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonCustom2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCustom2ActionPerformed
@@ -304,7 +329,6 @@ public class panel_iReceipt extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private Custom.ButtonCustom buttonCustom1;
     private Custom.ButtonCustom buttonCustom2;
     private Custom.ButtonCustom buttonCustom3;
     private Custom.ButtonCustom buttonCustom4;
@@ -319,13 +343,13 @@ public class panel_iReceipt extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private Custom.PanelCustom panelCustom1;
     private Custom.PanelCustom panelCustom2;
     private Custom.PanelCustom panelCustom3;
     private Custom.PanelCustom panelCustom4;
