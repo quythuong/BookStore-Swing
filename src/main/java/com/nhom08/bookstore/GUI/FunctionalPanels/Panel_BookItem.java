@@ -38,7 +38,7 @@ public class Panel_BookItem extends javax.swing.JPanel {
         setBackground(new java.awt.Color(243, 243, 243));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel37.setBackground(new java.awt.Color(255, 255, 0));
+        jLabel37.setBackground(new java.awt.Color(51, 0, 193));
         jLabel37.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel37.setText("HÌNH ANH");
         add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 18, 144, 144));
