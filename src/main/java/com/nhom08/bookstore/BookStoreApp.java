@@ -4,8 +4,8 @@
 
 package com.nhom08.bookstore;
 
-import com.nhom08.bookstore.DAO.BookDAO;
-import com.nhom08.bookstore.Models.BookModel;
+import com.nhom08.bookstore.DAO.ReceiptDAO;
+import com.nhom08.bookstore.Models.ReceiptModel;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -19,12 +19,8 @@ public class BookStoreApp {
 //	(new ManagerFrame()).setVisible(true);
 //        (new StorageManagerFrame()).setVisible(true);
 //        (new CashierFrame()).setVisible(true);
-	    BookDAO bookdao = new BookDAO();
-//	    List<BookModel> bookList = bookdao.getAll();
-//	    bookList.forEach((e)-> {System.out.println(e.toString());});
-	    
-		   //System.out.println(bookdao.getOne("4"));
-		   //bookdao.save(new BookModel("29", "TG_VT", "NXB_DT", "Sach rac", 12, 12.5, "Kinh dị"));
-		   bookdao.delete("29");
+	    ReceiptDAO receiptDAO = new ReceiptDAO();
+	    List<ReceiptModel> receiptModels = receiptDAO.getAll();
+	    receiptModels.forEach((e)-> {System.out.println(e.toString());});
     }
 }
