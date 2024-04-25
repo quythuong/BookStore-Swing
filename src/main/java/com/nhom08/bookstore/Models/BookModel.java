@@ -4,11 +4,9 @@
  */
 package com.nhom08.bookstore.Models;
 
-import java.awt.Image;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -29,5 +27,5 @@ public class BookModel {
 	private int quantity;
 	private double price;
 	private String type;
-	private Image image;
+	//private Image image;
 }
