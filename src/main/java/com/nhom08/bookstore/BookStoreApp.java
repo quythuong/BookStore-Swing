@@ -4,15 +4,19 @@
 
 package com.nhom08.bookstore;
 
+import com.nhom08.bookstore.DAO.DBConnection;
+import java.sql.Connection;
+
 /**
  * @author quythuong
  */
 public class BookStoreApp {
 
     public static void main(String[] args) {
-        (new LoginFrame()).setVisible(true);
-	(new ManagerFrame()).setVisible(true);
-        (new StorageManagerFrame()).setVisible(true);
-        (new CashierFrame()).setVisible(true);
+//        (new LoginFrame()).setVisible(true);
+//	(new ManagerFrame()).setVisible(true);
+//        (new StorageManagerFrame()).setVisible(true);
+//        (new CashierFrame()).setVisible(true);
+	Connection con = (new DBConnection()).GetDBConnection();
     }
 }
