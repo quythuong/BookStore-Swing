@@ -55,6 +55,19 @@ CREATE TABLE ChiTietHoaDon(
     PRIMARY KEY (MaHD, MaSach)
 )
 GO
+-- 1. Tạo bảng NhanVien trong cơ sở dữ liệu, hỗ trợ việc phân quyền
+CREATE TABLE NhanVien (
+    MaNV INT PRIMARY KEY,
+    TenNV NVARCHAR(50),
+    GioiTinh NVARCHAR(10),
+    DiaChi NVARCHAR(255),
+    TenTaiKhoan VARCHAR(50) UNIQUE,
+    MatKhau VARCHAR(50),
+    Cap INT,
+    ChucVu NVARCHAR(50),
+    Anh IMAGE
+);
+GO
 
 -- PHẦN TẠO CÁC TRIGGER:==========================================================================
 use QLNhaSach
@@ -822,8 +835,59 @@ BEGIN
 	WHERE MaPhieuNhap = @MaPhieuNhap 
 END
 GO
+
+go
+-- Proc_XemThongTinCaNhan
+CREATE PROCEDURE Proc_XemThongTinCaNhan
+AS
+BEGIN
+    DECLARE @TenTaiKhoan VARCHAR(50);
+    SET @TenTaiKhoan = ORIGINAL_LOGIN()
+
+    IF EXISTS (SELECT 1 FROM NhanVien WHERE TenTaiKhoan = @TenTaiKhoan)
+    BEGIN
+        SELECT MaNV, TenNV, GioiTinh, DiaChi, TenTaiKhoan, Cap, ChucVu
+        FROM NhanVien
+        WHERE TenTaiKhoan = @TenTaiKhoan;
+    END
+    ELSE
+    BEGIN
+        RAISERROR ('Tài khoản không tồn tại!', 16, 1);
+    END
+END
+
+GO
+CREATE PROCEDURE Proc_SuaThongTinCaNhan
+    @TenNV NVARCHAR(50),
+    @GioiTinh NVARCHAR(10),
+    @DiaChi NVARCHAR(255),
+    @MatKhauMoi VARCHAR(50),
+	--@CapMoi INT,
+	--@ChucVu NVARCHAR(50) = '',
+    @Anh IMAGE = NULL
+AS
+BEGIN
+    DECLARE @TenTaiKhoan VARCHAR(50);
+    SET @TenTaiKhoan = ORIGINAL_LOGIN();
+
+    IF EXISTS (SELECT 1 FROM NhanVien WHERE TenTaiKhoan = @TenTaiKhoan)
+    BEGIN
+        UPDATE NhanVien
+        SET TenNV = @TenNV,
+            GioiTinh = @GioiTinh,
+            DiaChi = @DiaChi,
+            MatKhau = @MatKhauMoi,
+--            Cap = @CapMoi,
+--            ChucVu = @ChucVu,
+            Anh = @Anh
+        WHERE TenTaiKhoan = @TenTaiKhoan;
+    END
+    ELSE
+    BEGIN
+        RAISERROR ('Tài khoản không tồn tại!', 16, 1);
+    END
+END
 -- ==================== PHẦN CÁC FUNCTION============================
-use QLNhaSach
 go
 -- Tạo Func tìm kiếm sách
 --b/ Tìm kiếm sách theo tác giả
@@ -1138,6 +1202,7 @@ GRANT EXECUTE ON Proc_CapNhatHoaDon TO NhanVienThuNgan
 GRANT EXECUTE ON Proc_XuatHoaDon TO NhanVienThuNgan
 GRANT EXECUTE ON Proc_TimKiemSach TO NhanVienThuNgan
 GRANT EXECUTE ON Proc_XemThongTinCaNhan TO NhanVienThuNgan
+GRANT EXECUTE ON Proc_SuaThongTinCaNhan TO NhanVienThuNgan
 GO
 
 -- 3. Tạo role cho QuanLiKho: thêm, sửa, xóa Tác giả, Sách, Phiếu nhập, CT Phiếu nhập --------------------------------
@@ -1168,24 +1233,13 @@ GRANT EXECUTE ON Proc_XoaChiTietPhieuNhap TO QuanLiKho
 GRANT EXECUTE ON Proc_ThemChiTietPhieuNhap  TO QuanLiKho
 GRANT EXECUTE ON Proc_SuaChiTietPhieuNhap TO QuanLiKho
 GRANT EXECUTE ON Proc_XemThongTinCaNhan TO QuanLiKho
+GRANT EXECUTE ON Proc_SuaThongTinCaNhan TO QuanLiKho
 GO
 
 
 
 --THIẾT LẬP LIÊN QUAN TaiKhoan--------------------
--- 1. Tạo bảng NhanVien trong cơ sở dữ liệu, hỗ trợ việc phân quyền
-CREATE TABLE NhanVien (
-    MaNV INT PRIMARY KEY,
-    TenNV NVARCHAR(50),
-    GioiTinh NVARCHAR(10),
-    DiaChi NVARCHAR(255),
-    TenTaiKhoan VARCHAR(50) UNIQUE,
-    MatKhau VARCHAR(50),
-    Cap INT,
-    ChucVu NVARCHAR(50),
-    Anh IMAGE
-);
-GO
+
 
 -- 2. Proc thêm nhân viên
 CREATE PROC Proc_ThemNhanVien
@@ -1374,7 +1428,7 @@ BEGIN
 				SET @sqlString = 'ALTER ROLE NhanVienThuNgan DROP MEMBER [' + @TenTaiKhoan + ' ]';
 				EXEC (@sqlString);
                 --ALTER ROLE NhanVienThuNgan DROP MEMBER [' + @TenTaiKhoan + '];
-            END
+            END	
             ELSE IF @CapMoi = 3
             BEGIN
 				SET @sqlString = 'ALTER ROLE QuanLiKho DROP MEMBER [' + @TenTaiKhoan + ' ]';
@@ -1459,122 +1513,3 @@ EXEC Proc_CapNhatNhanVien
     @CapMoi = 3,
     @Anh = NULL;
 
---DELETE FROM NhanVien
---DROP USER admin1
---DROP LOGIN admin1
-USE QLNhaSach
-GO
--- Proc_XemThongTinCaNhan
-CREATE PROCEDURE Proc_XemThongTinCaNhan
-AS
-BEGIN
-    DECLARE @TenTaiKhoan VARCHAR(50);
-    SET @TenTaiKhoan = ORIGINAL_LOGIN()
-
-    IF EXISTS (SELECT 1 FROM NhanVien WHERE TenTaiKhoan = @TenTaiKhoan)
-    BEGIN
-        SELECT MaNV, TenNV, GioiTinh, DiaChi, TenTaiKhoan, Cap, ChucVu
-        FROM NhanVien
-        WHERE TenTaiKhoan = @TenTaiKhoan;
-    END
-    ELSE
-    BEGIN
-        RAISERROR ('Tài khoản không tồn tại!', 16, 1);
-    END
-END;
-
-GO
-EXEC Proc_XemThongTinCaNhan
-SELECT * FROM NhanVien WHERE TenTaiKhoan = ORIGINAL_LOGIN();
-SELECT SESSION_USER;
-SELECT ORIGINAL_LOGIN();
--- Proc_SuaThongTinCaNhan
-GO
-CREATE PROCEDURE Proc_SuaThongTinCaNhan
-    @TenNV NVARCHAR(50),
-    @GioiTinh NVARCHAR(10),
-    @DiaChi NVARCHAR(255),
-    @MatKhauMoi VARCHAR(50),
-    @CapMoi INT,
-    @ChucVu NVARCHAR(50) = '',
-    @Anh IMAGE = NULL
-AS
-BEGIN
-    DECLARE @TenTaiKhoan VARCHAR(50);
-    SET @TenTaiKhoan = CURRENT_USER;
-
-    IF EXISTS (SELECT 1 FROM NhanVien WHERE TenTaiKhoan = @TenTaiKhoan)
-    BEGIN
-        UPDATE NhanVien
-        SET TenNV = @TenNV,
-            GioiTinh = @GioiTinh,
-            DiaChi = @DiaChi,
-            MatKhau = @MatKhauMoi,
-            Cap = @CapMoi,
-            ChucVu = @ChucVu,
-            Anh = @Anh
-        WHERE TenTaiKhoan = @TenTaiKhoan;
-    END
-    ELSE
-    BEGIN
-        RAISERROR ('Tài khoản không tồn tại!', 16, 1);
-    END
-END;
-USE QLNhaSach
-GO
--- Proc_XemThongTinCaNhan
-CREATE PROCEDURE Proc_XemThongTinCaNhan
-AS
-BEGIN
-    DECLARE @TenTaiKhoan VARCHAR(50);
-    SET @TenTaiKhoan = ORIGINAL_LOGIN()
-
-    IF EXISTS (SELECT 1 FROM NhanVien WHERE TenTaiKhoan = @TenTaiKhoan)
-    BEGIN
-        SELECT MaNV, TenNV, GioiTinh, DiaChi, TenTaiKhoan, Cap, ChucVu
-        FROM NhanVien
-        WHERE TenTaiKhoan = @TenTaiKhoan;
-    END
-    ELSE
-    BEGIN
-        RAISERROR ('Tài khoản không tồn tại!', 16, 1);
-    END
-END;
-
-GO
-EXEC Proc_XemThongTinCaNhan
-SELECT * FROM NhanVien WHERE TenTaiKhoan = ORIGINAL_LOGIN();
-SELECT SESSION_USER;
-SELECT ORIGINAL_LOGIN();
--- Proc_SuaThongTinCaNhan
-GO
-CREATE PROCEDURE Proc_SuaThongTinCaNhan
-    @TenNV NVARCHAR(50),
-    @GioiTinh NVARCHAR(10),
-    @DiaChi NVARCHAR(255),
-    @MatKhauMoi VARCHAR(50),
-    @CapMoi INT,
-    @ChucVu NVARCHAR(50) = '',
-    @Anh IMAGE = NULL
-AS
-BEGIN
-    DECLARE @TenTaiKhoan VARCHAR(50);
-    SET @TenTaiKhoan = CURRENT_USER;
-
-    IF EXISTS (SELECT 1 FROM NhanVien WHERE TenTaiKhoan = @TenTaiKhoan)
-    BEGIN
-        UPDATE NhanVien
-        SET TenNV = @TenNV,
-            GioiTinh = @GioiTinh,
-            DiaChi = @DiaChi,
-            MatKhau = @MatKhauMoi,
-            Cap = @CapMoi,
-            ChucVu = @ChucVu,
-            Anh = @Anh
-        WHERE TenTaiKhoan = @TenTaiKhoan;
-    END
-    ELSE
-    BEGIN
-        RAISERROR ('Tài khoản không tồn tại!', 16, 1);
-    END
-END;
