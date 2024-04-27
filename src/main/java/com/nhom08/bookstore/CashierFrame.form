@@ -423,5 +423,12 @@
         </Container>
       </SubComponents>
     </Container>
+    <Component class="com.nhom08.bookstore.GUI.FunctionalPanels.Panel_BookItem" name="panel_BookItem1">
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="50" y="150" width="-1" height="-1"/>
+        </Constraint>
+      </Constraints>
+    </Component>
   </SubComponents>
 </Form>

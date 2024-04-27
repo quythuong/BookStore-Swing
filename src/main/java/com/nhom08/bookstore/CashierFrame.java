@@ -54,6 +54,7 @@ public class CashierFrame extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         panel_cancelBtn = new com.nhom08.bookstore.GUI.PanelCustom();
         jLabel10 = new javax.swing.JLabel();
+        panel_BookItem1 = new com.nhom08.bookstore.GUI.FunctionalPanels.Panel_BookItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 254, 251));
@@ -206,6 +207,7 @@ public class CashierFrame extends javax.swing.JFrame {
         panelCustom1.add(panel_cancelBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 616, 50, 50));
 
         getContentPane().add(panelCustom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(953, 85, 305, 700));
+        getContentPane().add(panel_BookItem1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -292,6 +294,7 @@ public class CashierFrame extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_accountName;
     private javax.swing.JLabel lbl_userIcon;
     private com.nhom08.bookstore.GUI.PanelCustom panelCustom1;
+    private com.nhom08.bookstore.GUI.FunctionalPanels.Panel_BookItem panel_BookItem1;
     private javax.swing.JPanel panel_Header;
     private com.nhom08.bookstore.GUI.PanelCustom panel_cancelBtn;
     private com.nhom08.bookstore.GUI.TextFieldCustom textFieldCustom1;

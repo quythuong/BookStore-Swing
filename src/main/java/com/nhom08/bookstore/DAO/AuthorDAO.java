@@ -18,7 +18,8 @@ import java.util.List;
  * @author quythuong
  */
 public class AuthorDAO {
-	private Connection con = null;
+
+    private Connection con = null;
 
     public AuthorDAO() {
         con = (new DBConnection()).GetDBConnection();
