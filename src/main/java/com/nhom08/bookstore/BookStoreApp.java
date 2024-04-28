@@ -16,8 +16,8 @@ public class BookStoreApp {
 
     public static void main(String[] args) throws SQLException {
 //        (new LoginFrame()).setVisible(true);
-//	(new ManagerFrame()).setVisible(true);
-        (new StorageManagerFrame()).setVisible(true);
+	(new ManagerFrame()).setVisible(true);
+//        (new StorageManagerFrame()).setVisible(true);
 //        (new CashierFrame()).setVisible(true);
 //	    ReceiptDAO receiptDAO = new ReceiptDAO();
 //	    List<ReceiptModel> receiptModels = receiptDAO.getAll();

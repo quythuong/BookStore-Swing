@@ -33,7 +33,11 @@ public class panel_publishers extends javax.swing.JPanel {
         buttonCustom2 = new Custom.ButtonCustom();
         buttonCustom3 = new Custom.ButtonCustom();
         panelCustom2 = new Custom.PanelCustom();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tb_publisher = new javax.swing.JTable();
         panelCustom4 = new Custom.PanelCustom();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tb_author = new javax.swing.JTable();
         panelCustom3 = new Custom.PanelCustom();
         jPanel1 = new javax.swing.JPanel();
         textFieldCustom3 = new com.nhom08.bookstore.GUI.TextFieldCustom();
@@ -134,15 +138,28 @@ public class panel_publishers extends javax.swing.JPanel {
         panelCustom2.setRoundTopLeft(10);
         panelCustom2.setRoundTopRigt(10);
 
+        tb_publisher.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tb_publisher);
+
         javax.swing.GroupLayout panelCustom2Layout = new javax.swing.GroupLayout(panelCustom2);
         panelCustom2.setLayout(panelCustom2Layout);
         panelCustom2Layout.setHorizontalGroup(
             panelCustom2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 695, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 695, Short.MAX_VALUE)
         );
         panelCustom2Layout.setVerticalGroup(
             panelCustom2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 232, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
         );
 
         add(panelCustom2, new org.netbeans.lib.awtextra.AbsoluteConstraints(41, 200, -1, -1));
@@ -153,15 +170,28 @@ public class panel_publishers extends javax.swing.JPanel {
         panelCustom4.setRoundTopLeft(10);
         panelCustom4.setRoundTopRigt(10);
 
+        tb_author.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tb_author);
+
         javax.swing.GroupLayout panelCustom4Layout = new javax.swing.GroupLayout(panelCustom4);
         panelCustom4.setLayout(panelCustom4Layout);
         panelCustom4Layout.setHorizontalGroup(
             panelCustom4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 695, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 695, Short.MAX_VALUE)
         );
         panelCustom4Layout.setVerticalGroup(
             panelCustom4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 250, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
         );
 
         add(panelCustom4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 462, -1, -1));
@@ -335,10 +365,14 @@ public class panel_publishers extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private Custom.PanelCustom panelCustom1;
     private Custom.PanelCustom panelCustom2;
     private Custom.PanelCustom panelCustom3;
     private Custom.PanelCustom panelCustom4;
+    private javax.swing.JTable tb_author;
+    private javax.swing.JTable tb_publisher;
     private com.nhom08.bookstore.GUI.TextFieldCustom textFieldCustom3;
     private com.nhom08.bookstore.GUI.TextFieldCustom textFieldCustom4;
     private com.nhom08.bookstore.GUI.TextFieldCustom textFieldCustom5;
