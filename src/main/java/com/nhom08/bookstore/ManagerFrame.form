@@ -306,7 +306,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="com.nhom08.bookstore.GUI.PanelCustom" name="panel_accountBtn">
+        <Container class="com.nhom08.bookstore.GUI.PanelCustom" name="panel_authorBtn">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="bd" red="95" type="rgb"/>
@@ -317,7 +317,7 @@
             <Property name="roundTopRight" type="int" value="20"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="panel_accountBtnMouseClicked"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="panel_authorBtnMouseClicked"/>
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -347,7 +347,7 @@
                   <Font name="Lexend" size="20" style="0"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="2"/>
-                <Property name="text" type="java.lang.String" value="Accounts"/>
+                <Property name="text" type="java.lang.String" value="Authors"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

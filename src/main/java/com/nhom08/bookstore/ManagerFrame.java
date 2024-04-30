@@ -7,6 +7,7 @@ package com.nhom08.bookstore;
 
 import com.nhom08.bookstore.GUI.FunctionalPanels.Panel_Statistics;
 import com.nhom08.bookstore.GUI.FunctionalPanels.panel_accounts;
+import com.nhom08.bookstore.GUI.FunctionalPanels.panel_authors;
 import com.nhom08.bookstore.GUI.FunctionalPanels.panel_books;
 import com.nhom08.bookstore.GUI.FunctionalPanels.panel_employees;
 import com.nhom08.bookstore.GUI.FunctionalPanels.panel_home;
@@ -36,7 +37,7 @@ public class ManagerFrame extends javax.swing.JFrame {
 		TabbedPane.addTab("Publishers", new panel_publishers());
 		TabbedPane.addTab("Books", new panel_books());
 		TabbedPane.addTab("Statistics", new Panel_Statistics());
-		TabbedPane.addTab("Accounts", new panel_accounts());
+		TabbedPane.addTab("Authors", new panel_authors());
 		
 		preTabBtn = panel_homeBtn;
 		panel_homeBtn.setBackground(clickedButtonBackgroundColor);
@@ -67,7 +68,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         panel_statsBtn = new com.nhom08.bookstore.GUI.PanelCustom();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        panel_accountBtn = new com.nhom08.bookstore.GUI.PanelCustom();
+        panel_authorBtn = new com.nhom08.bookstore.GUI.PanelCustom();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         panel_logoutBtn = new com.nhom08.bookstore.GUI.PanelCustom();
@@ -202,27 +203,27 @@ public class ManagerFrame extends javax.swing.JFrame {
 
         panel_Sidebar.add(panel_statsBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 492, 220, 65));
 
-        panel_accountBtn.setBackground(new java.awt.Color(149, 189, 255));
-        panel_accountBtn.setRoundBottomLeft(20);
-        panel_accountBtn.setRoundBottomRight(20);
-        panel_accountBtn.setRoundTopLeft(20);
-        panel_accountBtn.setRoundTopRight(20);
-        panel_accountBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+        panel_authorBtn.setBackground(new java.awt.Color(149, 189, 255));
+        panel_authorBtn.setRoundBottomLeft(20);
+        panel_authorBtn.setRoundBottomRight(20);
+        panel_authorBtn.setRoundTopLeft(20);
+        panel_authorBtn.setRoundTopRight(20);
+        panel_authorBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                panel_accountBtnMouseClicked(evt);
+                panel_authorBtnMouseClicked(evt);
             }
         });
-        panel_accountBtn.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        panel_authorBtn.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user_filled.png"))); // NOI18N
-        panel_accountBtn.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 40, 40));
+        panel_authorBtn.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 40, 40));
 
         jLabel12.setFont(new java.awt.Font("Lexend", 0, 20)); // NOI18N
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel12.setText("Accounts");
-        panel_accountBtn.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(89, 20, -1, -1));
+        jLabel12.setText("Authors");
+        panel_authorBtn.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(89, 20, -1, -1));
 
-        panel_Sidebar.add(panel_accountBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 588, 220, 65));
+        panel_Sidebar.add(panel_authorBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 588, 220, 65));
 
         panel_logoutBtn.setBackground(new java.awt.Color(149, 189, 255));
         panel_logoutBtn.setRoundBottomLeft(20);
@@ -319,16 +320,16 @@ public class ManagerFrame extends javax.swing.JFrame {
 		preTabBtn = panel_statsBtn;
         }//GEN-LAST:event_panel_statsBtnMouseClicked
 
-        private void panel_accountBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_accountBtnMouseClicked
+        private void panel_authorBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_authorBtnMouseClicked
                 // TODO add your handling code here:
 		TabbedPane.setSelectedIndex(5);
-		if(panel_accountBtn.getBackground().equals(clickedButtonBackgroundColor))
+		if(panel_authorBtn.getBackground().equals(clickedButtonBackgroundColor))
 			return;
-		panel_accountBtn.setBackground(clickedButtonBackgroundColor);
+		panel_authorBtn.setBackground(clickedButtonBackgroundColor);
 		preTabBtn.setBackground(sideBarBackgroundColor);
-		preTabBtn = panel_accountBtn;
+		preTabBtn = panel_authorBtn;
 		
-        }//GEN-LAST:event_panel_accountBtnMouseClicked
+        }//GEN-LAST:event_panel_authorBtnMouseClicked
 
 	/**
 	 * @param args the command line arguments
@@ -389,7 +390,7 @@ public class ManagerFrame extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_userIcon;
     private javax.swing.JPanel panel_Header;
     private com.nhom08.bookstore.GUI.PanelCustom panel_Sidebar;
-    private com.nhom08.bookstore.GUI.PanelCustom panel_accountBtn;
+    private com.nhom08.bookstore.GUI.PanelCustom panel_authorBtn;
     private com.nhom08.bookstore.GUI.PanelCustom panel_bookBtn;
     private com.nhom08.bookstore.GUI.PanelCustom panel_employeeBtn;
     private com.nhom08.bookstore.GUI.PanelCustom panel_homeBtn;
