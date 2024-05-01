@@ -4,17 +4,52 @@
  */
 package com.nhom08.bookstore.GUI.FunctionalPanels;
 
+import com.nhom08.bookstore.DAO.BookDAO;
+import com.nhom08.bookstore.DAO.IReceiptDetailsDAO;
+import com.nhom08.bookstore.Models.BookModel;
+import com.nhom08.bookstore.Models.IReceiptDetailsModel;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  *
  * @author Admin
  */
+@Getter
+@Setter
 public class panel_iReceiptDetail extends javax.swing.JPanel {
 
     /**
      * Creates new form panel_iReceiptDetail
      */
+	private String iReceiptId;
+	private IReceiptDetailsDAO iReceiptDAO = new IReceiptDetailsDAO();
+	private BookDAO bookDAO = new BookDAO();
+	private DefaultTableModel tableModel;
     public panel_iReceiptDetail() {
         initComponents();
+	
+	
+    }
+    public void loadTable() {
+	    tableModel = (DefaultTableModel)table_iReceiptDetails.getModel();
+	List<IReceiptDetailsModel> iReceiptDetailsList = iReceiptDAO.getAllByReceiptId(iReceiptId);
+	
+	iReceiptDetailsList.forEach((e)-> {
+		BookModel book;
+		    try {
+			    book = bookDAO.getOne(e.getBookId());
+			    tableModel.addRow(new Object[] {e.getIReceipId(), e.getBookId(), book.getName(), String.valueOf(e.getQuantity())});
+		    } catch (SQLException ex) {
+			    Logger.getLogger(panel_iReceiptDetail.class.getName()).log(Level.SEVERE, null, ex);
+		    }
+	});
     }
 
     /**
@@ -28,31 +63,22 @@ public class panel_iReceiptDetail extends javax.swing.JPanel {
 
                 jLabel2 = new javax.swing.JLabel();
                 panelCustom3 = new Custom.PanelCustom();
+                jScrollPane1 = new javax.swing.JScrollPane();
+                table_iReceiptDetails = new javax.swing.JTable();
                 panelCustom4 = new Custom.PanelCustom();
                 jPanel1 = new javax.swing.JPanel();
-                textFieldCustom3 = new com.nhom08.bookstore.GUI.TextFieldCustom();
+                tf_iReceiptId = new com.nhom08.bookstore.GUI.TextFieldCustom();
                 jLabel4 = new javax.swing.JLabel();
                 jPanel3 = new javax.swing.JPanel();
-                textFieldCustom4 = new com.nhom08.bookstore.GUI.TextFieldCustom();
+                tf_bookId = new com.nhom08.bookstore.GUI.TextFieldCustom();
                 jLabel5 = new javax.swing.JLabel();
                 jPanel4 = new javax.swing.JPanel();
-                textFieldCustom5 = new com.nhom08.bookstore.GUI.TextFieldCustom();
+                tf_bookName = new com.nhom08.bookstore.GUI.TextFieldCustom();
                 jLabel6 = new javax.swing.JLabel();
                 jPanel5 = new javax.swing.JPanel();
-                textFieldCustom6 = new com.nhom08.bookstore.GUI.TextFieldCustom();
+                tf_quantity = new com.nhom08.bookstore.GUI.TextFieldCustom();
                 jLabel7 = new javax.swing.JLabel();
-                jPanel6 = new javax.swing.JPanel();
-                textFieldCustom7 = new com.nhom08.bookstore.GUI.TextFieldCustom();
-                jLabel8 = new javax.swing.JLabel();
-                jPanel7 = new javax.swing.JPanel();
-                textFieldCustom8 = new com.nhom08.bookstore.GUI.TextFieldCustom();
-                jLabel9 = new javax.swing.JLabel();
-                jPanel8 = new javax.swing.JPanel();
-                textFieldCustom9 = new com.nhom08.bookstore.GUI.TextFieldCustom();
-                jLabel10 = new javax.swing.JLabel();
-                jPanel2 = new javax.swing.JPanel();
-                jLabel12 = new javax.swing.JLabel();
-                jLabel13 = new javax.swing.JLabel();
+                lbl_backBtn = new javax.swing.JLabel();
 
                 setBackground(new java.awt.Color(255, 254, 251));
                 setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -67,15 +93,38 @@ public class panel_iReceiptDetail extends javax.swing.JPanel {
                 panelCustom3.setRoundTopLeft(10);
                 panelCustom3.setRoundTopRigt(10);
 
+                table_iReceiptDetails.setFont(new java.awt.Font("Lexend", 0, 14)); // NOI18N
+                table_iReceiptDetails.setModel(new javax.swing.table.DefaultTableModel(
+                        new Object [][] {
+
+                        },
+                        new String [] {
+                                "Mã phiếu nhập", "Mã sách", "Tên sách", "Số lượng nhập"
+                        }
+                ));
+                table_iReceiptDetails.setRowHeight(30);
+                table_iReceiptDetails.addMouseListener(new java.awt.event.MouseAdapter() {
+                        public void mouseClicked(java.awt.event.MouseEvent evt) {
+                                table_iReceiptDetailsMouseClicked(evt);
+                        }
+                });
+                jScrollPane1.setViewportView(table_iReceiptDetails);
+
                 javax.swing.GroupLayout panelCustom3Layout = new javax.swing.GroupLayout(panelCustom3);
                 panelCustom3.setLayout(panelCustom3Layout);
                 panelCustom3Layout.setHorizontalGroup(
                         panelCustom3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 695, Short.MAX_VALUE)
+                        .addGroup(panelCustom3Layout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 649, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(22, Short.MAX_VALUE))
                 );
                 panelCustom3Layout.setVerticalGroup(
                         panelCustom3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 610, Short.MAX_VALUE)
+                        .addGroup(panelCustom3Layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(20, Short.MAX_VALUE))
                 );
 
                 add(panelCustom3, new org.netbeans.lib.awtextra.AbsoluteConstraints(41, 105, -1, 610));
@@ -89,205 +138,129 @@ public class panel_iReceiptDetail extends javax.swing.JPanel {
 
                 jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-                textFieldCustom3.setPreferredSize(new java.awt.Dimension(210, 33));
-                textFieldCustom3.addActionListener(new java.awt.event.ActionListener() {
+                tf_iReceiptId.setEditable(false);
+                tf_iReceiptId.setBackground(new java.awt.Color(204, 204, 204));
+                tf_iReceiptId.setFont(new java.awt.Font("Lexend", 0, 14)); // NOI18N
+                tf_iReceiptId.setPreferredSize(new java.awt.Dimension(210, 33));
+                tf_iReceiptId.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                textFieldCustom3ActionPerformed(evt);
+                                tf_iReceiptIdActionPerformed(evt);
                         }
                 });
-                jPanel1.add(textFieldCustom3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 210, 32));
+                jPanel1.add(tf_iReceiptId, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 210, 40));
 
                 jLabel4.setFont(new java.awt.Font("Lexend", 0, 15)); // NOI18N
-                jLabel4.setText("XXXXX.");
+                jLabel4.setText("Mã phiếu nhập");
                 jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
 
                 panelCustom4.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 21, -1, -1));
 
                 jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-                textFieldCustom4.setPreferredSize(new java.awt.Dimension(210, 33));
-                textFieldCustom4.addActionListener(new java.awt.event.ActionListener() {
+                tf_bookId.setEditable(false);
+                tf_bookId.setBackground(new java.awt.Color(204, 204, 204));
+                tf_bookId.setFont(new java.awt.Font("Lexend", 0, 14)); // NOI18N
+                tf_bookId.setPreferredSize(new java.awt.Dimension(210, 33));
+                tf_bookId.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                textFieldCustom4ActionPerformed(evt);
+                                tf_bookIdActionPerformed(evt);
                         }
                 });
-                jPanel3.add(textFieldCustom4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 210, 32));
+                jPanel3.add(tf_bookId, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 210, 40));
 
                 jLabel5.setFont(new java.awt.Font("Lexend", 0, 15)); // NOI18N
-                jLabel5.setText("XXXXX.");
+                jLabel5.setText("Mã sách");
                 jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
 
                 panelCustom4.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 90, -1, -1));
 
                 jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-                textFieldCustom5.setPreferredSize(new java.awt.Dimension(210, 33));
-                textFieldCustom5.addActionListener(new java.awt.event.ActionListener() {
+                tf_bookName.setEditable(false);
+                tf_bookName.setBackground(new java.awt.Color(204, 204, 204));
+                tf_bookName.setFont(new java.awt.Font("Lexend", 0, 14)); // NOI18N
+                tf_bookName.setPreferredSize(new java.awt.Dimension(210, 33));
+                tf_bookName.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                textFieldCustom5ActionPerformed(evt);
+                                tf_bookNameActionPerformed(evt);
                         }
                 });
-                jPanel4.add(textFieldCustom5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 210, 32));
+                jPanel4.add(tf_bookName, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 210, 40));
 
                 jLabel6.setFont(new java.awt.Font("Lexend", 0, 15)); // NOI18N
-                jLabel6.setText("XXXXX.");
+                jLabel6.setText("Tên sách");
                 jPanel4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
 
                 panelCustom4.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 159, -1, -1));
 
                 jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-                textFieldCustom6.setPreferredSize(new java.awt.Dimension(210, 33));
-                textFieldCustom6.addActionListener(new java.awt.event.ActionListener() {
+                tf_quantity.setEditable(false);
+                tf_quantity.setBackground(new java.awt.Color(204, 204, 204));
+                tf_quantity.setFont(new java.awt.Font("Lexend", 0, 14)); // NOI18N
+                tf_quantity.setPreferredSize(new java.awt.Dimension(210, 33));
+                tf_quantity.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                textFieldCustom6ActionPerformed(evt);
+                                tf_quantityActionPerformed(evt);
                         }
                 });
-                jPanel5.add(textFieldCustom6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 210, 32));
+                jPanel5.add(tf_quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 210, 40));
 
                 jLabel7.setFont(new java.awt.Font("Lexend", 0, 15)); // NOI18N
-                jLabel7.setText("XXXXX.");
+                jLabel7.setText("Số lượng nhập");
                 jPanel5.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
 
                 panelCustom4.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 228, -1, -1));
 
-                jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-                textFieldCustom7.setPreferredSize(new java.awt.Dimension(210, 33));
-                textFieldCustom7.addActionListener(new java.awt.event.ActionListener() {
-                        public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                textFieldCustom7ActionPerformed(evt);
-                        }
-                });
-                jPanel6.add(textFieldCustom7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 210, 32));
-
-                jLabel8.setFont(new java.awt.Font("Lexend", 0, 15)); // NOI18N
-                jLabel8.setText("XXXXX.");
-                jPanel6.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
-
-                panelCustom4.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 297, -1, -1));
-
-                jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-                textFieldCustom8.setPreferredSize(new java.awt.Dimension(210, 33));
-                textFieldCustom8.addActionListener(new java.awt.event.ActionListener() {
-                        public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                textFieldCustom8ActionPerformed(evt);
-                        }
-                });
-                jPanel7.add(textFieldCustom8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 210, 32));
-
-                jLabel9.setFont(new java.awt.Font("Lexend", 0, 15)); // NOI18N
-                jLabel9.setText("XXXXX.");
-                jPanel7.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
-
-                panelCustom4.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 366, -1, -1));
-
-                jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-                textFieldCustom9.setPreferredSize(new java.awt.Dimension(210, 33));
-                textFieldCustom9.addActionListener(new java.awt.event.ActionListener() {
-                        public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                textFieldCustom9ActionPerformed(evt);
-                        }
-                });
-                jPanel8.add(textFieldCustom9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 210, 32));
-
-                jLabel10.setFont(new java.awt.Font("Lexend", 0, 15)); // NOI18N
-                jLabel10.setText("XXXXX.");
-                jPanel8.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
-
-                panelCustom4.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 435, -1, -1));
-
                 add(panelCustom4, new org.netbeans.lib.awtextra.AbsoluteConstraints(766, 103, -1, -1));
 
-                jPanel2.setBackground(new java.awt.Color(255, 254, 251));
-
-                jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/arrow-small-right.png"))); // NOI18N
-
-                javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-                jPanel2.setLayout(jPanel2Layout);
-                jPanel2Layout.setHorizontalGroup(
-                        jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 40, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(jLabel12)
-                                        .addGap(0, 0, Short.MAX_VALUE)))
-                );
-                jPanel2Layout.setVerticalGroup(
-                        jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 38, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE)))
-                );
-
-                add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(978, 25, 40, 38));
-
-                jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/arrow-small-left.png"))); // NOI18N
-                add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(41, 24, -1, -1));
+                lbl_backBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/arrow-small-left.png"))); // NOI18N
+                add(lbl_backBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(41, 24, -1, -1));
         }// </editor-fold>//GEN-END:initComponents
 
-    private void textFieldCustom3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldCustom3ActionPerformed
+    private void tf_iReceiptIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_iReceiptIdActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldCustom3ActionPerformed
+    }//GEN-LAST:event_tf_iReceiptIdActionPerformed
 
-    private void textFieldCustom4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldCustom4ActionPerformed
+    private void tf_bookIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_bookIdActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldCustom4ActionPerformed
+    }//GEN-LAST:event_tf_bookIdActionPerformed
 
-    private void textFieldCustom5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldCustom5ActionPerformed
+    private void tf_bookNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_bookNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldCustom5ActionPerformed
+    }//GEN-LAST:event_tf_bookNameActionPerformed
 
-    private void textFieldCustom6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldCustom6ActionPerformed
+    private void tf_quantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_quantityActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldCustom6ActionPerformed
+    }//GEN-LAST:event_tf_quantityActionPerformed
 
-    private void textFieldCustom7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldCustom7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldCustom7ActionPerformed
-
-    private void textFieldCustom8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldCustom8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldCustom8ActionPerformed
-
-    private void textFieldCustom9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldCustom9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldCustom9ActionPerformed
+        private void table_iReceiptDetailsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_iReceiptDetailsMouseClicked
+                // TODO add your handling code here:
+		tf_iReceiptId.setText(tableModel.getValueAt(table_iReceiptDetails.getSelectedRow(), 0).toString());
+		tf_bookId.setText(tableModel.getValueAt(table_iReceiptDetails.getSelectedRow(), 1).toString());
+		tf_bookName.setText(tableModel.getValueAt(table_iReceiptDetails.getSelectedRow(), 2).toString());
+		tf_quantity.setText(tableModel.getValueAt(table_iReceiptDetails.getSelectedRow(), 3).toString());
+        }//GEN-LAST:event_table_iReceiptDetailsMouseClicked
 
 
         // Variables declaration - do not modify//GEN-BEGIN:variables
-        private javax.swing.JLabel jLabel10;
-        private javax.swing.JLabel jLabel12;
-        private javax.swing.JLabel jLabel13;
         private javax.swing.JLabel jLabel2;
         private javax.swing.JLabel jLabel4;
         private javax.swing.JLabel jLabel5;
         private javax.swing.JLabel jLabel6;
         private javax.swing.JLabel jLabel7;
-        private javax.swing.JLabel jLabel8;
-        private javax.swing.JLabel jLabel9;
         private javax.swing.JPanel jPanel1;
-        private javax.swing.JPanel jPanel2;
         private javax.swing.JPanel jPanel3;
         private javax.swing.JPanel jPanel4;
         private javax.swing.JPanel jPanel5;
-        private javax.swing.JPanel jPanel6;
-        private javax.swing.JPanel jPanel7;
-        private javax.swing.JPanel jPanel8;
+        private javax.swing.JScrollPane jScrollPane1;
+        private javax.swing.JLabel lbl_backBtn;
         private Custom.PanelCustom panelCustom3;
         private Custom.PanelCustom panelCustom4;
-        private com.nhom08.bookstore.GUI.TextFieldCustom textFieldCustom3;
-        private com.nhom08.bookstore.GUI.TextFieldCustom textFieldCustom4;
-        private com.nhom08.bookstore.GUI.TextFieldCustom textFieldCustom5;
-        private com.nhom08.bookstore.GUI.TextFieldCustom textFieldCustom6;
-        private com.nhom08.bookstore.GUI.TextFieldCustom textFieldCustom7;
-        private com.nhom08.bookstore.GUI.TextFieldCustom textFieldCustom8;
-        private com.nhom08.bookstore.GUI.TextFieldCustom textFieldCustom9;
+        private javax.swing.JTable table_iReceiptDetails;
+        private com.nhom08.bookstore.GUI.TextFieldCustom tf_bookId;
+        private com.nhom08.bookstore.GUI.TextFieldCustom tf_bookName;
+        private com.nhom08.bookstore.GUI.TextFieldCustom tf_iReceiptId;
+        private com.nhom08.bookstore.GUI.TextFieldCustom tf_quantity;
         // End of variables declaration//GEN-END:variables
 }
