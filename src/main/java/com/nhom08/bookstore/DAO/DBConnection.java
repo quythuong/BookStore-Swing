@@ -14,7 +14,7 @@ import java.sql.SQLException;
  */
 public  class DBConnection {
 	// doi ten server "MSI\\SQLEXPRESS" cho phu hop voi may
-	private String ConnectionString = "jdbc:sqlserver://MSI\\SQLEXPRESS;Database=QLNhaSach;IntegratedSecurity=true;encrypt=true;trustServerCertificate=true"; 
+	private String ConnectionString = "jdbc:sqlserver://DESKTOP-N5HCGJK;Database=QLNhaSach;IntegratedSecurity=true;encrypt=false;trustServerCertificate=true"; 
 	Connection con = null;
 	
 	public Connection GetDBConnection() {

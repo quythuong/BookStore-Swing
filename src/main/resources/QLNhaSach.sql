@@ -1,5 +1,4 @@
-CREATE DATABASE QLNhaSach
-GO
+
 USE QLNhaSach
 GO
 
