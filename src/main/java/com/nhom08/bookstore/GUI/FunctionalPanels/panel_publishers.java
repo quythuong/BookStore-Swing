@@ -6,6 +6,7 @@ package com.nhom08.bookstore.GUI.FunctionalPanels;
 
 import com.nhom08.bookstore.DAO.PublisherDAO;
 import com.nhom08.bookstore.Models.PublisherModel;
+import com.nhom08.bookstore.Utils.showMessageDialogs;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -20,14 +21,19 @@ public class panel_publishers extends javax.swing.JPanel {
 
     PublisherDAO publisherDAO;
     PublisherModel publisherModel;
+    showMessageDialogs message;
+    boolean choice;
+    int status;
 
     /**
      * Creates new form panel_publishers
      */
     public panel_publishers() {
         initComponents();
-        
+
         try {
+            disabletext();
+            resetText();
             updateTable();
         } catch (SQLException ex) {
             Logger.getLogger(panel_authors.class.getName()).log(Level.SEVERE, null, ex);
@@ -65,6 +71,7 @@ public class panel_publishers extends javax.swing.JPanel {
         tf_contact = new com.nhom08.bookstore.GUI.TextFieldCustom();
         jLabel7 = new javax.swing.JLabel();
         btn_cancle = new javax.swing.JLabel();
+        btn_save = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 254, 251));
         setPreferredSize(new java.awt.Dimension(1056, 740));
@@ -256,6 +263,14 @@ public class panel_publishers extends javax.swing.JPanel {
         });
         panelCustom3.add(btn_cancle, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 556, 40, 38));
 
+        btn_save.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/save.png"))); // NOI18N
+        btn_save.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_saveMouseClicked(evt);
+            }
+        });
+        panelCustom3.add(btn_save, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 556, 40, 38));
+
         add(panelCustom3, new org.netbeans.lib.awtextra.AbsoluteConstraints(766, 103, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
@@ -304,8 +319,18 @@ public class panel_publishers extends javax.swing.JPanel {
     }//GEN-LAST:event_tf_contactActionPerformed
 
     private void btn_cancleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_cancleMouseClicked
+        status = -1;
         resetText();
+        disabletext();
     }//GEN-LAST:event_btn_cancleMouseClicked
+
+    private void btn_saveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_saveMouseClicked
+        try {
+            save();
+        } catch (SQLException ex) {
+            Logger.getLogger(panel_authors.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btn_saveMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -313,6 +338,7 @@ public class panel_publishers extends javax.swing.JPanel {
     private javax.swing.JLabel btn_cancle;
     private Custom.ButtonCustom btn_delete;
     private Custom.ButtonCustom btn_edit;
+    private javax.swing.JLabel btn_save;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -334,32 +360,26 @@ public class panel_publishers extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private void addPublisher() throws SQLException {
-        publisherDAO = new PublisherDAO();
-        String id = tf_publisherid.getText().toString();
-        String publishername = tf_publishername.getText().toString();
-        String address = tf_address.getText().toString();
-        String contact = tf_contact.getText().toString();
-        publisherModel = new PublisherModel(id, publishername, address, contact);
-        publisherDAO.add(publisherModel);
-        updateTable();
+        status = 1;
+        enableText();
+        resetText();
     }
 
     private void editPublisher() throws SQLException {
-        publisherDAO = new PublisherDAO();
-        String id = tf_publisherid.getText().toString();
-        String publishername = tf_publishername.getText().toString();
-        String address = tf_address.getText().toString();
-        String contact = tf_contact.getText().toString();
-        publisherModel = new PublisherModel(id, publishername, address, contact);
-        publisherDAO.update(publisherModel);
-        updateTable();
+        status = 2;
+        enableText();
     }
 
     private void deletePublisher() throws SQLException {
-        String id = tf_publisherid.getText().toString();
+        choice = new showMessageDialogs().deleteMessage("author");
+        if (choice == true) {
+            String id = tf_publisherid.getText().toString();
 
-        publisherDAO.delete(id);
-        updateTable();
+            publisherDAO.delete(id);
+            updateTable();
+        }
+        enableText();
+        resetText();
     }
 
     private void clickRowTable() {
@@ -372,11 +392,45 @@ public class panel_publishers extends javax.swing.JPanel {
         tf_contact.setText(model.getValueAt(row, 3).toString());
     }
 
-    private void resetText() {
-        tf_publisherid.setText("");
-        tf_publishername.setText("");
-        tf_address.setText("");
-        tf_contact.setText("");
+    private void save() throws SQLException {
+        try {
+            // add
+            if (status == 1) {
+                choice = new showMessageDialogs().saveMessage("author");
+                if (choice == true) {
+                    publisherDAO = new PublisherDAO();
+                    String id = tf_publisherid.getText().toString();
+                    String publishername = tf_publishername.getText().toString();
+                    String address = tf_address.getText().toString();
+                    String contact = tf_contact.getText().toString();
+                    publisherModel = new PublisherModel(id, publishername, address, contact);
+                    publisherDAO.add(publisherModel);
+                    updateTable();
+                }
+            } // edit
+            else if (status == 2) {
+                choice = new showMessageDialogs().editMessage();
+                if (choice == true) {
+                    publisherDAO = new PublisherDAO();
+                    String id = tf_publisherid.getText().toString();
+                    String publishername = tf_publishername.getText().toString();
+                    String address = tf_address.getText().toString();
+                    String contact = tf_contact.getText().toString();
+                    publisherModel = new PublisherModel(id, publishername, address, contact);
+                    publisherDAO.update(publisherModel);
+                    updateTable();
+                }
+            } else {
+                disabletext();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            status = -1;
+            disabletext();
+            resetText();
+        }
+
     }
 
     private void updateTable() throws SQLException {
@@ -392,5 +446,26 @@ public class panel_publishers extends javax.swing.JPanel {
             model.addRow(new Object[]{id, publishername, address, contact});
         }
         resetText();
+    }
+
+    private void disabletext() {
+        tf_publishername.enable(false);
+        tf_publisherid.enable(false);
+        tf_address.enable(false);
+        tf_contact.enable(false);
+    }
+
+    private void enableText() {
+        tf_publishername.enable(true);
+        tf_publisherid.enable(true);
+        tf_address.enable(true);
+        tf_contact.enable(true);
+    }
+    
+    private void resetText() {
+        tf_publisherid.setText("");
+        tf_publishername.setText("");
+        tf_address.setText("");
+        tf_contact.setText("");
     }
 }

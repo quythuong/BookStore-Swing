@@ -127,4 +127,28 @@ public class AuthorDAO {
 
         return hasResultSet;
     }
+    public List<AuthorModel> getAuthorByPublisher(String pid) throws SQLException {
+        List<AuthorModel> authorList = new ArrayList<AuthorModel>();
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+
+        try {
+            statement = con.prepareStatement("select * from TacGia where TacGia.MaNXB = ?");
+            statement.setString(1, pid);
+            rs = statement.executeQuery();
+            while (rs.next()) {
+                AuthorModel author = new AuthorModel();
+
+                author.setId(rs.getString(1));
+                author.setPublisherId(rs.getString(2));
+                author.setName(rs.getString(3));
+                author.setContact(rs.getString(4));
+
+                authorList.add(author);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return authorList;
+    }
 }

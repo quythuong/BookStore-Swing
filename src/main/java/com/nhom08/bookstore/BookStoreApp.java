@@ -1,7 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
-
 package com.nhom08.bookstore;
 
 import com.nhom08.bookstore.DAO.ReceiptDAO;
@@ -16,7 +15,7 @@ public class BookStoreApp {
 
     public static void main(String[] args) throws SQLException {
 //        (new LoginFrame()).setVisible(true);
-	(new ManagerFrame()).setVisible(true);
+        (new ManagerFrame()).setVisible(true);
 //        (new StorageManagerFrame()).setVisible(true);
 //        (new CashierFrame()).setVisible(true);
 //	    ReceiptDAO receiptDAO = new ReceiptDAO();

@@ -4,12 +4,21 @@
  */
 package com.nhom08.bookstore.GUI.FunctionalPanels;
 
+import com.nhom08.bookstore.DAO.AuthorDAO;
 import com.nhom08.bookstore.DAO.BookDAO;
+import com.nhom08.bookstore.DAO.PublisherDAO;
+import com.nhom08.bookstore.Models.AuthorModel;
 import com.nhom08.bookstore.Models.BookModel;
+import com.nhom08.bookstore.Models.PublisherModel;
+import com.nhom08.bookstore.Utils.changeIconSize;
+import com.nhom08.bookstore.Utils.showMessageDialogs;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JLabel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,13 +29,21 @@ public class panel_books extends javax.swing.JPanel {
 
     BookDAO bookDAO;
     BookModel bookModel;
+    showMessageDialogs message;
+    changeIconSize chIconSize;
+    boolean choice;
+    int status, flagauthor = 0, flagpublisher = 0;
 
     /**
      * Creates new form panel_books
      */
     public panel_books() {
         initComponents();
+        
+        resizeicon();
+        
         try {
+            disabletext();
             updateTable();
         } catch (SQLException ex) {
             Logger.getLogger(panel_books.class.getName()).log(Level.SEVERE, null, ex);
@@ -55,9 +72,11 @@ public class panel_books extends javax.swing.JPanel {
         tf_bookid = new com.nhom08.bookstore.GUI.TextFieldCustom();
         jLabel4 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
+        cb_authorid = new javax.swing.JComboBox<>();
         tf_authorid = new com.nhom08.bookstore.GUI.TextFieldCustom();
         jLabel5 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
+        cb_publisherid = new javax.swing.JComboBox<>();
         tf_publisherid = new com.nhom08.bookstore.GUI.TextFieldCustom();
         jLabel6 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
@@ -72,10 +91,11 @@ public class panel_books extends javax.swing.JPanel {
         jPanel8 = new javax.swing.JPanel();
         tf_genre = new com.nhom08.bookstore.GUI.TextFieldCustom();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        btn_cancel = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         tf_image = new com.nhom08.bookstore.GUI.TextFieldCustom();
         jLabel12 = new javax.swing.JLabel();
+        btn_save = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 254, 251));
         setPreferredSize(new java.awt.Dimension(1056, 740));
@@ -142,6 +162,7 @@ public class panel_books extends javax.swing.JPanel {
         panelCustom2.setRoundTopLeft(10);
         panelCustom2.setRoundTopRigt(10);
 
+        tb_book.setAutoCreateRowSorter(true);
         tb_book.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -168,6 +189,11 @@ public class panel_books extends javax.swing.JPanel {
         tb_book.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tb_bookMouseClicked(evt);
+            }
+        });
+        tb_book.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                tb_bookPropertyChange(evt);
             }
         });
         jScrollPane1.setViewportView(tb_book);
@@ -210,6 +236,9 @@ public class panel_books extends javax.swing.JPanel {
 
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        cb_authorid.setPreferredSize(new java.awt.Dimension(210, 33));
+        jPanel3.add(cb_authorid, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, -1, -1));
+
         tf_authorid.setPreferredSize(new java.awt.Dimension(210, 33));
         tf_authorid.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -222,9 +251,12 @@ public class panel_books extends javax.swing.JPanel {
         jLabel5.setText("Author ID");
         jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
 
-        panelCustom3.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 90, -1, -1));
+        panelCustom3.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 159, -1, -1));
 
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        cb_publisherid.setPreferredSize(new java.awt.Dimension(210, 33));
+        jPanel4.add(cb_publisherid, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, -1, -1));
 
         tf_publisherid.setPreferredSize(new java.awt.Dimension(210, 33));
         tf_publisherid.addActionListener(new java.awt.event.ActionListener() {
@@ -238,7 +270,7 @@ public class panel_books extends javax.swing.JPanel {
         jLabel6.setText("Publisher ID");
         jPanel4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
 
-        panelCustom3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 159, -1, -1));
+        panelCustom3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 90, -1, -1));
 
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -304,13 +336,13 @@ public class panel_books extends javax.swing.JPanel {
 
         panelCustom3.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 435, -1, -1));
 
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cancle.png"))); // NOI18N
-        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_cancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cancle.png"))); // NOI18N
+        btn_cancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel11MouseClicked(evt);
+                btn_cancelMouseClicked(evt);
             }
         });
-        panelCustom3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 560, 40, 38));
+        panelCustom3.add(btn_cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 560, 40, 38));
 
         jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -327,6 +359,14 @@ public class panel_books extends javax.swing.JPanel {
         jPanel9.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
 
         panelCustom3.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 500, -1, -1));
+
+        btn_save.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/save.png"))); // NOI18N
+        btn_save.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_saveMouseClicked(evt);
+            }
+        });
+        panelCustom3.add(btn_save, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 560, 40, 38));
 
         add(panelCustom3, new org.netbeans.lib.awtextra.AbsoluteConstraints(766, 103, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
@@ -391,17 +431,36 @@ public class panel_books extends javax.swing.JPanel {
         clickRowTable();
     }//GEN-LAST:event_tb_bookMouseClicked
 
-    private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
+    private void btn_cancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_cancelMouseClicked
+        status = -1;
+//        try {
+//            loadAuthorComboBox();
+//            loadPublisherComboBox();
+//        } catch (SQLException ex) {
+//            Logger.getLogger(panel_books.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         resetText();
-    }//GEN-LAST:event_jLabel11MouseClicked
+        disabletext();
+    }//GEN-LAST:event_btn_cancelMouseClicked
+
+    private void btn_saveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_saveMouseClicked
+        save();
+    }//GEN-LAST:event_btn_saveMouseClicked
+
+    private void tb_bookPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tb_bookPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tb_bookPropertyChange
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Custom.ButtonCustom btn_add;
+    private javax.swing.JLabel btn_cancel;
     private Custom.ButtonCustom btn_delete;
     private Custom.ButtonCustom btn_edit;
+    private javax.swing.JLabel btn_save;
+    private javax.swing.JComboBox<String> cb_authorid;
+    private javax.swing.JComboBox<String> cb_publisherid;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
@@ -450,47 +509,34 @@ public class panel_books extends javax.swing.JPanel {
 
             model.addRow(new Object[]{id, authorid, publisherid, name, quantity, price, genre});
         }
+        loadPublisherComboBox();
+        loadAuthorComboBox();
         resetText();
     }
 
     private void addBook() throws SQLException {
-        bookDAO = new BookDAO();
-        String id = tf_bookid.getText().toString();
-        String authorid = tf_authorid.getText().toString();
-        String publisherid = tf_publisherid.getText().toString();
-        String name = tf_bookname.getText().toString();
-        int quantity = Integer.parseInt(tf_quantity.getText().toString());
-        double price = Double.parseDouble(tf_price.getText().toString());
-        String genre = tf_genre.getText().toString();
-        //String img = book.getImage();
-
-        bookModel = new BookModel(id, authorid, publisherid, name, quantity, price, genre);
-        bookDAO.save(bookModel);
-        updateTable();
+        status = 1;
+        enableText();
+        loadAuthorComboBoxByPublisher();
+//        loadPublisherComboBoxByAuthor();
+        resetText();
     }
 
     private void editBook() throws SQLException {
-        bookDAO = new BookDAO();
-        
-        String id = tf_bookid.getText().toString();
-        String authorid = tf_authorid.getText().toString();
-        String publisherid = tf_publisherid.getText().toString();
-        String name = tf_bookname.getText().toString();
-        int quantity = Integer.parseInt(tf_quantity.getText().toString());
-        double price = Double.parseDouble(tf_price.getText().toString());
-        String genre = tf_genre.getText().toString();
-        //String img = book.getImage();
-
-        bookModel = new BookModel(id, authorid, publisherid, name, quantity, price, genre);
-        bookDAO.update(bookModel);
-        updateTable();
+        status = 2;
+        enableText();
+        loadAuthorComboBoxByPublisher();
+//        loadPublisherComboBoxByAuthor();
     }
 
     private void deleteBook() throws SQLException {
-        String id = tf_bookid.getText().toString();
+        choice = new showMessageDialogs().deleteMessage("author");
+        if (choice == true) {
+            String id = tf_bookid.getText().toString();
 
-        bookDAO.delete(id);
-        updateTable();
+            bookDAO.delete(id);
+            updateTable();
+        }
     }
 
     private void clickRowTable() {
@@ -498,13 +544,162 @@ public class panel_books extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tb_book.getModel();
 
         tf_bookid.setText(model.getValueAt(row, 0).toString());
-        tf_authorid.setText(model.getValueAt(row, 1).toString());
-        tf_publisherid.setText(model.getValueAt(row, 2).toString());
+//        tf_authorid.setText(model.getValueAt(row, 1).toString());
+        cb_authorid.setSelectedItem(model.getValueAt(row, 1).toString());
+//        tf_publisherid.setText(model.getValueAt(row, 2).toString());
+        cb_publisherid.setSelectedItem(model.getValueAt(row, 2).toString());
         tf_bookname.setText(model.getValueAt(row, 3).toString());
         tf_quantity.setText(model.getValueAt(row, 4).toString());
         tf_price.setText(model.getValueAt(row, 5).toString());
         tf_genre.setText(model.getValueAt(row, 6).toString());
         //tf_image.setText(model.getValueAt(row, 7).toString());
+    }
+
+    private void loadPublisherComboBox() throws SQLException {
+        // Load Publisher id combobox
+        PublisherDAO publisherDAO = new PublisherDAO();
+        List<PublisherModel> publisherList = publisherDAO.getAll();
+
+        for (PublisherModel publisher : publisherList) {
+            cb_publisherid.addItem(publisher.getId());
+        }
+
+        // 
+    }
+
+    private void loadAuthorComboBox() throws SQLException {
+        // Load Publisher id combobox
+        AuthorDAO authorDAO = new AuthorDAO();
+        List<AuthorModel> authorList = authorDAO.getAll();
+
+        for (AuthorModel author : authorList) {
+            cb_authorid.addItem(author.getId());
+        }
+    }
+
+    private void loadAuthorComboBoxByPublisher() throws SQLException {
+        if (status == 1 || status == 2) {
+            cb_publisherid.addItemListener(new ItemListener() {
+                public void itemStateChanged(ItemEvent e) {
+                    if (e.getStateChange() == ItemEvent.SELECTED) {
+
+                        cb_authorid.removeAllItems();
+                        String pid = cb_publisherid.getSelectedItem().toString();
+                        AuthorDAO authorDAO = new AuthorDAO();
+                        List<AuthorModel> authorList;
+                        try {
+                            authorList = authorDAO.getAuthorByPublisher(pid);
+                            for (AuthorModel author : authorList) {
+                                cb_authorid.addItem(author.getId());
+                            }
+                        } catch (SQLException ex) {
+                            Logger.getLogger(panel_books.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+    private void loadPublisherComboBoxByAuthor() {
+        if (status == 1 || status == 2) {
+            cb_authorid.addItemListener(new ItemListener() {
+                public void itemStateChanged(ItemEvent e) {
+                    if (e.getStateChange() == ItemEvent.SELECTED) {
+                        cb_publisherid.removeAllItems();
+                        String aid = cb_authorid.getSelectedItem().toString();
+                        PublisherDAO publisherDAO = new PublisherDAO();
+                        List<PublisherModel> publisherList;
+                        try {
+                            publisherList = publisherDAO.getPublisherByAuthor(aid);
+                            for (PublisherModel publisher : publisherList) {
+                                cb_publisherid.addItem(publisher.getId());
+                            }
+                        } catch (SQLException ex) {
+                            Logger.getLogger(panel_books.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+    private void save() {
+        try {
+            // add
+            if (status == 1) {
+                choice = new showMessageDialogs().saveMessage("author");
+                if (choice == true) {
+                    bookDAO = new BookDAO();
+                    String id = tf_bookid.getText().toString();
+                    String authorid = cb_authorid.getSelectedItem().toString();
+                    String publisherid = cb_publisherid.getSelectedItem().toString();
+                    String name = tf_bookname.getText().toString();
+                    int quantity = Integer.parseInt(tf_quantity.getText().toString());
+                    double price = Double.parseDouble(tf_price.getText().toString());
+                    String genre = tf_genre.getText().toString();
+                    //String img = book.getImage();
+
+                    bookModel = new BookModel(id, authorid, publisherid, name, quantity, price, genre);
+                    bookDAO.save(bookModel);
+                    updateTable();
+                }
+            } // edit
+            else if (status == 2) {
+                choice = new showMessageDialogs().editMessage();
+                if (choice == true) {
+                    bookDAO = new BookDAO();
+
+                    String id = tf_bookid.getText().toString();
+                    String authorid = cb_authorid.getSelectedItem().toString();
+                    String publisherid = cb_publisherid.getSelectedItem().toString();
+                    String name = tf_bookname.getText().toString();
+                    int quantity = Integer.parseInt(tf_quantity.getText().toString());
+                    double price = Double.parseDouble(tf_price.getText().toString());
+                    String genre = tf_genre.getText().toString();
+                    //String img = book.getImage();
+
+                    bookModel = new BookModel(id, authorid, publisherid, name, quantity, price, genre);
+                    bookDAO.update(bookModel);
+                    updateTable();
+                }
+            } else {
+                disabletext();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            status = -1;
+            disabletext();
+            resetText();
+        }
+
+    }
+
+    private void disabletext() {
+        tf_bookid.enable(false);
+        tf_publisherid.enable(false);
+        tf_bookname.enable(false);
+        tf_authorid.enable(false);
+        tf_genre.enable(false);
+        tf_quantity.enable(false);
+        tf_price.enable(false);
+        tf_image.enable(false);
+        cb_authorid.enable(false);
+        cb_publisherid.enable(false);
+    }
+
+    private void enableText() {
+        tf_bookid.enable(true);
+        tf_publisherid.enable(true);
+        tf_bookname.enable(true);
+        tf_authorid.enable(true);
+        tf_genre.enable(true);
+        tf_quantity.enable(true);
+        tf_price.enable(true);
+        tf_image.enable(true);
+        cb_authorid.enable(true);
+        cb_publisherid.enable(true);
     }
 
     private void resetText() {
@@ -516,6 +711,16 @@ public class panel_books extends javax.swing.JPanel {
         tf_quantity.setText("");
         tf_price.setText("");
         tf_image.setText("");
+        cb_authorid.setSelectedItem(null);
+        cb_publisherid.setSelectedItem(null);
+    }
+
+    private void resizeicon() {
+//        chIconSize = new changeIconSize();
+        (new changeIconSize()).setIconWithSize(btn_save, "/icons/save.png", 25, 25);
+        (new changeIconSize()).setIconWithSize(btn_cancel, "/icons/cancle.png", 25, 25);
+//        chIconSize.setIconWithSize(btn_save, "/icons/save.png", 25, 25);
+//        chIconSize.setIconWithSize(btn_cancel, "/icons/cancel.png", 25, 25);
     }
 
 }

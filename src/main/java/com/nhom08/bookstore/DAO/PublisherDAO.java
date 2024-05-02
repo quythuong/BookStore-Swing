@@ -128,4 +128,29 @@ public class PublisherDAO {
         return hasResultSet;
     }
 
+    public List<PublisherModel> getPublisherByAuthor(String aid) throws SQLException {
+        List<PublisherModel> publisherList = new ArrayList<PublisherModel>();
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+
+        try {
+            statement = con.prepareStatement("select nxb.MaNXB, nxb.TenNXB, nxb.DiaChiNXB, nxb.LienHe from NhaXuatBan nxb, TacGia tg where nxb.MaNXB = tg.MaNXB and tg.MaTG = ?");
+            statement.setString(1, aid);
+            rs = statement.executeQuery();
+            while (rs.next()) {
+                PublisherModel publisher = new PublisherModel();
+
+                publisher.setId(rs.getString(1));
+                publisher.setName(rs.getString(2));
+                publisher.setAddress(rs.getString(3));
+                publisher.setContact(rs.getString(4));
+
+                publisherList.add(publisher);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return publisherList;
+    }
+
 }

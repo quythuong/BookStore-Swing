@@ -213,6 +213,8 @@ public class StorageManagerFrame extends javax.swing.JFrame {
         private void panel_homeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_homeBtnMouseClicked
                 // TODO add your handling code here:
                 TabbedPane.setSelectedIndex(0);
+                
+                TabbedPane.setComponentAt(0, new panel_home());
                 if(panel_homeBtn.getBackground().equals(clickedButtonBackgroundColor))
 			return;
                 panel_homeBtn.setBackground(clickedButtonBackgroundColor);
@@ -223,6 +225,10 @@ public class StorageManagerFrame extends javax.swing.JFrame {
         private void panel_authorBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_authorBtnMouseClicked
                 // TODO add your handling code here:
                 TabbedPane.setSelectedIndex(1);
+                
+                // Load lại panel_authors
+                TabbedPane.setComponentAt(1, new panel_authors());
+                
                 if(panel_authorBtn.getBackground().equals(clickedButtonBackgroundColor))
 			return;
                 panel_authorBtn.setBackground(clickedButtonBackgroundColor);
@@ -233,6 +239,8 @@ public class StorageManagerFrame extends javax.swing.JFrame {
         private void panel_bookBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_bookBtnMouseClicked
                 // TODO add your handling code here:
                 TabbedPane.setSelectedIndex(2);
+                
+                TabbedPane.setComponentAt(2, new panel_books());
                 if(panel_bookBtn.getBackground().equals(clickedButtonBackgroundColor))
 			return;
                 panel_bookBtn.setBackground(clickedButtonBackgroundColor);
@@ -243,6 +251,8 @@ public class StorageManagerFrame extends javax.swing.JFrame {
         private void panel_iReceiptBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_iReceiptBtnMouseClicked
                 // TODO add your handling code here:
                 TabbedPane.setSelectedIndex(3);
+                
+                TabbedPane.setComponentAt(2, new panel_iReceipt());
                 if(panel_iReceiptBtn.getBackground().equals(clickedButtonBackgroundColor))
 			return;
                 panel_iReceiptBtn.setBackground(clickedButtonBackgroundColor);

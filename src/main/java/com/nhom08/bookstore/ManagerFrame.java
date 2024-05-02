@@ -273,6 +273,8 @@ public class ManagerFrame extends javax.swing.JFrame {
         private void panel_homeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_homeBtnMouseClicked
                 // TODO add your handling code here:
 		TabbedPane.setSelectedIndex(0);
+                
+                TabbedPane.setComponentAt(0, new panel_home());
 		if(panel_homeBtn.getBackground().equals(clickedButtonBackgroundColor))
 			return;
 		panel_homeBtn.setBackground(clickedButtonBackgroundColor);
@@ -283,6 +285,8 @@ public class ManagerFrame extends javax.swing.JFrame {
         private void panel_employeeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_employeeBtnMouseClicked
                 // TODO add your handling code here:
 		TabbedPane.setSelectedIndex(1);
+                
+                TabbedPane.setComponentAt(1, new panel_employees());
 		if(panel_employeeBtn.getBackground().equals(clickedButtonBackgroundColor))
 			return;
 		panel_employeeBtn.setBackground(clickedButtonBackgroundColor);
@@ -303,6 +307,10 @@ public class ManagerFrame extends javax.swing.JFrame {
         private void panel_bookBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_bookBtnMouseClicked
                 // TODO add your handling code here:
 		TabbedPane.setSelectedIndex(3);
+                
+                // Load lại panel_books
+                TabbedPane.setComponentAt(3, new panel_books());
+                
 		if(panel_bookBtn.getBackground().equals(clickedButtonBackgroundColor))
 			return;
 		panel_bookBtn.setBackground(clickedButtonBackgroundColor);
@@ -313,6 +321,8 @@ public class ManagerFrame extends javax.swing.JFrame {
         private void panel_statsBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_statsBtnMouseClicked
                 // TODO add your handling code here:
 		TabbedPane.setSelectedIndex(4);
+                
+                TabbedPane.setComponentAt(4, new Panel_Statistics());
 		if(panel_statsBtn.getBackground().equals(clickedButtonBackgroundColor))
 			return;
 		panel_statsBtn.setBackground(clickedButtonBackgroundColor);
@@ -323,6 +333,8 @@ public class ManagerFrame extends javax.swing.JFrame {
         private void panel_authorBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_authorBtnMouseClicked
                 // TODO add your handling code here:
 		TabbedPane.setSelectedIndex(5);
+                
+                TabbedPane.setComponentAt(5, new panel_authors());
 		if(panel_authorBtn.getBackground().equals(clickedButtonBackgroundColor))
 			return;
 		panel_authorBtn.setBackground(clickedButtonBackgroundColor);
