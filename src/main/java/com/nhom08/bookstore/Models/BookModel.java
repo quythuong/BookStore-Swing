@@ -4,6 +4,7 @@
  */
 package com.nhom08.bookstore.Models;
 
+import java.awt.Image;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,5 +28,26 @@ public class BookModel {
 	private int quantity;
 	private double price;
 	private String type;
-	//private Image image;
+        private String image;
+
+    public BookModel(String name, int quantity, double price) {
+        this.name = name;
+        this.quantity = quantity;
+        this.price = price;
+    }
+
+    public BookModel(String id, String name, int quantity, double price) {
+        this.id = id;
+        this.name = name;
+        this.quantity = quantity;
+        this.price = price;
+    }
+
+    public BookModel(String id) {
+        this.id = id;
+    }
+        
+        
+
+    
 }
