@@ -9,7 +9,6 @@ import com.nhom08.bookstore.DAO.IReceiptDetailsDAO;
 import com.nhom08.bookstore.Models.BookModel;
 import com.nhom08.bookstore.Models.IReceiptDetailsModel;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;

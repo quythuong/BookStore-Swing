@@ -6,6 +6,7 @@ package com.nhom08.bookstore.GUI.FunctionalPanels;
 
 import com.nhom08.bookstore.DAO.IReceiptDAO;
 import com.nhom08.bookstore.Models.IReceiptModel;
+import java.awt.Color;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import lombok.Getter;
@@ -97,6 +98,11 @@ public class panel_iReceipt extends javax.swing.JPanel {
                 btn_add.setFont(new java.awt.Font("Lexend", 0, 24)); // NOI18N
                 btn_add.setPreferredSize(new java.awt.Dimension(160, 42));
                 btn_add.setRadius(20);
+                btn_add.addMouseListener(new java.awt.event.MouseAdapter() {
+                        public void mouseClicked(java.awt.event.MouseEvent evt) {
+                                btn_addMouseClicked(evt);
+                        }
+                });
                 btn_add.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
                                 btn_addActionPerformed(evt);
@@ -308,8 +314,26 @@ public class panel_iReceipt extends javax.swing.JPanel {
 
         private void table_iReceiptListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_iReceiptListMouseClicked
                 // TODO add your handling code here:
-		
+		tf_date.setBackground(new Color(204, 204, 204));
+		tf_iReceiptId.setBackground(new Color(204, 204, 204));
+		tf_publisherId.setBackground(new Color(204, 204, 204));
         }//GEN-LAST:event_table_iReceiptListMouseClicked
+
+        private void btn_addMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_addMouseClicked
+                // TODO add your handling code here:
+		tf_date.setBackground(Color.WHITE);
+		tf_iReceiptId.setBackground(Color.WHITE);
+		tf_publisherId.setBackground(Color.WHITE);
+		
+		
+		tf_date.setEditable(true);
+		tf_iReceiptId.setEditable(true);
+		tf_publisherId.setEditable(true);
+		
+		iReceiptId = null;
+		
+		this.clearText();
+        }//GEN-LAST:event_btn_addMouseClicked
 
 
         // Variables declaration - do not modify//GEN-BEGIN:variables
