@@ -170,6 +170,11 @@ public class panel_iReceipt extends javax.swing.JPanel {
                 btn_delete.setFont(new java.awt.Font("Lexend", 0, 24)); // NOI18N
                 btn_delete.setPreferredSize(new java.awt.Dimension(160, 42));
                 btn_delete.setRadius(20);
+                btn_delete.addMouseListener(new java.awt.event.MouseAdapter() {
+                        public void mouseClicked(java.awt.event.MouseEvent evt) {
+                                btn_deleteMouseClicked(evt);
+                        }
+                });
                 btn_delete.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
                                 btn_deleteActionPerformed(evt);
@@ -419,7 +424,7 @@ public class panel_iReceipt extends javax.swing.JPanel {
         private void btn_editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_editMouseClicked
                 // TODO add your handling code here:
 		if(iReceiptId == null) {
-			JOptionPane.showMessageDialog(this, "Chưa chọn đơn nhập nào!");
+			JOptionPane.showMessageDialog(this, "Chưa chọn phiếu nhập nào!");
 			return;
 		}
 		enableText();
@@ -427,6 +432,26 @@ public class panel_iReceipt extends javax.swing.JPanel {
 		this.tf_iReceiptId.setBackground(new Color(204,204,204));
 		Mode = "edit"; 
         }//GEN-LAST:event_btn_editMouseClicked
+
+        private void btn_deleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_deleteMouseClicked
+                // TODO add your handling code here:
+		if(iReceiptId == null) {
+			JOptionPane.showMessageDialog(this, "Chưa chọn phiếu nhập nào!");
+			return;
+		}
+	    int dialogButton = JOptionPane.YES_NO_OPTION;
+	    int dialogResult = JOptionPane.showConfirmDialog (null, "Bạn có muốn xoá phiếu nhập " + "" + "?","Warning",dialogButton);
+		if(dialogResult == JOptionPane.YES_OPTION){
+			try {
+				iReceiptDAO.delete(iReceiptId);
+			} catch (SQLException ex) {
+				Logger.getLogger(panel_iReceipt.class.getName()).log(Level.SEVERE, null, ex);
+				JOptionPane.showMessageDialog(this, "Xoá phiếu nhập thất bại");
+			}
+			JOptionPane.showMessageDialog(this, "Xoá phiếu nhập thành công");
+			loadTable();
+		}
+        }//GEN-LAST:event_btn_deleteMouseClicked
 
 
         // Variables declaration - do not modify//GEN-BEGIN:variables

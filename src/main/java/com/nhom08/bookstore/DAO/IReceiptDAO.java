@@ -74,4 +74,17 @@ public class IReceiptDAO {
 	    }
 		return st.execute();
 	}
+	public boolean delete(String Id) throws SQLException {
+		PreparedStatement st = null;
+		
+		try {
+        
+            String sql = "delete from PhieuNhap where MaPhieuNhap=?;";	
+		st = con.prepareStatement(sql);
+		st.setString(1, Id);
+            } catch(SQLException e) {
+		    e.printStackTrace();
+	    }
+		return st.execute();
+	}
 }
