@@ -29,13 +29,22 @@ import javax.swing.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.nhom08.bookstore.DAO.ReceiptDAO;
+import com.nhom08.bookstore.DAO.ReceiptDetailsDAO;
 import com.nhom08.bookstore.Models.ModelItemSell;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.io.FileNotFoundException;
 import java.util.Calendar;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.event.TableModelEvent;
@@ -51,6 +60,8 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame {
 
     private FormHome home;
     private String maHoaDon;
+    private ReceiptDAO receiptDAO;
+    private ReceiptDetailsDAO receiptDetailsDAO;
 
     public Cashier_ReceiptFrame(String maHoaDon) {
         initComponents();
@@ -62,8 +73,10 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame {
         int ngay = calendar.get(Calendar.DATE);
         int thang = calendar.get(Calendar.MONTH) + 1; // Tháng bắt đầu từ 0, nên cộng thêm 1
         int nam = calendar.get(Calendar.YEAR);
-        jLabel3.setText("Date of receipt: " + ngay + "/" + thang + "/" + nam);
+        lb_date.setText("Date of receipt: " + ngay + "/" + thang + "/" + nam);
 
+        receiptDAO = new ReceiptDAO();
+        receiptDetailsDAO = new ReceiptDetailsDAO();
         //formatTable();
     }
 
@@ -101,7 +114,8 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame {
                         item.getName(),
                         1,
                         formattedPrice,
-                        formattedPrice
+                        formattedPrice,
+                        item.getId()
                     });
                 }
                 DecimalFormat df1 = new DecimalFormat("#,###");
@@ -134,13 +148,13 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame {
         lbl_accountName = new javax.swing.JLabel();
         textFieldCustom1 = new com.nhom08.bookstore.GUI.TextFieldCustom();
         mainPanel = new com.nhom08.bookstore.GUI.FunctionalPanels.main_CashierPanel();
+        panelToPrint = new javax.swing.JPanel();
         panelCustom2 = new Custom.PanelCustom();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lb_date = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         lb_mahoadon = new javax.swing.JLabel();
-        panelCustom9 = new Custom.PanelCustom();
         jScrollPane2 = new javax.swing.JScrollPane();
         tb_list = new javax.swing.JTable();
         panelCustom4 = new Custom.PanelCustom();
@@ -178,7 +192,7 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame {
         panel_Header.add(textFieldCustom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 11, 338, 41));
 
         getContentPane().add(panel_Header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 60));
-        getContentPane().add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 720, 720));
+        getContentPane().add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 700, 700));
 
         panelCustom2.setPreferredSize(new java.awt.Dimension(532, 87));
         panelCustom2.setRoundBottomLeft(30);
@@ -192,8 +206,8 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Lexend Light", 0, 14)); // NOI18N
         jLabel2.setText("Thank you for order our books");
 
-        jLabel3.setFont(new java.awt.Font("Lexend Light", 1, 15)); // NOI18N
-        jLabel3.setText("Date of receipt");
+        lb_date.setFont(new java.awt.Font("Lexend Light", 1, 15)); // NOI18N
+        lb_date.setText("Date of receipt");
 
         jLabel4.setFont(new java.awt.Font("Lexend Light", 1, 15)); // NOI18N
         jLabel4.setText("Receipt ID:");
@@ -207,22 +221,22 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame {
             .addGroup(panelCustom2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelCustom2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelCustom2Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lb_mahoadon, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCustom2Layout.createSequentialGroup()
-                        .addGap(0, 164, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(panelCustom2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCustom2Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(217, 217, 217))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCustom2Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
-                                .addGap(161, 161, 161))))))
+                                .addGap(161, 161, 161))))
+                    .addGroup(panelCustom2Layout.createSequentialGroup()
+                        .addComponent(lb_date)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lb_mahoadon, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         panelCustom2Layout.setVerticalGroup(
             panelCustom2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -233,34 +247,25 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelCustom2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(lb_date)
                     .addComponent(jLabel4)
                     .addComponent(lb_mahoadon))
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        getContentPane().add(panelCustom2, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 80, -1, -1));
-
-        panelCustom9.setBackground(new java.awt.Color(243, 243, 243));
-        panelCustom9.setPreferredSize(new java.awt.Dimension(532, 378));
-        panelCustom9.setRoundBottomLeft(30);
-        panelCustom9.setRoundBottomRigt(30);
-        panelCustom9.setRoundTopLeft(30);
-        panelCustom9.setRoundTopRigt(30);
 
         tb_list.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "STT", "Tên sách", "Số lượng", "Giá ", "Thành tiền"
+                "STT", "Tên sách", "Số lượng", "Giá ", "Thành tiền", "id"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true, false, false
+                false, false, true, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -279,23 +284,10 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame {
             tb_list.getColumnModel().getColumn(2).setPreferredWidth(0);
             tb_list.getColumnModel().getColumn(3).setPreferredWidth(10);
             tb_list.getColumnModel().getColumn(4).setPreferredWidth(10);
+            tb_list.getColumnModel().getColumn(5).setMinWidth(0);
+            tb_list.getColumnModel().getColumn(5).setPreferredWidth(0);
+            tb_list.getColumnModel().getColumn(5).setMaxWidth(0);
         }
-
-        javax.swing.GroupLayout panelCustom9Layout = new javax.swing.GroupLayout(panelCustom9);
-        panelCustom9.setLayout(panelCustom9Layout);
-        panelCustom9Layout.setHorizontalGroup(
-            panelCustom9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 532, Short.MAX_VALUE)
-        );
-        panelCustom9Layout.setVerticalGroup(
-            panelCustom9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCustom9Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        getContentPane().add(panelCustom9, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 170, -1, 180));
 
         panelCustom4.setPreferredSize(new java.awt.Dimension(532, 183));
         panelCustom4.setRoundBottomLeft(30);
@@ -319,10 +311,8 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame {
         jLabel23.setText("Sale :");
 
         lb_changed.setFont(new java.awt.Font("Lexend Light", 0, 14)); // NOI18N
-        lb_changed.setText("xxx.xxx.xxx.xxx.xxx VND");
 
         lb_sub.setFont(new java.awt.Font("Lexend Light", 0, 14)); // NOI18N
-        lb_sub.setText("xxx.xxx.xxx.xxx.xxx VND");
 
         lb_sale.setFont(new java.awt.Font("Lexend Light", 0, 14)); // NOI18N
         lb_sale.setText("10%");
@@ -448,56 +438,51 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame {
                 .addGap(24, 24, 24))
         );
 
-        getContentPane().add(panelCustom4, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 370, -1, -1));
+        javax.swing.GroupLayout panelToPrintLayout = new javax.swing.GroupLayout(panelToPrint);
+        panelToPrint.setLayout(panelToPrintLayout);
+        panelToPrintLayout.setHorizontalGroup(
+            panelToPrintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelToPrintLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelToPrintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelCustom2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelToPrintLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(panelToPrintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelToPrintLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(panelCustom4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 511, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(10, Short.MAX_VALUE))
+        );
+        panelToPrintLayout.setVerticalGroup(
+            panelToPrintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelToPrintLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelCustom2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelCustom4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(16, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(panelToPrint, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 70, 560, 460));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_exportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_exportActionPerformed
-        try {
-            com.itextpdf.text.Document document = new com.itextpdf.text.Document();
 
-            PdfWriter.getInstance(document, new FileOutputStream("Receipt.pdf"));
-
-            document.open();
-
-            document.add(new Paragraph("Receipt ID: " + lb_mahoadon.getText())); // Thêm mã hóa đơn
-            Calendar calendar = Calendar.getInstance();
-            int ngay = calendar.get(Calendar.DATE);
-            int thang = calendar.get(Calendar.MONTH) + 1; // Tháng bắt đầu từ 0, nên cộng thêm 1
-            int nam = calendar.get(Calendar.YEAR);
-            document.add(new Paragraph("Date of receipt: " + ngay + "/" + thang + "/" + nam)); // Thêm ngày tháng
-
-            // Thêm dữ liệu từ bảng vào Document
-            DefaultTableModel model = (DefaultTableModel) tb_list.getModel();
-            for (int row = 0; row < model.getRowCount(); row++) {
-
-                String name = (String) model.getValueAt(row, 1);
-                int quantity = (int) model.getValueAt(row, 2);
-                String price = (String) model.getValueAt(row, 3);
-                String totalPrice = (String) model.getValueAt(row, 4);
-                document.add(new Paragraph("Name: " + name));
-                document.add(new Paragraph("Quantity: " + quantity));
-                document.add(new Paragraph("Price: " + price));
-                document.add(new Paragraph("Total Price: " + totalPrice));
-                document.add(new Paragraph(" "));
-            }
-
-            // Thêm tổng tiền vào document
-            document.add(new Paragraph("Subtotal: " + lb_sub.getText()));
-            document.add(new Paragraph("Sale: " + lb_sale.getText()));
-            document.add(new Paragraph("Total: " + lb_total.getText()));
-            document.add(new Paragraph(" "));
-
-            // Đóng document
-            document.close();
-
-            // Thông báo khi xuất hóa đơn thành công
-            JOptionPane.showMessageDialog(null, "Xuất hóa đơn thành công!.", "Success", JOptionPane.INFORMATION_MESSAGE);
-        } catch (FileNotFoundException | DocumentException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Lỗi xuất hóa đơn", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        String maHoaDon = null;
+        double total = 0;
+        String maSach = null;
+        int soLuongBan = 0;
+        double gia = 0;
+        addChiTietHoaDon(maHoaDon, maSach, soLuongBan, gia);
+        updateTotalInHoaDon(maHoaDon, total);
+        
+        printRecord(panelToPrint);
     }//GEN-LAST:event_btn_exportActionPerformed
 
     /**
@@ -546,11 +531,11 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lb_cancle;
     private javax.swing.JLabel lb_changed;
+    private javax.swing.JLabel lb_date;
     private javax.swing.JLabel lb_iconTrash5;
     private javax.swing.JLabel lb_mahoadon;
     private javax.swing.JLabel lb_sale;
@@ -562,7 +547,7 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame {
     private Custom.PanelCustom panelCustom1;
     private Custom.PanelCustom panelCustom2;
     private Custom.PanelCustom panelCustom4;
-    private Custom.PanelCustom panelCustom9;
+    private javax.swing.JPanel panelToPrint;
     private javax.swing.JPanel panel_Header;
     private javax.swing.JTable tb_list;
     private com.nhom08.bookstore.GUI.TextFieldCustom textFieldCustom1;
@@ -670,7 +655,7 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame {
                         String formattedTotalPrice = df.format(totalPrice);
                         // Cập nhật giá trị mới vào cột
                         model.setValueAt(formattedTotalPrice, selectedRow, 4);
-                        
+
                         double subtotal = calculateTotal();
                         lb_sub.setText(df.format(subtotal) + " VND");
                         double total = subtotal - (subtotal * 0.1);
@@ -682,22 +667,6 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame {
                 }
             }
         });
-
-//        model.addTableModelListener(new TableModelListener(){
-//            @Override
-//            public void tableChanged(TableModelEvent e) {
-//                if (e.getType() == TableModelEvent.UPDATE){
-//                    int row = e.getFirstRow();
-//                    int column = e.getColumn();
-//                    if (column == 2){
-//                        double newValue = Double.parseDouble(model.getValueAt(row, column).toString().replaceAll(",", ""));
-//                        double subtotal = newValue *Double.parseDouble(model.getValueAt(row,3).toString());
-//                        model.setValueAt(subtotal, row, 4);
-//                    }
-//                }
-//            }
-//        
-//        });
     }
 
     private double calculateTotal() {
@@ -733,6 +702,61 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame {
             }
 
         });
+    }
+
+    private void printRecord(JPanel panelToPrint) {
+
+        btn_export.setVisible(false);
+        lb_cancle.setVisible(false);
+
+        PrinterJob printerJob = PrinterJob.getPrinterJob();
+        printerJob.setJobName("Print record");
+        printerJob.setPrintable(new Printable() {
+            @Override
+            public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
+                pageFormat.setOrientation(PageFormat.LANDSCAPE);
+                if (pageIndex > 0) {
+                    return Printable.NO_SUCH_PAGE;
+                }
+                Graphics2D graphics2D = (Graphics2D) graphics;
+//                graphics2D.translate(pageFormat.getImageableX()*2,pageFormat.getImageableY()*2);
+//                graphics2D.scale(0.5,0.5);
+                graphics2D.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
+                graphics2D.scale(0.47, 0.47);
+                panelToPrint.paint(graphics2D);
+                return Printable.PAGE_EXISTS;
+            }
+        });
+        boolean returningResult = printerJob.printDialog();
+        if (returningResult) {
+            try {
+                printerJob.print();
+            } catch (PrinterException printerException) {
+                JOptionPane.showMessageDialog(this, "Print Error: " + printerException.getMessage());
+            }
+        }
+    }
+
+    private void updateTotalInHoaDon(String maHoaDon, double total) {
+
+        String totalString1 = lb_total.getText().replace(",", "").replace("VND", "");
+        total = Double.parseDouble(totalString1);
+
+        receiptDAO.updateTotalInHoaDon(lb_mahoadon.getText(), total);
+    }
+
+    private void addChiTietHoaDon(String maHoaDon, String maSach, int soLuongBan, double gia) {
+        
+        for (int i = 0; i < tb_list.getRowCount(); i++) {
+            maSach = tb_list.getValueAt(i, 5).toString(); // Lấy mã sách từ cột đầu tiên
+            soLuongBan = Integer.parseInt(tb_list.getValueAt(i, 2).toString()); // Lấy số lượng bán từ cột thứ hai
+            gia = Double.parseDouble(tb_list.getValueAt(i, 4).toString().replaceAll(",","")); // Lấy giá từ cột thứ ba
+
+            // Thêm bản ghi mới vào bảng ChiTietHoaDon
+            receiptDetailsDAO.addChiTietHoaDon(lb_mahoadon.getText(), maSach, soLuongBan, gia);
+        }
+        
+        
     }
 
 }
