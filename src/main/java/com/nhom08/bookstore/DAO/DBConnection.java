@@ -27,6 +27,19 @@ public  class DBConnection {
 			e.printStackTrace();
 		}
 		return con;
-	}
-	
+	}	
+        
+     public static void main(String[] args) {
+        Connection con = null;
+        try {
+            con = DriverManager.getConnection("jdbc:sqlserver://LAPTOP-0BT01DIR;databaseName=QLNhaSach;user=sa;password=123456789;encrypt=false");
+            System.out.println("Ket noi database thanh cong!");
+
+        }catch(SQLException e){
+            System.out.println("Ket noi that bai!");
+            e.printStackTrace();
+        }
+        // Sử dụng kết nối con ở đây (nếu cần)
+    }
+
 }
