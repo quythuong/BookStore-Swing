@@ -7,10 +7,18 @@ package com.nhom08.bookstore.GUI.FunctionalPanels;
 import com.nhom08.bookstore.DAO.IReceiptDAO;
 import com.nhom08.bookstore.Models.IReceiptModel;
 import java.awt.Color;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import lombok.Getter;
 import lombok.Setter;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -26,20 +34,30 @@ public class panel_iReceipt extends javax.swing.JPanel {
 	private String iReceiptId;
 	private IReceiptDAO iReceiptDAO = new IReceiptDAO();
 	private DefaultTableModel tableModel;
+	SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
 	public panel_iReceipt() {
 		initComponents();
+		loadTable();
+	}
+	public void loadTable() {
 		List<IReceiptModel> iReceiptList = iReceiptDAO.getAll();
-		// load the table
-	
 		tableModel = (DefaultTableModel)table_iReceiptList.getModel();
+		//clear the table
+		tableModel.setRowCount(0);
+		// load the table
 		iReceiptList.forEach((e)->{
-			tableModel.addRow(new Object[] {e.getId(), e.getPublisherId(), e.getDate().toString()});
+			tableModel.addRow(new Object[] {e.getId(), e.getPublisherId(), formatter.format(e.getDate())});
 		});
 	}
 	public void clearText() {
 		this.tf_publisherId.setText("");
 		this.tf_iReceiptId.setText("");
 		this.tf_date.setText("");
+	}
+	public void disableText() {
+		tf_date.setEditable(true);
+		tf_iReceiptId.setEditable(true);
+		tf_publisherId.setEditable(true);
 	}
 
 	/**
@@ -253,9 +271,19 @@ public class panel_iReceipt extends javax.swing.JPanel {
                 panel_forInfo.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, -1));
 
                 lbl_saveBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/save.png"))); // NOI18N
+                lbl_saveBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+                        public void mouseClicked(java.awt.event.MouseEvent evt) {
+                                lbl_saveBtnMouseClicked(evt);
+                        }
+                });
                 panel_forInfo.add(lbl_saveBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 556, 40, 38));
 
                 lbl_clearBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cancle.png"))); // NOI18N
+                lbl_clearBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+                        public void mouseClicked(java.awt.event.MouseEvent evt) {
+                                lbl_clearBtnMouseClicked(evt);
+                        }
+                });
                 panel_forInfo.add(lbl_clearBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 556, 40, 38));
 
                 add(panel_forInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(766, 103, -1, -1));
@@ -326,14 +354,45 @@ public class panel_iReceipt extends javax.swing.JPanel {
 		tf_publisherId.setBackground(Color.WHITE);
 		
 		
-		tf_date.setEditable(true);
-		tf_iReceiptId.setEditable(true);
-		tf_publisherId.setEditable(true);
+		disableText();
 		
 		iReceiptId = null;
 		
 		this.clearText();
         }//GEN-LAST:event_btn_addMouseClicked
+
+        private void lbl_clearBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_clearBtnMouseClicked
+                // TODO add your handling code here:
+		clearText();
+		this.iReceiptId = null;
+		this.table_iReceiptList.clearSelection();
+        }//GEN-LAST:event_lbl_clearBtnMouseClicked
+
+        private void lbl_saveBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_saveBtnMouseClicked
+                // TODO add your handling code here:
+		if(!tf_iReceiptId.isEditable()) {
+			JOptionPane.showMessageDialog(this, "Chưa chọn thêm hoặc chỉnh sửa!");
+			return;
+		}
+		if(tf_iReceiptId.getText().isEmpty() || tf_publisherId.getText().isEmpty() || tf_date.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(this, "Không được để trống các trường!");
+			return;
+		}
+		
+		try {
+			IReceiptModel iReceipt = new IReceiptModel(tf_iReceiptId.getText(), tf_publisherId.getText(), new java.sql.Date(formatter.parse(tf_date.getText()).getTime()));
+			System.out.println(iReceipt.toString());
+			//save to DB
+			iReceiptDAO.save(iReceipt);
+		} catch (ParseException | SQLException ex) {
+			Logger.getLogger(panel_iReceipt.class.getName()).log(Level.SEVERE, null, ex);			JOptionPane.showMessageDialog(this, "Lưu phiếu nhập thất bại");
+
+		}
+		JOptionPane.showMessageDialog(this, "Lưu phiếu nhập thành công");
+		loadTable();
+		clearText();
+		disableText();
+        }//GEN-LAST:event_lbl_saveBtnMouseClicked
 
 
         // Variables declaration - do not modify//GEN-BEGIN:variables

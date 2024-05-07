@@ -5,6 +5,7 @@
 package com.nhom08.bookstore.DAO;
 
 import com.nhom08.bookstore.Models.BookModel;
+import com.nhom08.bookstore.Models.IReceiptDetailsModel;
 import com.nhom08.bookstore.Models.IReceiptModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -42,5 +43,20 @@ public class IReceiptDAO {
 			e.printStackTrace();
 		}
 		return iReceiptList;
+	}
+	public boolean save(IReceiptModel iReceipt) throws SQLException {
+		PreparedStatement st = null;
+		
+		try {
+        
+            String sql = "insert into PhieuNhap(MaPhieuNhap, MaNXB, NgayNhap) values(?, ?, ?);";	
+		st = con.prepareStatement(sql);
+		st.setString(1, iReceipt.getId());
+		st.setString(2, iReceipt.getPublisherId());
+		st.setDate(3, iReceipt.getDate());
+            } catch(SQLException e) {
+		    e.printStackTrace();
+	    }
+		return st.execute();
 	}
 }
