@@ -22,6 +22,9 @@ public class ManagerFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainFrame
      */
+    public void addTabToPane(String title, Component component) {
+        TabbedPane.addTab(title, component);
+    }
     public PanelCustom preTabBtn;
     public Color clickedButtonBackgroundColor = new Color(126, 152, 255);
     public Color sideBarBackgroundColor = new Color(149, 189, 255);
@@ -398,7 +401,7 @@ public class ManagerFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTabbedPane TabbedPane;
+    public javax.swing.JTabbedPane TabbedPane;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
