@@ -474,15 +474,25 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame {
 
     private void btn_exportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_exportActionPerformed
 
-        String maHoaDon = null;
-        double total = 0;
-        String maSach = null;
-        int soLuongBan = 0;
-        double gia = 0;
-        addChiTietHoaDon(maHoaDon, maSach, soLuongBan, gia);
-        updateTotalInHoaDon(maHoaDon, total);
-        
-        printRecord(panelToPrint);
+        int option = JOptionPane.showConfirmDialog(this, "Bạn có muốn xuất hóa đơn không?", "Xác nhận xuất hóa đơn", JOptionPane.YES_NO_OPTION);
+        if (option == JOptionPane.YES_OPTION) {
+
+            String maHoaDon = null;
+            double total = 0;
+            String maSach = null;
+            int soLuongBan = 0;
+            double gia = 0;
+            addChiTietHoaDon(maHoaDon, maSach, soLuongBan, gia);
+            updateTotalInHoaDon(maHoaDon, total);
+
+            printRecord(panelToPrint);
+
+            Cashier_ReceiptFrame receiptFrame = new Cashier_ReceiptFrame(maHoaDon);
+            receiptFrame.setVisible(false);
+
+            CashierFrame cs = new CashierFrame();
+            cs.setVisible(true);
+        }
     }//GEN-LAST:event_btn_exportActionPerformed
 
     /**
@@ -746,17 +756,16 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame {
     }
 
     private void addChiTietHoaDon(String maHoaDon, String maSach, int soLuongBan, double gia) {
-        
+
         for (int i = 0; i < tb_list.getRowCount(); i++) {
             maSach = tb_list.getValueAt(i, 5).toString(); // Lấy mã sách từ cột đầu tiên
             soLuongBan = Integer.parseInt(tb_list.getValueAt(i, 2).toString()); // Lấy số lượng bán từ cột thứ hai
-            gia = Double.parseDouble(tb_list.getValueAt(i, 4).toString().replaceAll(",","")); // Lấy giá từ cột thứ ba
+            gia = Double.parseDouble(tb_list.getValueAt(i, 4).toString().replaceAll(",", "")); // Lấy giá từ cột thứ ba
 
             // Thêm bản ghi mới vào bảng ChiTietHoaDon
             receiptDetailsDAO.addChiTietHoaDon(lb_mahoadon.getText(), maSach, soLuongBan, gia);
         }
-        
-        
+
     }
 
 }
