@@ -4,8 +4,13 @@
  */
 package com.nhom08.bookstore;
 
+import com.nhom08.bookstore.DAO.DBConnection;
+import com.nhom08.bookstore.DAO.LoginDAO;
 import java.awt.Image;
+import java.sql.Connection;
+import java.sql.SQLException;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,7 +26,8 @@ public class LoginFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         scale();
     }
-    public void scale(){
+
+    public void scale() {
 //        ImageIcon icon = new javax.swing.ImageIcon(getClass().getResource("/images/Login Background1280_800.png"));
 //        Image img = icon.getImage();
 //        Image scale = img.getScaledInstance(1280, 800, Image.SCALE_DEFAULT);
@@ -42,12 +48,12 @@ public class LoginFrame extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btn_login = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txt_username = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        txt_password = new javax.swing.JPasswordField();
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -72,11 +78,16 @@ public class LoginFrame extends javax.swing.JFrame {
         jLabel7.setText("— Or login with —");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(574, 520, -1, -1));
 
-        jButton1.setBackground(new java.awt.Color(255, 216, 156));
-        jButton1.setFont(new java.awt.Font("Lexend Medium", 0, 16)); // NOI18N
-        jButton1.setText("Login");
-        jButton1.setPreferredSize(new java.awt.Dimension(94, 32));
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(593, 447, -1, -1));
+        btn_login.setBackground(new java.awt.Color(255, 216, 156));
+        btn_login.setFont(new java.awt.Font("Lexend Medium", 0, 16)); // NOI18N
+        btn_login.setText("Login");
+        btn_login.setPreferredSize(new java.awt.Dimension(94, 32));
+        btn_login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_loginActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(593, 447, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Lexend Thin", 0, 12)); // NOI18N
         jLabel6.setText("Forgot password ?");
@@ -86,33 +97,33 @@ public class LoginFrame extends javax.swing.JFrame {
         jLabel4.setText("Username:");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(467, 291, -1, -1));
 
-        jTextField1.setFont(new java.awt.Font("Lexend Thin", 0, 12)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(157, 157, 157));
-        jTextField1.setText("Username");
-        jTextField1.setMinimumSize(new java.awt.Dimension(239, 31));
-        jTextField1.setPreferredSize(new java.awt.Dimension(239, 31));
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txt_username.setFont(new java.awt.Font("Lexend Thin", 0, 12)); // NOI18N
+        txt_username.setForeground(new java.awt.Color(157, 157, 157));
+        txt_username.setText("Username");
+        txt_username.setMinimumSize(new java.awt.Dimension(239, 31));
+        txt_username.setPreferredSize(new java.awt.Dimension(239, 31));
+        txt_username.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txt_usernameActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(574, 285, 239, 31));
+        getContentPane().add(txt_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(574, 285, 239, 31));
 
         jLabel5.setFont(new java.awt.Font("Lexend Light", 0, 16)); // NOI18N
         jLabel5.setText("Password:");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(467, 354, -1, -1));
 
-        jPasswordField1.setFont(new java.awt.Font("Lexend Thin", 0, 24)); // NOI18N
-        jPasswordField1.setForeground(new java.awt.Color(157, 157, 157));
-        jPasswordField1.setText("password");
-        jPasswordField1.setMinimumSize(new java.awt.Dimension(239, 31));
-        jPasswordField1.setPreferredSize(new java.awt.Dimension(239, 31));
-        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+        txt_password.setFont(new java.awt.Font("Lexend Thin", 0, 24)); // NOI18N
+        txt_password.setForeground(new java.awt.Color(157, 157, 157));
+        txt_password.setText("password");
+        txt_password.setMinimumSize(new java.awt.Dimension(239, 31));
+        txt_password.setPreferredSize(new java.awt.Dimension(239, 31));
+        txt_password.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField1ActionPerformed(evt);
+                txt_passwordActionPerformed(evt);
             }
         });
-        getContentPane().add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(574, 348, 239, 31));
+        getContentPane().add(txt_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(574, 348, 239, 31));
 
         jLabel3.setFont(new java.awt.Font("Lexend Light", 0, 16)); // NOI18N
         jLabel3.setText("Hi, login to get access to your roles");
@@ -128,13 +139,46 @@ public class LoginFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+    private void txt_passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_passwordActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordField1ActionPerformed
+    }//GEN-LAST:event_txt_passwordActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txt_usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_usernameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txt_usernameActionPerformed
+
+    private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
+        String tenDangNhap = txt_username.getText();
+        String matKhau = new String(txt_password.getPassword());
+
+        DBConnection dbConnection = new DBConnection();
+        Connection con = dbConnection.GetDBConnection();
+        LoginDAO loginDAO = new LoginDAO(con);
+        try {
+            int cap = loginDAO.dangNhap(tenDangNhap, matKhau);
+            if (cap > 0) {
+                this.setVisible(false); // Ẩn LoginFrame
+                if (cap == 1) {
+                    ManagerFrame managerFrame = new ManagerFrame(); // Tạo đối tượng ManagerFrame
+                    managerFrame.setVisible(true); // Hiển thị ManagerFrame
+                } else if (cap == 2) {
+                    CashierFrame cashierFrame = new CashierFrame(); // Tạo đối tượng CashierFrame
+                    cashierFrame.setVisible(true);
+                } else if (cap == 3) {
+                    StorageManagerFrame storagemanagerFrame = new StorageManagerFrame(); // Tạo đối tượng storagemanagerFrame
+                    storagemanagerFrame.setVisible(true);
+                }
+                // Đăng nhập thành công, ẩn LoginFrame và hiển thị Frame
+
+            } else {
+                // Đăng nhập thất bại, hiển thị thông báo cho người dùng
+                JOptionPane.showMessageDialog(LoginFrame.this, "Tên đăng nhập hoặc mật khẩu không đúng", "Đăng nhập không thành công", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException ex) {
+            // Xử lý khi có lỗi xảy ra
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_btn_loginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -203,7 +247,7 @@ public class LoginFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btn_login;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -213,8 +257,8 @@ public class LoginFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JPasswordField txt_password;
+    private javax.swing.JTextField txt_username;
     // End of variables declaration//GEN-END:variables
 }
