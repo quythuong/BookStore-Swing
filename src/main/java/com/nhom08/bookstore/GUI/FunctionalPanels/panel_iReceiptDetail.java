@@ -8,10 +8,13 @@ import com.nhom08.bookstore.DAO.BookDAO;
 import com.nhom08.bookstore.DAO.IReceiptDetailsDAO;
 import com.nhom08.bookstore.Models.BookModel;
 import com.nhom08.bookstore.Models.IReceiptDetailsModel;
+import java.awt.Color;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,17 +31,20 @@ public class panel_iReceiptDetail extends javax.swing.JPanel {
      * Creates new form panel_iReceiptDetail
      */
 	private String iReceiptId;
-	private IReceiptDetailsDAO iReceiptDAO = new IReceiptDetailsDAO();
+	private IReceiptDetailsModel selectedIReceiptDetails = null;
+	private IReceiptDetailsDAO iReceiptDetailDAO = new IReceiptDetailsDAO();
 	private BookDAO bookDAO = new BookDAO();
 	private DefaultTableModel tableModel;
+	private String Mode = null; // the trash code because of the UI
     public panel_iReceiptDetail() {
         initComponents();
-	
+	loadTable();
 	
     }
     public void loadTable() {
 	    tableModel = (DefaultTableModel)table_iReceiptDetails.getModel();
-	List<IReceiptDetailsModel> iReceiptDetailsList = iReceiptDAO.getAllByReceiptId(iReceiptId);
+	    tableModel.setRowCount(0);
+	List<IReceiptDetailsModel> iReceiptDetailsList = iReceiptDetailDAO.getAllByReceiptId(iReceiptId);
 	
 	iReceiptDetailsList.forEach((e)-> {
 		BookModel book;
@@ -49,6 +55,30 @@ public class panel_iReceiptDetail extends javax.swing.JPanel {
 			    Logger.getLogger(panel_iReceiptDetail.class.getName()).log(Level.SEVERE, null, ex);
 		    }
 	});
+    }
+    public void clearText() {
+	    tf_bookId.setText("");
+	    tf_bookName.setText("");
+	    tf_iReceiptId.setText("");
+	    tf_quantity.setText("");
+    }
+    public void enableText() {
+//		tf_bookId.setBackground(Color.WHITE);
+//		tf_iReceiptId.setBackground(Color.WHITE);
+		tf_quantity.setBackground(Color.WHITE);
+		
+//		tf_bookId.setEditable(true);
+//		tf_iReceiptId.setEditable(true);
+		tf_quantity.setEditable(true);
+    }
+    public void disableText() {
+	    tf_bookId.setBackground(new Color(204,204,204));
+		tf_iReceiptId.setBackground(new Color(204,204,204));
+		tf_quantity.setBackground(new Color(204,204,204));
+		
+		tf_bookId.setEditable(false);
+		tf_iReceiptId.setEditable(false);
+		tf_quantity.setEditable(false);
     }
 
     /**
@@ -64,6 +94,10 @@ public class panel_iReceiptDetail extends javax.swing.JPanel {
                 panelCustom3 = new Custom.PanelCustom();
                 jScrollPane1 = new javax.swing.JScrollPane();
                 table_iReceiptDetails = new javax.swing.JTable();
+                panelCustom2 = new Custom.PanelCustom();
+                btn_add = new Custom.ButtonCustom();
+                btn_edit = new Custom.ButtonCustom();
+                btn_delete = new Custom.ButtonCustom();
                 panelCustom4 = new Custom.PanelCustom();
                 jPanel1 = new javax.swing.JPanel();
                 tf_iReceiptId = new com.nhom08.bookstore.GUI.TextFieldCustom();
@@ -77,6 +111,8 @@ public class panel_iReceiptDetail extends javax.swing.JPanel {
                 jPanel5 = new javax.swing.JPanel();
                 tf_quantity = new com.nhom08.bookstore.GUI.TextFieldCustom();
                 jLabel7 = new javax.swing.JLabel();
+                lbl_clearBtn = new javax.swing.JLabel();
+                lbl_saveBtn = new javax.swing.JLabel();
                 lbl_backBtn = new javax.swing.JLabel();
 
                 setBackground(new java.awt.Color(255, 254, 251));
@@ -91,6 +127,7 @@ public class panel_iReceiptDetail extends javax.swing.JPanel {
                 panelCustom3.setRoundBottomRigt(10);
                 panelCustom3.setRoundTopLeft(10);
                 panelCustom3.setRoundTopRigt(10);
+                panelCustom3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
                 table_iReceiptDetails.setFont(new java.awt.Font("Lexend", 0, 14)); // NOI18N
                 table_iReceiptDetails.setModel(new javax.swing.table.DefaultTableModel(
@@ -109,22 +146,79 @@ public class panel_iReceiptDetail extends javax.swing.JPanel {
                 });
                 jScrollPane1.setViewportView(table_iReceiptDetails);
 
-                javax.swing.GroupLayout panelCustom3Layout = new javax.swing.GroupLayout(panelCustom3);
-                panelCustom3.setLayout(panelCustom3Layout);
-                panelCustom3Layout.setHorizontalGroup(
-                        panelCustom3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panelCustom3Layout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 649, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(22, Short.MAX_VALUE))
-                );
-                panelCustom3Layout.setVerticalGroup(
-                        panelCustom3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panelCustom3Layout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(20, Short.MAX_VALUE))
-                );
+                panelCustom3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 106, 649, 484));
+
+                panelCustom2.setPreferredSize(new java.awt.Dimension(695, 68));
+                panelCustom2.setRoundBottomLeft(10);
+                panelCustom2.setRoundBottomRigt(10);
+                panelCustom2.setRoundTopLeft(10);
+                panelCustom2.setRoundTopRigt(10);
+                panelCustom2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+                btn_add.setBackground(new java.awt.Color(217, 217, 217));
+                btn_add.setBorder(null);
+                btn_add.setText("Add");
+                btn_add.setBorderColor(new java.awt.Color(217, 217, 217));
+                btn_add.setColor(new java.awt.Color(217, 217, 217));
+                btn_add.setColorOver(new java.awt.Color(217, 217, 217));
+                btn_add.setFont(new java.awt.Font("Lexend", 0, 24)); // NOI18N
+                btn_add.setPreferredSize(new java.awt.Dimension(160, 42));
+                btn_add.setRadius(20);
+                btn_add.addMouseListener(new java.awt.event.MouseAdapter() {
+                        public void mouseClicked(java.awt.event.MouseEvent evt) {
+                                btn_addMouseClicked(evt);
+                        }
+                });
+                btn_add.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                btn_addActionPerformed(evt);
+                        }
+                });
+                panelCustom2.add(btn_add, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 14, -1, -1));
+
+                btn_edit.setBackground(new java.awt.Color(217, 217, 217));
+                btn_edit.setBorder(null);
+                btn_edit.setText("Edit");
+                btn_edit.setBorderColor(new java.awt.Color(217, 217, 217));
+                btn_edit.setColor(new java.awt.Color(217, 217, 217));
+                btn_edit.setColorOver(new java.awt.Color(217, 217, 217));
+                btn_edit.setFont(new java.awt.Font("Lexend", 0, 24)); // NOI18N
+                btn_edit.setPreferredSize(new java.awt.Dimension(160, 42));
+                btn_edit.setRadius(20);
+                btn_edit.addMouseListener(new java.awt.event.MouseAdapter() {
+                        public void mouseClicked(java.awt.event.MouseEvent evt) {
+                                btn_editMouseClicked(evt);
+                        }
+                });
+                btn_edit.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                btn_editActionPerformed(evt);
+                        }
+                });
+                panelCustom2.add(btn_edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(266, 14, -1, -1));
+
+                btn_delete.setBackground(new java.awt.Color(217, 217, 217));
+                btn_delete.setBorder(null);
+                btn_delete.setText("Delete");
+                btn_delete.setBorderColor(new java.awt.Color(217, 217, 217));
+                btn_delete.setColor(new java.awt.Color(217, 217, 217));
+                btn_delete.setColorOver(new java.awt.Color(217, 217, 217));
+                btn_delete.setFont(new java.awt.Font("Lexend", 0, 24)); // NOI18N
+                btn_delete.setPreferredSize(new java.awt.Dimension(160, 42));
+                btn_delete.setRadius(20);
+                btn_delete.addMouseListener(new java.awt.event.MouseAdapter() {
+                        public void mouseClicked(java.awt.event.MouseEvent evt) {
+                                btn_deleteMouseClicked(evt);
+                        }
+                });
+                btn_delete.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                btn_deleteActionPerformed(evt);
+                        }
+                });
+                panelCustom2.add(btn_delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(519, 14, -1, -1));
+
+                panelCustom3.add(panelCustom2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 690, -1));
 
                 add(panelCustom3, new org.netbeans.lib.awtextra.AbsoluteConstraints(41, 105, -1, 610));
 
@@ -211,6 +305,22 @@ public class panel_iReceiptDetail extends javax.swing.JPanel {
 
                 panelCustom4.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 228, -1, -1));
 
+                lbl_clearBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cancle.png"))); // NOI18N
+                lbl_clearBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+                        public void mouseClicked(java.awt.event.MouseEvent evt) {
+                                lbl_clearBtnMouseClicked(evt);
+                        }
+                });
+                panelCustom4.add(lbl_clearBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 556, 40, 38));
+
+                lbl_saveBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/save.png"))); // NOI18N
+                lbl_saveBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+                        public void mouseClicked(java.awt.event.MouseEvent evt) {
+                                lbl_saveBtnMouseClicked(evt);
+                        }
+                });
+                panelCustom4.add(lbl_saveBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 556, 40, 38));
+
                 add(panelCustom4, new org.netbeans.lib.awtextra.AbsoluteConstraints(766, 103, -1, -1));
 
                 lbl_backBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/arrow-small-left.png"))); // NOI18N
@@ -235,14 +345,119 @@ public class panel_iReceiptDetail extends javax.swing.JPanel {
 
         private void table_iReceiptDetailsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_iReceiptDetailsMouseClicked
                 // TODO add your handling code here:
-		tf_iReceiptId.setText(tableModel.getValueAt(table_iReceiptDetails.getSelectedRow(), 0).toString());
-		tf_bookId.setText(tableModel.getValueAt(table_iReceiptDetails.getSelectedRow(), 1).toString());
+		selectedIReceiptDetails = new IReceiptDetailsModel(tableModel.getValueAt(table_iReceiptDetails.getSelectedRow(), 0).toString(), tableModel.getValueAt(table_iReceiptDetails.getSelectedRow(), 1).toString(), Integer.parseInt(tableModel.getValueAt(table_iReceiptDetails.getSelectedRow(), 3).toString()));
+		tf_iReceiptId.setText(selectedIReceiptDetails.getIReceipId());
+		tf_bookId.setText(selectedIReceiptDetails.getBookId());
 		tf_bookName.setText(tableModel.getValueAt(table_iReceiptDetails.getSelectedRow(), 2).toString());
-		tf_quantity.setText(tableModel.getValueAt(table_iReceiptDetails.getSelectedRow(), 3).toString());
+		tf_quantity.setText(String.valueOf(selectedIReceiptDetails.getQuantity()));
         }//GEN-LAST:event_table_iReceiptDetailsMouseClicked
+
+        private void btn_addMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_addMouseClicked
+                // TODO add your handling code here:
+                Mode = "add";
+
+                enableText();
+
+                this.clearText();
+		tf_iReceiptId.setText(this.iReceiptId);
+		this.enableText();
+		tf_bookId.setEditable(true);
+		tf_bookId.setBackground(Color.WHITE);
+        }//GEN-LAST:event_btn_addMouseClicked
+
+        private void btn_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addActionPerformed
+                // TODO add your handling code here:
+        }//GEN-LAST:event_btn_addActionPerformed
+
+        private void btn_editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_editMouseClicked
+                // TODO add your handling code here:
+                if(selectedIReceiptDetails == null) {
+                        JOptionPane.showMessageDialog(this, "Chưa chọn phiếu nhập nào!");
+                        return;
+                }
+                enableText();
+                this.tf_iReceiptId.setEditable(false);
+                this.tf_iReceiptId.setBackground(new Color(204,204,204));
+                Mode = "edit";
+        }//GEN-LAST:event_btn_editMouseClicked
+
+        private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed
+                // TODO add your handling code here:
+        }//GEN-LAST:event_btn_editActionPerformed
+
+        private void btn_deleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_deleteMouseClicked
+                // TODO add your handling code here:
+                if(selectedIReceiptDetails == null) {
+                        JOptionPane.showMessageDialog(this, "Chưa chọn dòng chi tiết phiếu nhập nào!");
+                        return;
+                }
+                int dialogButton = JOptionPane.YES_NO_OPTION;
+                int dialogResult = JOptionPane.showConfirmDialog (null, "Bạn có muốn xoá chi tiết phiếu nhập " + "" + "?","Warning",dialogButton);
+                if(dialogResult == JOptionPane.YES_OPTION){
+                        try {
+                                iReceiptDetailDAO.delete(selectedIReceiptDetails);
+                        } catch (SQLException ex) {
+                                Logger.getLogger(panel_iReceipt.class.getName()).log(Level.SEVERE, null, ex);
+                                JOptionPane.showMessageDialog(this, "Xoá chi tiết phiếu nhập thất bại");
+                        }
+                        JOptionPane.showMessageDialog(this, "Xoá chi tiết phiếu nhập thành công");
+                        loadTable();
+                }
+        }//GEN-LAST:event_btn_deleteMouseClicked
+
+        private void btn_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteActionPerformed
+                // TODO add your handling code here:
+        }//GEN-LAST:event_btn_deleteActionPerformed
+
+        private void lbl_clearBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_clearBtnMouseClicked
+                // TODO add your handling code here:
+                clearText();
+                this.iReceiptId = null;
+                this.table_iReceiptDetails.clearSelection();
+        }//GEN-LAST:event_lbl_clearBtnMouseClicked
+
+        private void lbl_saveBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_saveBtnMouseClicked
+                // TODO add your handling code here:
+                if(Mode == null) {
+                        JOptionPane.showMessageDialog(this, "Chưa chọn thêm hoặc chỉnh sửa!");
+                        return;
+                }
+                if(tf_iReceiptId.getText().isEmpty() || tf_bookId.getText().isEmpty() || tf_quantity.getText().isEmpty()) {
+                        JOptionPane.showMessageDialog(this, "Không được để trống các trường!");
+                        return;
+                }
+                try {
+
+                        IReceiptDetailsModel iReceiptDetailsModel = new IReceiptDetailsModel(tf_iReceiptId.getText(), tf_bookId.getText(), Integer.parseInt(tf_quantity.getText()));
+                        System.out.println(iReceiptDetailsModel.toString());
+                        //save to DB
+                        if("add".equals(Mode)) {
+                                iReceiptDetailDAO.save(iReceiptDetailsModel);
+                        } else if("edit".equals(Mode)) {
+                                iReceiptDetailDAO.update(iReceiptDetailsModel);
+                        }
+                } catch (SQLException ex) {
+                        Logger.getLogger(panel_iReceipt.class.getName()).log(Level.SEVERE, null, ex);			JOptionPane.showMessageDialog(this, "Thất bại");
+			Mode = null;
+                }
+                if("add".equals(Mode)) {
+                        JOptionPane.showMessageDialog(this, "Thêm chi tiết phiếu nhập thành công");
+                } else if("edit".equals(Mode)) {
+                        JOptionPane.showMessageDialog(this, "Sửa chi tiết phiếu nhập thành công");
+                }
+
+                loadTable();
+                clearText();
+                disableText();
+                Mode = null;
+		selectedIReceiptDetails = null;
+        }//GEN-LAST:event_lbl_saveBtnMouseClicked
 
 
         // Variables declaration - do not modify//GEN-BEGIN:variables
+        private Custom.ButtonCustom btn_add;
+        private Custom.ButtonCustom btn_delete;
+        private Custom.ButtonCustom btn_edit;
         private javax.swing.JLabel jLabel2;
         private javax.swing.JLabel jLabel4;
         private javax.swing.JLabel jLabel5;
@@ -254,6 +469,9 @@ public class panel_iReceiptDetail extends javax.swing.JPanel {
         private javax.swing.JPanel jPanel5;
         private javax.swing.JScrollPane jScrollPane1;
         private javax.swing.JLabel lbl_backBtn;
+        private javax.swing.JLabel lbl_clearBtn;
+        private javax.swing.JLabel lbl_saveBtn;
+        private Custom.PanelCustom panelCustom2;
         private Custom.PanelCustom panelCustom3;
         private Custom.PanelCustom panelCustom4;
         private javax.swing.JTable table_iReceiptDetails;

@@ -34,7 +34,7 @@ public class panel_iReceipt extends javax.swing.JPanel {
 	private String iReceiptId;
 	private IReceiptDAO iReceiptDAO = new IReceiptDAO();
 	private DefaultTableModel tableModel;
-	private String Mode;// the trash code because of the UI
+	private String Mode = null;// the trash code because of the UI
 	SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
 	public panel_iReceipt() {
 		initComponents();
@@ -440,7 +440,7 @@ public class panel_iReceipt extends javax.swing.JPanel {
 			return;
 		}
 	    int dialogButton = JOptionPane.YES_NO_OPTION;
-	    int dialogResult = JOptionPane.showConfirmDialog (null, "Bạn có muốn xoá phiếu nhập " + "" + "?","Warning",dialogButton);
+	    int dialogResult = JOptionPane.showConfirmDialog (null, "Bạn có muốn xoá phiếu nhập " + iReceiptId + "?","Warning",dialogButton);
 		if(dialogResult == JOptionPane.YES_OPTION){
 			try {
 				iReceiptDAO.delete(iReceiptId);
