@@ -34,6 +34,7 @@ public class panel_iReceipt extends javax.swing.JPanel {
 	private String iReceiptId;
 	private IReceiptDAO iReceiptDAO = new IReceiptDAO();
 	private DefaultTableModel tableModel;
+	private String Mode;// the trash code because of the UI
 	SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
 	public panel_iReceipt() {
 		initComponents();
@@ -55,6 +56,17 @@ public class panel_iReceipt extends javax.swing.JPanel {
 		this.tf_date.setText("");
 	}
 	public void disableText() {
+		tf_date.setBackground(new Color(204,204,204));
+		tf_iReceiptId.setBackground(new Color(204,204,204));
+		tf_publisherId.setBackground(new Color(204,204,204));
+		tf_date.setEditable(false);
+		tf_iReceiptId.setEditable(false);
+		tf_publisherId.setEditable(false);
+	}
+	public void enableText() {
+		tf_date.setBackground(Color.WHITE);
+		tf_iReceiptId.setBackground(Color.WHITE);
+		tf_publisherId.setBackground(Color.WHITE);
 		tf_date.setEditable(true);
 		tf_iReceiptId.setEditable(true);
 		tf_publisherId.setEditable(true);
@@ -137,6 +149,11 @@ public class panel_iReceipt extends javax.swing.JPanel {
                 btn_edit.setFont(new java.awt.Font("Lexend", 0, 24)); // NOI18N
                 btn_edit.setPreferredSize(new java.awt.Dimension(160, 42));
                 btn_edit.setRadius(20);
+                btn_edit.addMouseListener(new java.awt.event.MouseAdapter() {
+                        public void mouseClicked(java.awt.event.MouseEvent evt) {
+                                btn_editMouseClicked(evt);
+                        }
+                });
                 btn_edit.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
                                 btn_editActionPerformed(evt);
@@ -349,13 +366,9 @@ public class panel_iReceipt extends javax.swing.JPanel {
 
         private void btn_addMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_addMouseClicked
                 // TODO add your handling code here:
-		tf_date.setBackground(Color.WHITE);
-		tf_iReceiptId.setBackground(Color.WHITE);
-		tf_publisherId.setBackground(Color.WHITE);
+		Mode = "add";
 		
-		
-		disableText();
-		
+		enableText();		
 		iReceiptId = null;
 		
 		this.clearText();
@@ -370,7 +383,7 @@ public class panel_iReceipt extends javax.swing.JPanel {
 
         private void lbl_saveBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_saveBtnMouseClicked
                 // TODO add your handling code here:
-		if(!tf_iReceiptId.isEditable()) {
+		if(Mode == null) {
 			JOptionPane.showMessageDialog(this, "Chưa chọn thêm hoặc chỉnh sửa!");
 			return;
 		}
@@ -378,21 +391,42 @@ public class panel_iReceipt extends javax.swing.JPanel {
 			JOptionPane.showMessageDialog(this, "Không được để trống các trường!");
 			return;
 		}
-		
 		try {
+			
 			IReceiptModel iReceipt = new IReceiptModel(tf_iReceiptId.getText(), tf_publisherId.getText(), new java.sql.Date(formatter.parse(tf_date.getText()).getTime()));
 			System.out.println(iReceipt.toString());
 			//save to DB
-			iReceiptDAO.save(iReceipt);
+			if("add".equals(Mode)) {
+				iReceiptDAO.save(iReceipt);
+			} else if("edit".equals(Mode)) {
+				iReceiptDAO.update(iReceipt);
+			}
 		} catch (ParseException | SQLException ex) {
-			Logger.getLogger(panel_iReceipt.class.getName()).log(Level.SEVERE, null, ex);			JOptionPane.showMessageDialog(this, "Lưu phiếu nhập thất bại");
-
+			Logger.getLogger(panel_iReceipt.class.getName()).log(Level.SEVERE, null, ex);			JOptionPane.showMessageDialog(this, "Thất bại");
 		}
-		JOptionPane.showMessageDialog(this, "Lưu phiếu nhập thành công");
+		if("add".equals(Mode)) {
+			JOptionPane.showMessageDialog(this, "Thêm phiếu nhập thành công");
+		} else if("edit".equals(Mode)) {
+			JOptionPane.showMessageDialog(this, "Sửa phiếu nhập thành công");
+		}
+		
 		loadTable();
 		clearText();
 		disableText();
+		Mode = null;
         }//GEN-LAST:event_lbl_saveBtnMouseClicked
+
+        private void btn_editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_editMouseClicked
+                // TODO add your handling code here:
+		if(iReceiptId == null) {
+			JOptionPane.showMessageDialog(this, "Chưa chọn đơn nhập nào!");
+			return;
+		}
+		enableText();
+		this.tf_iReceiptId.setEditable(false);
+		this.tf_iReceiptId.setBackground(new Color(204,204,204));
+		Mode = "edit"; 
+        }//GEN-LAST:event_btn_editMouseClicked
 
 
         // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -59,4 +59,19 @@ public class IReceiptDAO {
 	    }
 		return st.execute();
 	}
+	public boolean update(IReceiptModel iReceipt) throws SQLException {
+		PreparedStatement st = null;
+		
+		try {
+        
+            String sql = "update PhieuNhap set MaNXB=?, NgayNhap=? where MaPhieuNhap=?;";	
+		st = con.prepareStatement(sql);
+		st.setString(3, iReceipt.getId());
+		st.setString(1, iReceipt.getPublisherId());
+		st.setDate(2, iReceipt.getDate());
+            } catch(SQLException e) {
+		    e.printStackTrace();
+	    }
+		return st.execute();
+	}
 }
