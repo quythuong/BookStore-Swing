@@ -12,21 +12,22 @@ import java.sql.SQLException;
  *
  * @author quythuong
  */
-public  class DBConnection {
-	// doi ten server "MSI\\SQLEXPRESS" cho phu hop voi may
-	private String ConnectionString = "jdbc:sqlserver://MSI\\SQLEXPRESS;Database=QLNhaSach;IntegratedSecurity=true;encrypt=true;trustServerCertificate=true"; 
-	Connection con = null;
-	
-	public Connection GetDBConnection() {
-		try {
-			con = DriverManager.getConnection(ConnectionString);
-			System.out.println("Ket noi database thanh cong!");
-			
-		} catch(SQLException e) {
-			System.out.println("Ket noi that bai!");
-			e.printStackTrace();
-		}
-		return con;
-	}
-	
+public class DBConnection {
+    // doi ten server "MSI\\SQLEXPRESS" cho phu hop voi may
+
+    private String ConnectionString = "jdbc:sqlserver://DESKTOP-71H1I04;Database=QLNhaSach;IntegratedSecurity=true;encrypt=false;trustServerCertificate=true";
+    Connection con = null;
+
+    public Connection GetDBConnection() {
+        try {
+            con = DriverManager.getConnection(ConnectionString);
+            System.out.println("Ket noi database thanh cong!");
+
+        } catch (SQLException e) {
+            System.out.println("Ket noi that bai!");
+            e.printStackTrace();
+        }
+        return con;
+    }
+
 }

@@ -4,6 +4,17 @@
  */
 package com.nhom08.bookstore.GUI.FunctionalPanels;
 
+import com.nhom08.bookstore.DAO.DBConnection;
+import com.nhom08.bookstore.DAO.ShiftDAO;
+import com.nhom08.bookstore.ManagerFrame;
+import com.nhom08.bookstore.Models.ShiftModel;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Admin
@@ -13,10 +24,102 @@ public class panel_shifts extends javax.swing.JPanel {
     /**
      * Creates new form panel_ShiftManager
      */
+    private ShiftDAO shiftDAO;
+
     public panel_shifts() {
         initComponents();
+
+        // Khởi tạo kết nối CSDL từ DBConnection
+        Connection con = (new DBConnection()).GetDBConnection();
+
+        // Khởi tạo đối tượng EmployeeDAO với kết nối CSDL đã tạo
+        shiftDAO = new ShiftDAO();
+
+        try {
+            // Khởi tạo combobox mà không thêm bất kỳ mục nào vào ban đầu
+            cb_maNV.setModel(new javax.swing.DefaultComboBoxModel<>());
+
+            // Lấy danh sách mã nhân viên từ cơ sở dữ liệu bằng cách gọi phương thức từ ShiftDAO
+            List<Integer> maNVList = shiftDAO.getAllEmployeeIDs();
+
+            // Thêm các mã nhân viên vào combobox
+            for (Integer maNV : maNVList) {
+                cb_maNV.addItem(String.valueOf(maNV));
+            }
+            // Hiển thị dữ liệu nhân viên
+            displayShiftData();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
+    private void displayShiftData() throws SQLException {
+        // Lấy danh sách các ca làm từ ShiftDAO
+        reset();
+        List<ShiftModel> shifts = shiftDAO.getAllShifts();
+
+        // Tạo một DefaultTableModel để lưu trữ dữ liệu
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        // Xóa tất cả các dòng hiện có trong bảng
+        model.setRowCount(0);
+
+        // Lặp qua danh sách các ca làm và thêm chúng vào bảng
+        for (ShiftModel shift : shifts) {
+            model.addRow(new Object[]{
+                shift.getId(),
+                shift.getName(),
+                shift.getShift(),
+                shift.getDate(),
+                shift.getPosition()
+            });
+        }
+    }
+
+    private void displayNameInfo() {
+        try {
+            // Lấy mã nhân viên được chọn từ combobox
+            int selectedEmployeeId = Integer.parseInt(cb_maNV.getSelectedItem().toString());
+
+            // Gọi phương thức trong ShiftDAO để lấy tên nhân viên tương ứng
+            String employeeName = shiftDAO.getEmployeeNameById(selectedEmployeeId);
+
+            // Hiển thị tên nhân viên tương ứng trong txt_tenNV
+            txt_tenNV.setText(employeeName);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void displayPositionInfo() {
+        try {
+            // Lấy mã nhân viên được chọn từ combobox
+            int selectedEmployeeId = Integer.parseInt(cb_maNV.getSelectedItem().toString());
+
+            // Gọi phương thức trong ShiftDAO để lấy tên nhân viên tương ứng
+            String employeePosition = shiftDAO.getPositionById(selectedEmployeeId);
+
+            // Hiển thị tên nhân viên tương ứng trong txt_tenNV
+            txt_chucVu.setText(employeePosition);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    private void reset() {
+        btn_edit.setEnabled(false);
+        btn_delete.setEnabled(false);
+        btn_add.setEnabled(true);
+        cb_maNV.setEnabled(true);
+        txt_tenNV.setEnabled(false);
+        cb_thu.setEnabled(true);
+        cb_ca.setEnabled(true);
+        txt_chucVu.setEnabled(false);
+        cb_maNV.setSelectedItem(0);
+        txt_tenNV.setText("");
+        cb_thu.setSelectedIndex(0); // Chọn giá trị mặc định hoặc giá trị mong muốn khác
+        cb_ca.setSelectedIndex(0); // Chọn giá trị mặc định hoặc giá trị mong muốn khác
+        txt_chucVu.setText("");
+        // Mở và xóa các text field khác ở đây tương tự
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,38 +129,43 @@ public class panel_shifts extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel13 = new javax.swing.JLabel();
+        arrow = new javax.swing.JLabel();
         panelCustom3 = new Custom.PanelCustom();
         jPanel1 = new javax.swing.JPanel();
-        textFieldCustom3 = new com.nhom08.bookstore.GUI.TextFieldCustom();
         jLabel4 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        textFieldCustom4 = new com.nhom08.bookstore.GUI.TextFieldCustom();
-        jLabel5 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        textFieldCustom5 = new com.nhom08.bookstore.GUI.TextFieldCustom();
-        jLabel6 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        textFieldCustom6 = new com.nhom08.bookstore.GUI.TextFieldCustom();
+        cb_maNV = new javax.swing.JComboBox<>();
+        btn_huy = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        textFieldCustom7 = new com.nhom08.bookstore.GUI.TextFieldCustom();
+        txt_chucVu = new com.nhom08.bookstore.GUI.TextFieldCustom();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        cb_ca = new javax.swing.JComboBox<>();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        cb_thu = new javax.swing.JComboBox<>();
+        jPanel5 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
-        textFieldCustom8 = new com.nhom08.bookstore.GUI.TextFieldCustom();
-        jLabel9 = new javax.swing.JLabel();
-        jPanel8 = new javax.swing.JPanel();
-        textFieldCustom9 = new com.nhom08.bookstore.GUI.TextFieldCustom();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        txt_tenNV = new com.nhom08.bookstore.GUI.TextFieldCustom();
         panelCustom2 = new Custom.PanelCustom();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
+        panelCustom1 = new Custom.PanelCustom();
+        btn_add = new Custom.ButtonCustom();
+        btn_edit = new Custom.ButtonCustom();
+        btn_delete = new Custom.ButtonCustom();
 
         setBackground(new java.awt.Color(255, 254, 251));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/arrow-small-left.png"))); // NOI18N
-        add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(41, 24, -1, -1));
+        arrow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/arrow-small-left.png"))); // NOI18N
+        arrow.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                arrowMouseClicked(evt);
+            }
+        });
+        add(arrow, new org.netbeans.lib.awtextra.AbsoluteConstraints(41, 24, -1, -1));
 
         panelCustom3.setPreferredSize(new java.awt.Dimension(248, 612));
         panelCustom3.setRoundBottomLeft(10);
@@ -68,118 +176,70 @@ public class panel_shifts extends javax.swing.JPanel {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        textFieldCustom3.setPreferredSize(new java.awt.Dimension(210, 33));
-        textFieldCustom3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldCustom3ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(textFieldCustom3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 210, 32));
-
         jLabel4.setFont(new java.awt.Font("Lexend", 0, 15)); // NOI18N
-        jLabel4.setText("XXXXX.");
+        jLabel4.setText("Mã NV");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
 
-        panelCustom3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 21, -1, -1));
+        cb_maNV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_maNVActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cb_maNV, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 210, 40));
+
+        panelCustom3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 21, -1, 80));
+
+        btn_huy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cancle.png"))); // NOI18N
+        btn_huy.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_huyMouseClicked(evt);
+            }
+        });
+        panelCustom3.add(btn_huy, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 556, 40, 38));
+
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel7.setFont(new java.awt.Font("Lexend", 0, 15)); // NOI18N
+        jLabel7.setText("Chức vụ");
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
+
+        txt_chucVu.setPreferredSize(new java.awt.Dimension(210, 33));
+        jPanel2.add(txt_chucVu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 210, 40));
+
+        panelCustom3.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, -1, 80));
 
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        textFieldCustom4.setPreferredSize(new java.awt.Dimension(210, 33));
-        textFieldCustom4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldCustom4ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(textFieldCustom4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 210, 32));
-
         jLabel5.setFont(new java.awt.Font("Lexend", 0, 15)); // NOI18N
-        jLabel5.setText("XXXXX.");
+        jLabel5.setText("Ca Làm");
         jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
 
-        panelCustom3.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 90, -1, -1));
+        cb_ca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Morning", "Afternoon", "Evening" }));
+        jPanel3.add(cb_ca, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 210, 40));
+
+        panelCustom3.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, -1, 80));
 
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        textFieldCustom5.setPreferredSize(new java.awt.Dimension(210, 33));
-        textFieldCustom5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldCustom5ActionPerformed(evt);
-            }
-        });
-        jPanel4.add(textFieldCustom5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 210, 32));
-
         jLabel6.setFont(new java.awt.Font("Lexend", 0, 15)); // NOI18N
-        jLabel6.setText("XXXXX.");
+        jLabel6.setText("Thứ");
         jPanel4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
 
-        panelCustom3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 159, -1, -1));
+        cb_thu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mon", "Tue", "Wed", "Thu", "Fri", "Sun", " " }));
+        jPanel4.add(cb_thu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 210, 40));
+
+        panelCustom3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, -1, 80));
 
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        textFieldCustom6.setPreferredSize(new java.awt.Dimension(210, 33));
-        textFieldCustom6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldCustom6ActionPerformed(evt);
-            }
-        });
-        jPanel5.add(textFieldCustom6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 210, 32));
-
-        jLabel7.setFont(new java.awt.Font("Lexend", 0, 15)); // NOI18N
-        jLabel7.setText("XXXXX.");
-        jPanel5.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
-
-        panelCustom3.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 228, -1, -1));
-
-        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        textFieldCustom7.setPreferredSize(new java.awt.Dimension(210, 33));
-        textFieldCustom7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldCustom7ActionPerformed(evt);
-            }
-        });
-        jPanel6.add(textFieldCustom7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 210, 32));
-
         jLabel8.setFont(new java.awt.Font("Lexend", 0, 15)); // NOI18N
-        jLabel8.setText("XXXXX.");
-        jPanel6.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
+        jLabel8.setText("Tên Nhân Viên");
+        jPanel5.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
 
-        panelCustom3.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 297, -1, -1));
+        txt_tenNV.setPreferredSize(new java.awt.Dimension(210, 33));
+        jPanel5.add(txt_tenNV, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 210, 40));
 
-        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        textFieldCustom8.setPreferredSize(new java.awt.Dimension(210, 33));
-        textFieldCustom8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldCustom8ActionPerformed(evt);
-            }
-        });
-        jPanel7.add(textFieldCustom8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 210, 32));
-
-        jLabel9.setFont(new java.awt.Font("Lexend", 0, 15)); // NOI18N
-        jLabel9.setText("XXXXX.");
-        jPanel7.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
-
-        panelCustom3.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 366, -1, -1));
-
-        jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        textFieldCustom9.setPreferredSize(new java.awt.Dimension(210, 33));
-        textFieldCustom9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldCustom9ActionPerformed(evt);
-            }
-        });
-        jPanel8.add(textFieldCustom9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 210, 32));
-
-        jLabel10.setFont(new java.awt.Font("Lexend", 0, 15)); // NOI18N
-        jLabel10.setText("XXXXX.");
-        jPanel8.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
-
-        panelCustom3.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 435, -1, -1));
-
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cancle.png"))); // NOI18N
-        panelCustom3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 556, 40, 38));
+        panelCustom3.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, 80));
 
         add(panelCustom3, new org.netbeans.lib.awtextra.AbsoluteConstraints(766, 103, -1, -1));
 
@@ -189,79 +249,232 @@ public class panel_shifts extends javax.swing.JPanel {
         panelCustom2.setRoundTopLeft(10);
         panelCustom2.setRoundTopRigt(10);
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Mã NV", "Tên NV", "Ca", "Thứ", "Chúc vụ"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
         javax.swing.GroupLayout panelCustom2Layout = new javax.swing.GroupLayout(panelCustom2);
         panelCustom2.setLayout(panelCustom2Layout);
         panelCustom2Layout.setHorizontalGroup(
             panelCustom2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 695, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 695, Short.MAX_VALUE)
         );
         panelCustom2Layout.setVerticalGroup(
             panelCustom2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 610, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
         );
 
-        add(panelCustom2, new org.netbeans.lib.awtextra.AbsoluteConstraints(41, 105, -1, 610));
+        add(panelCustom2, new org.netbeans.lib.awtextra.AbsoluteConstraints(41, 195, -1, 520));
 
         jLabel2.setFont(new java.awt.Font("Lexend", 0, 30)); // NOI18N
         jLabel2.setText("Shifts Management");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(286, 25, -1, -1));
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 30, -1, -1));
+
+        panelCustom1.setPreferredSize(new java.awt.Dimension(695, 68));
+        panelCustom1.setRoundBottomLeft(10);
+        panelCustom1.setRoundBottomRigt(10);
+        panelCustom1.setRoundTopLeft(10);
+        panelCustom1.setRoundTopRigt(10);
+        panelCustom1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btn_add.setBackground(new java.awt.Color(217, 217, 217));
+        btn_add.setBorder(null);
+        btn_add.setText("Add");
+        btn_add.setBorderColor(new java.awt.Color(217, 217, 217));
+        btn_add.setFont(new java.awt.Font("Lexend", 0, 24)); // NOI18N
+        btn_add.setPreferredSize(new java.awt.Dimension(160, 42));
+        btn_add.setRadius(20);
+        btn_add.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_addActionPerformed(evt);
+            }
+        });
+        panelCustom1.add(btn_add, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 14, -1, -1));
+
+        btn_edit.setBackground(new java.awt.Color(217, 217, 217));
+        btn_edit.setBorder(null);
+        btn_edit.setText("Edit");
+        btn_edit.setBorderColor(new java.awt.Color(217, 217, 217));
+        btn_edit.setFont(new java.awt.Font("Lexend", 0, 24)); // NOI18N
+        btn_edit.setPreferredSize(new java.awt.Dimension(160, 42));
+        btn_edit.setRadius(20);
+        btn_edit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_editActionPerformed(evt);
+            }
+        });
+        panelCustom1.add(btn_edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(266, 14, -1, -1));
+
+        btn_delete.setBackground(new java.awt.Color(217, 217, 217));
+        btn_delete.setBorder(null);
+        btn_delete.setText("Delete");
+        btn_delete.setBorderColor(new java.awt.Color(217, 217, 217));
+        btn_delete.setFont(new java.awt.Font("Lexend", 0, 24)); // NOI18N
+        btn_delete.setPreferredSize(new java.awt.Dimension(160, 42));
+        btn_delete.setRadius(20);
+        btn_delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_deleteActionPerformed(evt);
+            }
+        });
+        panelCustom1.add(btn_delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(519, 14, -1, -1));
+
+        add(panelCustom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void textFieldCustom3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldCustom3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldCustom3ActionPerformed
+    private void btn_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addActionPerformed
+// Lấy thông tin từ các trường nhập liệu
+        // Lấy thông tin từ các trường nhập liệu
+        int id = Integer.parseInt((String) cb_maNV.getSelectedItem()); // Đây là ID của nhân viên, bạn cần điều chỉnh nếu ID của ca làm không phải là kiểu int
+        String shift = (String) cb_ca.getSelectedItem(); // Ca làm được chọn từ combobox
+        String date = (String) cb_thu.getSelectedItem(); // Ngày làm được chọn từ combobox
+        String position = (String) txt_chucVu.getText();
+        try {
+            // Gọi phương thức addShift của ShiftDAO để thêm ca làm mới vào CSDL
+            shiftDAO.addShift(id, shift, date, position);
 
-    private void textFieldCustom4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldCustom4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldCustom4ActionPerformed
+            // Hiển thị lại dữ liệu trong bảng sau khi thêm ca làm thành công
+            displayShiftData();
+            reset();
+        } catch (SQLException ex) {
+            // Xử lý khi có lỗi SQL
+            ex.printStackTrace(); // In stack trace của lỗi để xác định vấn đề cụ thể
+            // Hiển thị thông báo lỗi cho người dùng
+        }
+    }//GEN-LAST:event_btn_addActionPerformed
 
-    private void textFieldCustom5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldCustom5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldCustom5ActionPerformed
+    private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed
+        // Lấy thông tin từ các trường nhập liệu
+        int id = Integer.parseInt((String) cb_maNV.getSelectedItem());
+        String shift = (String) cb_ca.getSelectedItem();
+        String date = (String) cb_thu.getSelectedItem();
+        String position = (String) txt_chucVu.getText();
+        try {
+            // Gọi phương thức addShift của ShiftDAO để thêm ca làm mới vào CSDL
+            shiftDAO.updateShift(id, shift, date, position);
+            // Lấy chỉ mục của hàng được chọn trong bảng
+            int selectedRow = jTable1.getSelectedRow();
+            if (selectedRow != -1) {
+                // Cập nhật dữ liệu trực tiếp trong model của bảng
+                jTable1.getModel().setValueAt(id, selectedRow, 0); // ID của ca làm
+                jTable1.getModel().setValueAt(shift, selectedRow, 2); // Ca làm
+                jTable1.getModel().setValueAt(date, selectedRow, 3); // Ngày làm
+            }
 
-    private void textFieldCustom6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldCustom6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldCustom6ActionPerformed
+        } catch (SQLException ex) {
+            // Xử lý khi có lỗi SQL
+            ex.printStackTrace(); // In stack trace của lỗi để xác định vấn đề cụ thể
+            // Hiển thị thông báo lỗi cho người dùng
+        }
 
-    private void textFieldCustom7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldCustom7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldCustom7ActionPerformed
+    }//GEN-LAST:event_btn_editActionPerformed
 
-    private void textFieldCustom8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldCustom8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldCustom8ActionPerformed
+    private void btn_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteActionPerformed
+        // Lấy thông tin của ca làm cần xóa từ các trường nhập liệu hoặc từ bảng dữ liệu trên giao diện người dùng
+        int id = Integer.parseInt((String) cb_maNV.getSelectedItem()); // ID của ca làm
+        String shift = cb_ca.getSelectedItem().toString(); // Ca làm
+        String date = cb_thu.getSelectedItem().toString(); // Ngày làm
 
-    private void textFieldCustom9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldCustom9ActionPerformed
+        try {
+            // Gọi phương thức deleteShift của ShiftDAO để xóa ca làm khỏi CSDL
+            shiftDAO.deleteShift(id, shift, date);
+
+            // Hiển thị lại dữ liệu trong bảng sau khi xóa ca làm thành công
+            displayShiftData();
+            reset();
+        } catch (SQLException ex) {
+            // Xử lý khi có lỗi SQL
+            ex.printStackTrace(); // In stack trace của lỗi để xác định vấn đề cụ thể
+            // Hiển thị thông báo lỗi cho người dùng
+        }
+    }//GEN-LAST:event_btn_deleteActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldCustom9ActionPerformed
+        int selectedRow = jTable1.getSelectedRow();
+        if (selectedRow == -1) {
+            // Không có dòng nào được chọn
+            return;
+        }
+        btn_edit.setEnabled(true);
+        btn_delete.setEnabled(true);
+        // Lấy thông tin từ dòng được chọn và hiển thị lên các ô nhập liệu
+        cb_maNV.setSelectedItem(jTable1.getValueAt(selectedRow, 0).toString()); // ID của ca làm
+        cb_ca.setSelectedItem(jTable1.getValueAt(selectedRow, 2).toString()); // Ca làm
+        cb_thu.setSelectedItem(jTable1.getValueAt(selectedRow, 3).toString()); // Ngày làm
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void cb_maNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_maNVActionPerformed
+        displayNameInfo();
+        displayPositionInfo();
+    }//GEN-LAST:event_cb_maNVActionPerformed
+
+    private void arrowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_arrowMouseClicked
+        ManagerFrame managerFrame = (ManagerFrame) SwingUtilities.getWindowAncestor(this);
+
+        // Tạo một instance mới của panel_shifts
+        panel_employees panelEmployees = new panel_employees();
+
+        // Thêm panel_shift vào TabbedPane thông qua phương thức của lớp cha
+        managerFrame.addTabToPane("Employees", panelEmployees);
+
+        // Chuyển sang tab mới được thêm vào
+        managerFrame.TabbedPane.setSelectedComponent(panelEmployees);        // TODO add your handling code here:
+    }//GEN-LAST:event_arrowMouseClicked
+
+    private void btn_huyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_huyMouseClicked
+        reset();
+    }//GEN-LAST:event_btn_huyMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel arrow;
+    private Custom.ButtonCustom btn_add;
+    private Custom.ButtonCustom btn_delete;
+    private Custom.ButtonCustom btn_edit;
+    private javax.swing.JLabel btn_huy;
+    private javax.swing.JComboBox<String> cb_ca;
+    private javax.swing.JComboBox<String> cb_maNV;
+    private javax.swing.JComboBox<String> cb_thu;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    private Custom.PanelCustom panelCustom1;
     private Custom.PanelCustom panelCustom2;
     private Custom.PanelCustom panelCustom3;
-    private com.nhom08.bookstore.GUI.TextFieldCustom textFieldCustom3;
-    private com.nhom08.bookstore.GUI.TextFieldCustom textFieldCustom4;
-    private com.nhom08.bookstore.GUI.TextFieldCustom textFieldCustom5;
-    private com.nhom08.bookstore.GUI.TextFieldCustom textFieldCustom6;
-    private com.nhom08.bookstore.GUI.TextFieldCustom textFieldCustom7;
-    private com.nhom08.bookstore.GUI.TextFieldCustom textFieldCustom8;
-    private com.nhom08.bookstore.GUI.TextFieldCustom textFieldCustom9;
+    private com.nhom08.bookstore.GUI.TextFieldCustom txt_chucVu;
+    private com.nhom08.bookstore.GUI.TextFieldCustom txt_tenNV;
     // End of variables declaration//GEN-END:variables
 }

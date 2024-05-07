@@ -65,7 +65,7 @@ CREATE TABLE NhanVien (
     MatKhau VARCHAR(50),
     Cap INT,
     ChucVu NVARCHAR(50),
-    Anh IMAGE
+    -- Anh IMAGE
 );
 GO
 
@@ -846,7 +846,7 @@ BEGIN
 
     IF EXISTS (SELECT 1 FROM NhanVien WHERE TenTaiKhoan = @TenTaiKhoan)
     BEGIN
-        SELECT MaNV, TenNV, GioiTinh, DiaChi, TenTaiKhoan, Cap, ChucVu
+        SELECT MaNV, TenNV, GioiTinh, DiaChi, TenTaiKhoan, MatKhau, Cap, ChucVu
         FROM NhanVien
         WHERE TenTaiKhoan = @TenTaiKhoan;
     END
@@ -861,10 +861,9 @@ CREATE PROCEDURE Proc_SuaThongTinCaNhan
     @TenNV NVARCHAR(50),
     @GioiTinh NVARCHAR(10),
     @DiaChi NVARCHAR(255),
-    @MatKhauMoi VARCHAR(50),
+    @MatKhauMoi VARCHAR(50)
 	--@CapMoi INT,
 	--@ChucVu NVARCHAR(50) = '',
-    @Anh IMAGE = NULL
 AS
 BEGIN
     DECLARE @TenTaiKhoan VARCHAR(50);
@@ -876,10 +875,9 @@ BEGIN
         SET TenNV = @TenNV,
             GioiTinh = @GioiTinh,
             DiaChi = @DiaChi,
-            MatKhau = @MatKhauMoi,
+            MatKhau = @MatKhauMoi
 --            Cap = @CapMoi,
 --            ChucVu = @ChucVu,
-            Anh = @Anh
         WHERE TenTaiKhoan = @TenTaiKhoan;
     END
     ELSE
@@ -1250,16 +1248,15 @@ CREATE PROC Proc_ThemNhanVien
     @TenTaiKhoan VARCHAR(50),
     @MatKhau VARCHAR(50),
     @Cap INT,
-    @ChucVu NVARCHAR(50),
-    @Anh IMAGE = NULL
+    @ChucVu NVARCHAR(50)
+    -- @Anh IMAGE = NULL
 AS
 BEGIN 
     BEGIN 
-        INSERT INTO NhanVien VALUES(@MaNV, @TenNV, @GioiTinh, @DiaChi, @TenTaiKhoan, @MatKhau, @Cap, @ChucVu, @Anh)
+        INSERT INTO NhanVien VALUES(@MaNV, @TenNV, @GioiTinh, @DiaChi, @TenTaiKhoan, @MatKhau, @Cap, @ChucVu)
     END 
 END
 GO
-
 -- 3. Trigger tự động tạo chức vụ khi thêm tài khoản vào bảng NhanVien
 CREATE TRIGGER TG_NhanVien_TuDongTaoChucVu ON NhanVien 
 AFTER INSERT, UPDATE
@@ -1268,9 +1265,9 @@ BEGIN
     -- Cập nhật giá trị cột ChucVu dựa trên giá trị của cột Cap
     UPDATE NhanVien
     SET ChucVu = CASE 
-                    WHEN I.Cap = 1 THEN 'Admin'
-                    WHEN I.Cap = 2 THEN 'Nhân viên thu ngân'
-                    ELSE 'Quản lí kho' -- Giữ nguyên giá trị nếu Cap không phải 1 hoặc 2
+                    WHEN I.Cap = 1 THEN N'Admin'
+                    WHEN I.Cap = 2 THEN N'Nhân viên thu ngân'
+                    ELSE N'Quản lí kho' -- Giữ nguyên giá trị nếu Cap không phải 1 hoặc 2
                 END
     FROM NhanVien T
     INNER JOIN inserted I ON T.TenTaiKhoan = I.TenTaiKhoan;
@@ -1282,20 +1279,24 @@ CREATE TRIGGER TG_ThemNhanVien ON NhanVien
 INSTEAD OF INSERT
 AS
 BEGIN
-    DECLARE @MaNV INT, @TenNV NVARCHAR(50), @GioiTinh NVARCHAR(10), @DiaChi NVARCHAR(255), @TenTaiKhoan VARCHAR(50), @MatKhau VARCHAR(50), @Cap INT, @ChucVu NVARCHAR(50), @Anh VARBINARY(MAX)=NULL
+    DECLARE @MaNV INT, @TenNV NVARCHAR(50), @GioiTinh NVARCHAR(10), @DiaChi NVARCHAR(255), @TenTaiKhoan VARCHAR(50), @MatKhau VARCHAR(50), @Cap INT, @ChucVu NVARCHAR(50)
     DECLARE @sqlString NVARCHAR(2000)
-    SELECT @MaNV = i.MaNV, @TenNV = i.TenNV, @GioiTinh = i.GioiTinh, @DiaChi = i.DiaChi, @TenTaiKhoan = i.TenTaiKhoan, @MatKhau = i.MatKhau, @Cap = i.Cap, @ChucVu = i.ChucVu, @Anh = i.Anh
+    SELECT @MaNV = i.MaNV, @TenNV = i.TenNV, @GioiTinh = i.GioiTinh, @DiaChi = i.DiaChi, @TenTaiKhoan = i.TenTaiKhoan, @MatKhau = i.MatKhau, @Cap = i.Cap, @ChucVu = i.ChucVu
     FROM inserted i
 
-    IF EXISTS (SELECT 1 FROM NhanVien WHERE MaNV = @MaNV)
+	IF EXISTS (SELECT 1 FROM NhanVien WHERE MaNV = @MaNV)
     BEGIN
-        RAISERROR ('Nhân viên đã tồn tại!', 16, 1);
+        RAISERROR ('Mã nhân viên đã tồn tại!', 16, 1);
+    END
+    ELSE IF EXISTS (SELECT 1 FROM NhanVien WHERE TenTaiKhoan = @TenTaiKhoan)
+    BEGIN
+        RAISERROR ('Tên tài khoản đã tồn tại!', 16, 1);
     END
     ELSE 
     BEGIN
         -- Insert nhân viên vào bảng NhanVien
-        INSERT INTO NhanVien(MaNV, TenNV, GioiTinh, DiaChi, TenTaiKhoan, MatKhau, Cap, ChucVu, Anh)
-        VALUES (@MaNV, @TenNV, @GioiTinh, @DiaChi, @TenTaiKhoan, @MatKhau, @Cap, @ChucVu, @Anh);
+        INSERT INTO NhanVien(MaNV, TenNV, GioiTinh, DiaChi, TenTaiKhoan, MatKhau, Cap, ChucVu)
+        VALUES (@MaNV, @TenNV, @GioiTinh, @DiaChi, @TenTaiKhoan, @MatKhau, @Cap, @ChucVu);
 
         -- Tạo login
         SET @sqlString = 'CREATE LOGIN [' + @TenTaiKhoan + '] WITH PASSWORD = ''' + @MatKhau + '''';
@@ -1327,83 +1328,99 @@ END
 GO
 
 -- 5. Proc xóa nhân viên
-CREATE PROC Proc_XoaNhanVien
+drop procedure Proc_XoaNhanVien
+CREATE PROCEDURE Proc_XoaNhanVien
     @MaNV INT
 AS
 BEGIN
-    DECLARE @sqlString NVARCHAR(2000)
-    DECLARE @sessionID INT;
+    BEGIN TRY
+        DECLARE @sqlString NVARCHAR(2000);
+        DECLARE @sessionID INT;
+        DECLARE @TenTaiKhoan NVARCHAR(50);
 
-    SELECT @sessionID = session_id
-    FROM sys.dm_exec_sessions
-    WHERE login_name = (SELECT TenTaiKhoan FROM NhanVien WHERE MaNV = @MaNV);
+        -- Bắt đầu một giao dịch
+        BEGIN TRANSACTION;
 
-    IF @sessionID IS NOT NULL
-    BEGIN
-        -- Kiểm tra nếu là phiên làm việc hiện tại, không cho phép xóa
-        IF @sessionID = @@SPID
+        -- Lấy session_id của người dùng đang đăng nhập với mã nhân viên được chỉ định
+        SELECT @sessionID = session_id
+        FROM sys.dm_exec_sessions
+        WHERE login_name = (SELECT TenTaiKhoan FROM NhanVien WHERE MaNV = @MaNV);
+
+        -- Nếu tồn tại session_id tương ứng
+        IF @sessionID IS NOT NULL
         BEGIN
-            RAISERROR ('Nhân viên muốn xóa đang là người dùng hiện tại, không được phép xóa!', 16, 1);
-            RETURN; -- Kết thúc thủ tục
+            -- Kiểm tra xem có phải là phiên đang chạy hiện tại hay không
+            IF @sessionID = @@SPID
+            BEGIN
+                RAISERROR ('Nhân viên muốn xóa đang là người dùng hiện tại, không được phép xóa!', 16, 1);
+                RETURN; -- Kết thúc thủ tục
+            END
+            ELSE
+            BEGIN
+                -- Khi không phải là phiên đang chạy, tiến hành kill session đó
+                SET @sqlString = 'KILL ' + CONVERT(NVARCHAR(20), @sessionID);
+                EXEC (@sqlString);
+            END
         END
-        ELSE
+
+        -- Lấy tên tài khoản của nhân viên
+        SELECT @TenTaiKhoan = TenTaiKhoan FROM NhanVien WHERE MaNV = @MaNV;
+		-- Xóa nhân viên trong bảng NhanVien
+        DELETE FROM NhanVien WHERE MaNV = @MaNV;
+        -- Kiểm tra xem login tồn tại và xóa nếu có
+        IF EXISTS (SELECT 1 FROM sys.server_principals WHERE name = @TenTaiKhoan)
         BEGIN
-            SET @sqlString = 'KILL ' + CONVERT(NVARCHAR(20), @sessionID);
+            SET @sqlString = 'DROP LOGIN [' + @TenTaiKhoan + ']';
             EXEC (@sqlString);
         END
-    END
 
-    BEGIN
-        BEGIN TRY
-            -- Xóa nhân viên trong bảng NhanVien
-            DELETE FROM NhanVien WHERE MaNV = @MaNV;
-
-            -- Xóa user trong cơ sở dữ liệu
-            SET @sqlString = 'DROP USER [' + (SELECT TenTaiKhoan FROM NhanVien WHERE MaNV = @MaNV) + ']';
+        -- Kiểm tra xem user tồn tại và xóa nếu có
+        IF EXISTS (SELECT 1 FROM sys.database_principals WHERE name = @TenTaiKhoan)
+        BEGIN
+            SET @sqlString = 'DROP USER [' + @TenTaiKhoan + ']';
             EXEC (@sqlString);
+        END
 
-            -- Xóa login
-            SET @sqlString = 'DROP LOGIN [' + (SELECT TenTaiKhoan FROM NhanVien WHERE MaNV = @MaNV) + ']';
-            EXEC (@sqlString);
-        END TRY
-        BEGIN CATCH
-            DECLARE @err NVARCHAR(MAX);
-            SELECT @err = 'Nhân viên này đang đăng nhập';
-            RAISERROR(@err, 16, 1);
-            ROLLBACK;
-        END CATCH
-    END
+        -- Kết thúc giao dịch, commit các thay đổi
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        -- Trong trường hợp xảy ra lỗi, thông báo lỗi cụ thể
+        DECLARE @errMsg NVARCHAR(MAX);
+        SELECT @errMsg = ERROR_MESSAGE(); -- Lấy thông điệp lỗi cụ thể
+        RAISERROR('Lỗi trong quá trình xóa nhân viên: %s', 16, 1, @errMsg);
+        ROLLBACK TRANSACTION;
+    END CATCH
 END
-GO
+
 
 -- 6. Proc cập nhật nhân viên
 CREATE PROCEDURE Proc_CapNhatNhanVien
     @MaNV INT,
-    @MatKhauMoi VARCHAR(50),
-    @CapMoi INT,
-    @TenNV NVARCHAR(50) = '',
-    @Anh IMAGE = NULL
+    @TenNV NVARCHAR(50),
+    @GioiTinh NVARCHAR(10),
+    @DiaChi NVARCHAR(255),
+    @TenTaiKhoan VARCHAR(50),
+    @MatKhauMoi VARCHAR(10) = NULL,
+    @CapMoi INT = NULL,
+    @ChucVu NVARCHAR(50) = ''
 AS
 BEGIN
     SET NOCOUNT ON;
-
-    DECLARE @TenTaiKhoan VARCHAR(50);
+	DECLARE @MatKhauHienTai VARCHAR(50);
+    DECLARE @CapHienTai INT;
     DECLARE @sqlString NVARCHAR(2000);
 
     BEGIN TRY
         -- Bắt đầu transaction
         BEGIN TRANSACTION;
-
-        -- Lấy tên tài khoản của nhân viên
-        SELECT @TenTaiKhoan = TenTaiKhoan FROM NhanVien WHERE MaNV = @MaNV;
-
         -- Cập nhật thông tin nhân viên
         UPDATE NhanVien
-        SET TenNV = @TenNV, Anh = @Anh
+        SET TenNV = @TenNV, GioiTinh = @GioiTinh, DiaChi = @DiaChi, ChucVu = @ChucVu
         WHERE MaNV = @MaNV;
 
         -- Kiểm tra xem có thay đổi mật khẩu hay không
-        IF @MatKhauMoi IS NOT NULL
+        IF @MatKhauMoi IS NOT NULL AND @MatKhauMoi <> @MatKhauHienTai
         BEGIN
             -- Cập nhật mật khẩu trong bảng NhanVien
             UPDATE NhanVien
@@ -1416,7 +1433,7 @@ BEGIN
         END
 
         -- Kiểm tra xem có thay đổi cấp hay không
-        IF @CapMoi IS NOT NULL
+        IF @CapMoi IS NOT NULL AND @CapMoi <> @CapHienTai
         BEGIN
             -- Xóa role cũ
             IF @CapMoi = 1
@@ -1482,18 +1499,9 @@ EXEC Proc_ThemNhanVien
     @TenTaiKhoan = 'admin1',
     @MatKhau = '111',
     @Cap = 1,
-    @ChucVu = N'Quản trị viên',
-    @Anh = NULL;
+    @ChucVu = N'Quản trị viên';
 
--- Tạo bảng CaLamViec
-CREATE TABLE CaLamViec (
-    MaNV INT,
-    FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV),
-    Ca NVARCHAR(20),
-    Thu NVARCHAR(20),
-    PRIMARY KEY (MaNV, Ca, Thu)
-);
-GO
+
 EXEC Proc_ThemNhanVien
     @MaNV = 2,
     @TenNV = N'Nguyen Van B',
@@ -1502,14 +1510,150 @@ EXEC Proc_ThemNhanVien
     @TenTaiKhoan = 'thungan1',
     @MatKhau = '222',
     @Cap = 2,
-	@ChucVu = N'Nhân viên thu ngân',
-    @Anh = NULL;
+	@ChucVu = N'Nhân viên thu ngân';
+
+-- Tạo bảng CaLamViec
+CREATE TABLE CaLamViec (
+    MaNV INT,
+    FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV),
+    Ca NVARCHAR(50),
+    Thu NVARCHAR(50),
+    ChucVu NVARCHAR(50), -- Thêm cột ChucVu để lưu thông tin về chức vụ
+    PRIMARY KEY (MaNV, Ca, Thu)
+);
+GO
+CREATE TRIGGER UpdateChucVu
+ON CaLamViec
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    UPDATE c
+    SET c.ChucVu = nv.ChucVu
+    FROM CaLamViec c
+    INNER JOIN inserted i ON c.MaNV = i.MaNV
+    INNER JOIN NhanVien nv ON c.MaNV = nv.MaNV;
+END;
+GO
+-- Quản lý nhân viên 
+USE QLNhaSach
+GO
+CREATE PROCEDURE XemThongTinNhanVien
+AS
+BEGIN
+    SELECT 
+        MaNV,
+        TenNV,
+        GioiTinh,
+        DiaChi,
+		TenTaiKhoan,
+        Cap,
+        ChucVu
+    FROM 
+        NhanVien;
+END;
+GO
+--Proc_ThemCaLam
+GO
+CREATE PROCEDURE Proc_ThemCaLam
+    @MaNV INT,
+    @Ca NVARCHAR(50),
+    @Thu NVARCHAR(50),
+	@ChucVu NVARCHAR(50)
+AS
+BEGIN
+    INSERT INTO CaLamViec (MaNV, Ca, Thu, ChucVu)
+    VALUES (@MaNV, @Ca, @Thu, @ChucVu);
+END;
+
+--Proc_XoaCaLam
+GO
+CREATE PROCEDURE Proc_XoaCaLam
+    @MaNV INT,
+    @Ca NVARCHAR(50),
+    @Thu NVARCHAR(50)
+AS
+BEGIN
+    DELETE FROM CaLamViec WHERE MaNV = @MaNV AND Ca = @Ca AND Thu = @Thu;
+END;
+--Proc_SuaCaLam
+GO
+CREATE PROCEDURE Proc_SuaCaLam
+    @MaNV INT,
+    @Ca NVARCHAR(50),
+    @Thu NVARCHAR(50),
+	@ChucVu NVARCHAR(50)
+AS
+BEGIN
+    UPDATE CaLamViec
+    SET MaNV=@MaNV, Ca = @Ca, Thu = @Thu, ChucVu =@ChucVu
+    WHERE MaNV = @MaNV;
+END;
+--TG_KiemTraSoLuong (3 ca, moi ca co ThuNgan: 2 nguoi, QuanLyKho: 2 nguoi)
+GO
 
 
-EXEC Proc_CapNhatNhanVien
-    @MaNV = 3,
-    @TenNV = N'Nguyen Van C',
-    @MatKhauMoi = '000',
-    @CapMoi = 3,
-    @Anh = NULL;
+CREATE TRIGGER TG_KiemTraCaLam
+ON CaLamViec
+INSTEAD OF INSERT
+AS
+BEGIN
+    -- Kiểm tra điều kiện hợp lệ trước khi thực hiện INSERT
+    DECLARE @SoLuong INT;
+
+    -- Lấy tên ca mới được thêm vào
+    DECLARE @Ca_New NVARCHAR(50);
+    DECLARE @Thu_New NVARCHAR(50);
+    DECLARE @ChucVu_New NVARCHAR(50);
+    
+    -- Lấy thông tin về các dòng được chèn vào bảng CaLamViec
+    -- Lưu ý: Trigger này giả định rằng cột MaNV, Ca và Thu không thể để null
+    DECLARE @MaNV INT, @Ca NVARCHAR(50), @Thu NVARCHAR(50), @ChucVu NVARCHAR(50);
+    SELECT @MaNV = MaNV, @Ca = Ca, @Thu = Thu, @ChucVu = ChucVu FROM inserted;
+
+    -- Kiểm tra xem dòng dữ liệu mới chèn có trùng lặp không
+    IF EXISTS (
+        SELECT 1
+        FROM CaLamViec
+        WHERE MaNV = @MaNV AND Ca = @Ca AND Thu = @Thu 
+    )
+    BEGIN
+        -- Nếu có dòng dữ liệu trùng lặp, thông báo lỗi và không thực hiện INSERT
+        RAISERROR ('Ca làm việc này đã được phân công cho người này. Vui lòng kiểm tra lại', 16, 1);
+    END
+    ELSE
+    BEGIN
+        -- Đếm số lượng ca và thứ hiện có
+        SELECT @SoLuong = COUNT(*)
+        FROM CaLamViec
+        WHERE Ca = @Ca AND Thu = @Thu AND ChucVu = @ChucVu;
+
+        -- Kiểm tra xem số lượng đã đạt đến mức tối đa chưa
+        IF @SoLuong >= 2
+        BEGIN
+            -- Nếu số lượng vượt quá mức tối đa, thông báo lỗi và không thực hiện INSERT
+            RAISERROR ('Số lượng nhân viên trong ca đã đủ. Không thể thêm nhân viên vào ca này nữa.', 16, 1);
+        END
+        ELSE
+        BEGIN
+            -- Nếu không có lỗi, thực hiện INSERT
+            INSERT INTO CaLamViec
+            SELECT * FROM inserted;
+        END
+    END
+END;
+
+
+--Func_TimKiemNhanVien
+GO
+CREATE VIEW View_XemCaLam AS
+SELECT CV.MaNV, NV.TenNV, CV.Ca, CV.Thu, CV.ChucVu
+FROM CaLamViec CV
+JOIN NhanVien NV ON CV.MaNV = NV.MaNV;
+
+exec Proc_ThemCaLam 
+@MaNV = 1,
+@Ca = 1,
+@Thu = 'Mon',
+@ChucVu = ''
+
 
