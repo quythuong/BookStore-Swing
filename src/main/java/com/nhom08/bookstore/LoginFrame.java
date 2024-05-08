@@ -154,9 +154,9 @@ public class LoginFrame extends javax.swing.JFrame {
                 } else if (cap == 2) {
                     CashierFrame cashierFrame = new CashierFrame(); // Tạo đối tượng CashierFrame
                     cashierFrame.setVisible(true);
-//		    cashierFrame.setEmployeeId(employeeDAO.getEmployeeByUsername(tenDangNhap));
-//		    cashierFrame.getLbl_accountName().setText(employeeDAO.getEmployeeByUsername(tenDangNhap).getAccount());
-//		    lbl_accountName = cashierFrame.getLbl_accountName();
+		    cashierFrame.setEmployeeId(employeeDAO.getEmployeeByUsername(tenDangNhap));
+		    cashierFrame.getLbl_accountName().setText(employeeDAO.getEmployeeByUsername(tenDangNhap).getAccount());
+		    lbl_accountName = cashierFrame.getLbl_accountName();
                 } else if (cap == 3) {
                     StorageManagerFrame storagemanagerFrame = new StorageManagerFrame(); // Tạo đối tượng storagemanagerFrame
                     storagemanagerFrame.setVisible(true);
