@@ -260,7 +260,7 @@ BEGIN
 			FROM Sach s
 			INNER JOIN PhieuNhap pn ON s.MaNXB = pn.MaNXB
 			WHERE s.MaSach = @MaSach
-			AND pn.MaPhieuNhap = @MaPhieuNhap
+			--AND pn.MaPhieuNhap = @MaPhieuNhap
 		)
 		BEGIN
 			-- Tăng số lượng sách
