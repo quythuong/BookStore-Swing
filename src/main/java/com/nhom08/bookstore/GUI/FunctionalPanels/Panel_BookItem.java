@@ -52,7 +52,8 @@ public class Panel_BookItem extends javax.swing.JPanel {
     
     public void setData(BookModel data){
         this.data = data;
-        //pictureBook.setImage(data.getImage());
+        String image = data.getImage();
+        //pictureBook.setImage();
         lbl_masach.setText(data.getId());
         lbl_bookName.setText(data.getName());
         lbl_quantity.setText(String.valueOf(data.getQuantity()));
