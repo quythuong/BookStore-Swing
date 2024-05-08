@@ -25,7 +25,7 @@ CREATE TABLE Sach(
     SoLuongSach INT NOT NULL CHECK(SoLuongSach >= 0), 
     Gia MONEY NOT NULL CHECK(Gia > 0), 
     TheLoai NVARCHAR(50) NOT NULL,
-    Anh IMAGE
+    Anh VARCHAR(500)
 )
 go
 CREATE TABLE PhieuNhap(
@@ -65,7 +65,7 @@ CREATE TABLE NhanVien (
     MatKhau VARCHAR(50),
     Cap INT,
     ChucVu NVARCHAR(50),
-    -- Anh IMAGE
+    -- Anh VARCHAR(500)
 );
 GO
 
@@ -423,7 +423,7 @@ CREATE PROCEDURE Proc_ThemSach
 	@SoLuongSach INT,
 	@Gia MONEY,
     @TheLoai NVARCHAR(50),
-    @Anh IMAGE = NULL
+    @Anh VARCHAR(500) = NULL
 AS
 BEGIN
 	INSERT INTO Sach VALUES(@MaSach, @MaTG, @MaNXB, @TenSach, @SoLuongSach, @Gia, @TheLoai, @Anh)
@@ -439,7 +439,7 @@ CREATE PROCEDURE Proc_SuaSach
 	@SoLuongSach INT,
 	@Gia MONEY,
     @TheLoai NVARCHAR(50),
-    @Anh IMAGE = NULL
+    @Anh VARCHAR(500) = NULL
 AS
 BEGIN
 	UPDATE Sach
@@ -1248,7 +1248,7 @@ CREATE PROC Proc_ThemNhanVien
     @MatKhau VARCHAR(50),
     @Cap INT,
     @ChucVu NVARCHAR(50)
-    -- @Anh IMAGE = NULL
+    -- @Anh VARCHAR(500) = NULL
 AS
 BEGIN 
     BEGIN 

@@ -505,9 +505,9 @@ public class panel_books extends javax.swing.JPanel {
             int quantity = book.getQuantity();
             double price = book.getPrice();
             String genre = book.getType();
-            //String img = book.getImage();
+            String img = book.getImage();
 
-            model.addRow(new Object[]{id, authorid, publisherid, name, quantity, price, genre});
+            model.addRow(new Object[]{id, authorid, publisherid, name, quantity, price, genre, img});
         }
         loadPublisherComboBox();
         loadAuthorComboBox();
@@ -552,7 +552,12 @@ public class panel_books extends javax.swing.JPanel {
         tf_quantity.setText(model.getValueAt(row, 4).toString());
         tf_price.setText(model.getValueAt(row, 5).toString());
         tf_genre.setText(model.getValueAt(row, 6).toString());
-        //tf_image.setText(model.getValueAt(row, 7).toString());
+        try {
+            tf_image.setText(model.getValueAt(row, 7).toString());
+        } catch (Exception e) {
+            tf_image.setText("");
+        }
+        
     }
 
     private void loadPublisherComboBox() throws SQLException {
@@ -638,9 +643,9 @@ public class panel_books extends javax.swing.JPanel {
                     int quantity = Integer.parseInt(tf_quantity.getText().toString());
                     double price = Double.parseDouble(tf_price.getText().toString());
                     String genre = tf_genre.getText().toString();
-                    //String img = book.getImage();
+                    String img = tf_image.getText().toString();
 
-                    bookModel = new BookModel(id, authorid, publisherid, name, quantity, price, genre);
+                    bookModel = new BookModel(id, authorid, publisherid, name, quantity, price, genre, img);
                     bookDAO.save(bookModel);
                     updateTable();
                 }
@@ -657,9 +662,9 @@ public class panel_books extends javax.swing.JPanel {
                     int quantity = Integer.parseInt(tf_quantity.getText().toString());
                     double price = Double.parseDouble(tf_price.getText().toString());
                     String genre = tf_genre.getText().toString();
-                    //String img = book.getImage();
+                    String img = tf_image.getText().toString();
 
-                    bookModel = new BookModel(id, authorid, publisherid, name, quantity, price, genre);
+                    bookModel = new BookModel(id, authorid, publisherid, name, quantity, price, genre, img);
                     bookDAO.update(bookModel);
                     updateTable();
                 }
