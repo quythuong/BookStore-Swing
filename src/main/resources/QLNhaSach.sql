@@ -1,4 +1,5 @@
-
+CREATE DATABASE QLNhaSach
+GO
 USE QLNhaSach
 GO
 
@@ -1327,7 +1328,6 @@ END
 GO
 
 -- 5. Proc xóa nhân viên
-drop procedure Proc_XoaNhanVien
 CREATE PROCEDURE Proc_XoaNhanVien
     @MaNV INT
 AS
@@ -1391,8 +1391,7 @@ BEGIN
         ROLLBACK TRANSACTION;
     END CATCH
 END
-
-
+GO
 -- 6. Proc cập nhật nhân viên
 CREATE PROCEDURE Proc_CapNhatNhanVien
     @MaNV INT,
@@ -1648,7 +1647,7 @@ CREATE VIEW View_XemCaLam AS
 SELECT CV.MaNV, NV.TenNV, CV.Ca, CV.Thu, CV.ChucVu
 FROM CaLamViec CV
 JOIN NhanVien NV ON CV.MaNV = NV.MaNV;
-
+go
 exec Proc_ThemCaLam 
 @MaNV = 1,
 @Ca = 1,
