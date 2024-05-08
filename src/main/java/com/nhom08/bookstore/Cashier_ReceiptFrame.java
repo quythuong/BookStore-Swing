@@ -510,11 +510,13 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame implements Printabl
                 }
             }
 
-            Cashier_ReceiptFrame receiptFrame = new Cashier_ReceiptFrame(maHoaDon);
-            receiptFrame.setVisible(false);
+//            Cashier_ReceiptFrame receiptFrame = new Cashier_ReceiptFrame(maHoaDon);
+//            receiptFrame.setVisible(false);
 
             CashierFrame cs = new CashierFrame();
             cs.setVisible(true);
+            
+            dispose();
         }
     }//GEN-LAST:event_btn_exportActionPerformed
 
@@ -630,6 +632,10 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame implements Printabl
                 deleteReceipt(maHoaDon);
                 JOptionPane.showMessageDialog(null, "Hủy hóa đơn thành công", "Success", JOptionPane.INFORMATION_MESSAGE);
 
+                CashierFrame cashierFrame = new CashierFrame();
+                cashierFrame.setVisible(true);
+                // Đóng Cashier_ReceiptFrame
+                dispose();
 //                Cashier_ReceiptFrame receiptFrame = new Cashier_ReceiptFrame(maHoaDon);
 //                receiptFrame.setVisible(false);
             }
