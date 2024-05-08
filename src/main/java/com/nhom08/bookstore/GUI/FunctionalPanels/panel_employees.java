@@ -411,7 +411,7 @@ public class panel_employees extends javax.swing.JPanel {
         String address = txt_diaChi.getText();
         int level = Integer.parseInt((String) cb_cap.getSelectedItem());
         String account = txt_tenTaiKhoan.getText();
-        String pass = txt_matKhau.getText();
+        String pass = txt_matKhau.getText().isEmpty() ? null : txt_matKhau.getText();
         String position = "";
 
         // Tạo đối tượng EmployeeModel từ thông tin đã nhập
