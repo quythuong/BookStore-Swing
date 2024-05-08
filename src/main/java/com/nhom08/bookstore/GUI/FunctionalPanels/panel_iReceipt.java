@@ -69,16 +69,16 @@ public class panel_iReceipt extends javax.swing.JPanel {
         cb_publisherId.setBackground(new Color(204, 204, 204));
         tf_date.setEditable(false);
         tf_iReceiptId.setEditable(false);
-        cb_publisherId.setEditable(false);
+        cb_publisherId.setEnabled(false);
     }
 
     public void enableText() {
         tf_date.setBackground(Color.WHITE);
         tf_iReceiptId.setBackground(Color.WHITE);
-        cb_publisherId.setBackground(Color.WHITE);
+//        cb_publisherId.setBackground(Color.WHITE);
         tf_date.setEditable(true);
         tf_iReceiptId.setEditable(true);
-        cb_publisherId.setEditable(true);
+//        cb_publisherId.setEditable(true);
     }
 
     /**

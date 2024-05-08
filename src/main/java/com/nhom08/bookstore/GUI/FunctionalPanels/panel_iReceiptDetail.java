@@ -465,11 +465,11 @@ public class panel_iReceiptDetail extends javax.swing.JPanel {
         }//GEN-LAST:event_lbl_saveBtnMouseClicked
 
         private void tf_quantityKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_quantityKeyTyped
-                // TODO add your handling code here:
-		  char c = evt.getKeyChar();
-		if(!Character.isDigit(c)) {
-		    evt.consume();
-		}
+            // TODO add your handling code here:
+            char c = evt.getKeyChar();
+            if (!Character.isDigit(c)) {
+                evt.consume();
+            }
         }//GEN-LAST:event_tf_quantityKeyTyped
 
 

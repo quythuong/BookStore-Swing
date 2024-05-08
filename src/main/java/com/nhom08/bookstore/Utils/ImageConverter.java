@@ -21,8 +21,8 @@ public class ImageConverter {
             BufferedImage bufferedImage = ImageIO.read(new File(imagePath));
 
             // Nếu bạn muốn thay đổi kích thước của hình ảnh, bạn có thể sử dụng getScaledInstance()
-            int newWidth = 100; // Chiều rộng mới
-            int newHeight = 100; // Chiều cao mới
+            int newWidth = 170; // Chiều rộng mới
+            int newHeight = 150; // Chiều cao mới
             Image scaledImage = bufferedImage.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
 
             return scaledImage;
