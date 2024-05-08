@@ -302,6 +302,11 @@ public class panel_iReceiptDetail extends javax.swing.JPanel {
                                 tf_quantityActionPerformed(evt);
                         }
                 });
+                tf_quantity.addKeyListener(new java.awt.event.KeyAdapter() {
+                        public void keyTyped(java.awt.event.KeyEvent evt) {
+                                tf_quantityKeyTyped(evt);
+                        }
+                });
                 jPanel5.add(tf_quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 210, 40));
 
                 jLabel7.setFont(new java.awt.Font("Lexend", 0, 15)); // NOI18N
@@ -458,6 +463,14 @@ public class panel_iReceiptDetail extends javax.swing.JPanel {
             Mode = null;
             selectedIReceiptDetails = null;
         }//GEN-LAST:event_lbl_saveBtnMouseClicked
+
+        private void tf_quantityKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_quantityKeyTyped
+                // TODO add your handling code here:
+		  char c = evt.getKeyChar();
+		if(!Character.isDigit(c)) {
+		    evt.consume();
+		}
+        }//GEN-LAST:event_tf_quantityKeyTyped
 
 
         // Variables declaration - do not modify//GEN-BEGIN:variables

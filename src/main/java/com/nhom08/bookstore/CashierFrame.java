@@ -10,6 +10,7 @@ import com.nhom08.bookstore.GUI.FunctionalPanels.FormHome;
 import com.nhom08.bookstore.DAO.BookDAO;
 
 import com.nhom08.bookstore.Models.BookModel;
+import com.nhom08.bookstore.Models.EmployeeModel;
 
 import java.awt.BorderLayout;
 
@@ -19,11 +20,15 @@ import java.awt.event.MouseEvent;
 
 import java.text.DecimalFormat;
 import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
  * @author Admin
  */
+@Getter
+@Setter
 public class CashierFrame extends javax.swing.JFrame {
 
     /**
@@ -35,6 +40,7 @@ public class CashierFrame extends javax.swing.JFrame {
 
     private String maHoaDon;
     
+    private EmployeeModel employeeId;
     public CashierFrame() {
         initComponents();
         init();

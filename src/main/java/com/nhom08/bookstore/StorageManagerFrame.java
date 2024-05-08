@@ -11,22 +11,28 @@ import com.nhom08.bookstore.GUI.FunctionalPanels.panel_home;
 import com.nhom08.bookstore.GUI.FunctionalPanels.panel_iReceipt;
 import com.nhom08.bookstore.GUI.FunctionalPanels.panel_iReceiptDetail;
 import com.nhom08.bookstore.GUI.PanelCustom;
+import com.nhom08.bookstore.Models.EmployeeModel;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JTabbedPane;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
  * @author quythuong
  */
+@Getter
+@Setter
 public class StorageManagerFrame extends javax.swing.JFrame {
 
 	/**
 	 * Creates new form StorageManagerFrame
 	 */
-	public PanelCustom preTabBtn;
-	public Color clickedButtonBackgroundColor = new Color(126, 152, 255);
-	public Color sideBarBackgroundColor = new Color(149,189,255);
+	private PanelCustom preTabBtn;
+	private Color clickedButtonBackgroundColor = new Color(126, 152, 255);
+	private Color sideBarBackgroundColor = new Color(149,189,255);
+	private EmployeeModel employee = null;
 	public StorageManagerFrame() {
 		initComponents();
 //		this.setSize(new Dimension(1280, 800));
