@@ -50,12 +50,16 @@ import javax.swing.SwingConstants;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
+import lombok.Getter;
+import lombok.Setter;
 import net.sf.jasperreports.components.table.util.TableUtil;
 
 /**
  *
  * @author Admin
  */
+@Getter
+@Setter
 public class Cashier_ReceiptFrame extends javax.swing.JFrame {
 
     private FormHome home;

@@ -19,11 +19,15 @@ import java.awt.event.MouseEvent;
 
 import java.text.DecimalFormat;
 import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
  * @author Admin
  */
+@Getter
+@Setter
 public class CashierFrame extends javax.swing.JFrame {
 
     /**
