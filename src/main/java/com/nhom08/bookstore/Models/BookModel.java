@@ -42,19 +42,4 @@ public class BookModel {
         this.quantity = quantity;
         this.price = price;
     }
-
-    
-    public BookModel(String id, String authorid, String publisherid, String name, int quantity, double price, String genre) {
-        this.id = id;
-        this.authorId = authorid;
-        this.publisherId = publisherid;
-        this.name = name;
-        this.quantity = quantity;
-        this.price = price;
-        this.type = genre;
-    }
-        
-        
-
-    
 }

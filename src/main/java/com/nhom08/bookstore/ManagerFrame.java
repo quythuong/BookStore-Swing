@@ -11,12 +11,17 @@ import com.nhom08.bookstore.GUI.FunctionalPanels.panel_employees;
 import com.nhom08.bookstore.GUI.FunctionalPanels.panel_home;
 import com.nhom08.bookstore.GUI.FunctionalPanels.panel_publishers;
 import com.nhom08.bookstore.GUI.PanelCustom;
+import com.nhom08.bookstore.Models.EmployeeModel;
 import java.awt.*;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
  * @author quythuong
  */
+@Getter
+@Setter
 public class ManagerFrame extends javax.swing.JFrame {
 
     /**
@@ -25,9 +30,10 @@ public class ManagerFrame extends javax.swing.JFrame {
     public void addTabToPane(String title, Component component) {
         TabbedPane.addTab(title, component);
     }
-    public PanelCustom preTabBtn;
-    public Color clickedButtonBackgroundColor = new Color(126, 152, 255);
-    public Color sideBarBackgroundColor = new Color(149, 189, 255);
+    private PanelCustom preTabBtn;
+    private Color clickedButtonBackgroundColor = new Color(126, 152, 255);
+    private Color sideBarBackgroundColor = new Color(149, 189, 255);
+    private EmployeeModel employee;
 
     public ManagerFrame() {
         initComponents();
