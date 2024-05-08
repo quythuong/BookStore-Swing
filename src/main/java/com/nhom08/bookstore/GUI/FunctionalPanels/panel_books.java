@@ -12,6 +12,7 @@ import com.nhom08.bookstore.Models.BookModel;
 import com.nhom08.bookstore.Models.PublisherModel;
 import com.nhom08.bookstore.Utils.changeIconSize;
 import com.nhom08.bookstore.Utils.showMessageDialogs;
+import java.awt.Color;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.sql.SQLException;
@@ -682,29 +683,41 @@ public class panel_books extends javax.swing.JPanel {
     }
 
     private void disabletext() {
-        tf_bookid.enable(false);
-        tf_publisherid.enable(false);
-        tf_bookname.enable(false);
-        tf_authorid.enable(false);
-        tf_genre.enable(false);
-        tf_quantity.enable(false);
-        tf_price.enable(false);
-        tf_image.enable(false);
-        cb_authorid.enable(false);
-        cb_publisherid.enable(false);
+        tf_bookid.setBackground(new Color(204, 204, 204));
+        tf_bookname.setBackground(new Color(204, 204, 204));
+        tf_genre.setBackground(new Color(204, 204, 204));
+        tf_quantity.setBackground(new Color(204, 204, 204));
+        tf_price.setBackground(new Color(204, 204, 204));
+        tf_image.setBackground(new Color(204, 204, 204));
+        cb_authorid.setBackground(new Color(204, 204, 204));
+        cb_publisherid.setBackground(new Color(204, 204, 204));
+        tf_bookid.setEditable(false);
+        tf_bookname.setEditable(false);
+        tf_genre.setEditable(false);
+        tf_quantity.setEditable(false);
+        tf_price.setEditable(false);
+        tf_image.setEditable(false);
+        cb_authorid.setEditable(false);
+        cb_publisherid.setEditable(false);
     }
 
     private void enableText() {
-        tf_bookid.enable(true);
-        tf_publisherid.enable(true);
-        tf_bookname.enable(true);
-        tf_authorid.enable(true);
-        tf_genre.enable(true);
-        tf_quantity.enable(true);
-        tf_price.enable(true);
-        tf_image.enable(true);
-        cb_authorid.enable(true);
-        cb_publisherid.enable(true);
+        tf_bookid.setBackground(Color.WHITE);
+        tf_bookname.setBackground(Color.WHITE);
+        tf_genre.setBackground(Color.WHITE);
+        tf_quantity.setBackground(Color.WHITE);
+        tf_price.setBackground(Color.WHITE);
+        tf_image.setBackground(Color.WHITE);
+        cb_authorid.setBackground(Color.WHITE);
+        cb_publisherid.setBackground(Color.WHITE);
+        tf_bookid.setEditable(false);
+        tf_bookname.setEditable(false);
+        tf_genre.setEditable(false);
+        tf_quantity.setEditable(false);
+        tf_price.setEditable(false);
+        tf_image.setEditable(false);
+        cb_authorid.setEditable(false);
+        cb_publisherid.setEditable(false);
     }
 
     private void resetText() {

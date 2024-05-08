@@ -484,7 +484,7 @@ public class panel_authors extends javax.swing.JPanel {
         tf_authorid.setEditable(false);
         tf_authorname.setEditable(false);
         tf_contact.setEditable(false);
-        tf_publisherid.setEditable(false);
+        cb_publisherid.setEditable(false);
     }
 
     private void enableText() {
@@ -495,7 +495,7 @@ public class panel_authors extends javax.swing.JPanel {
         tf_authorid.setEditable(true);
         tf_authorname.setEditable(true);
         tf_contact.setEditable(true);
-        tf_publisherid.setEditable(true);
+        cb_publisherid.setEditable(true);
     }
 
     private void resetText() {

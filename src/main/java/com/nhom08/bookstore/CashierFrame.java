@@ -121,6 +121,8 @@ public class CashierFrame extends javax.swing.JFrame {
         lbl_userIcon = new javax.swing.JLabel();
         lbl_accountName = new javax.swing.JLabel();
         textFieldCustom1 = new com.nhom08.bookstore.GUI.TextFieldCustom();
+        panel_logoutBtn = new com.nhom08.bookstore.GUI.PanelCustom();
+        jLabel13 = new javax.swing.JLabel();
         panelCustom1 = new com.nhom08.bookstore.GUI.PanelCustom();
         jPanel1 = new javax.swing.JPanel();
         tf_matacgia = new com.nhom08.bookstore.GUI.TextFieldCustom();
@@ -163,6 +165,23 @@ public class CashierFrame extends javax.swing.JFrame {
         lbl_accountName.setText("Account name");
         panel_Header.add(lbl_accountName, new org.netbeans.lib.awtextra.AbsoluteConstraints(1098, 18, -1, -1));
         panel_Header.add(textFieldCustom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 11, 338, 41));
+
+        panel_logoutBtn.setBackground(new java.awt.Color(219, 235, 247));
+        panel_logoutBtn.setRoundBottomLeft(20);
+        panel_logoutBtn.setRoundBottomRight(20);
+        panel_logoutBtn.setRoundTopLeft(20);
+        panel_logoutBtn.setRoundTopRight(20);
+        panel_logoutBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panel_logoutBtnMouseClicked(evt);
+            }
+        });
+        panel_logoutBtn.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/sign_out.png"))); // NOI18N
+        panel_logoutBtn.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 40, 40));
+
+        panel_Header.add(panel_logoutBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 65));
 
         getContentPane().add(panel_Header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 60));
 
@@ -330,6 +349,12 @@ public class CashierFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tf_matacgiaActionPerformed
 
+    private void panel_logoutBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_logoutBtnMouseClicked
+        LoginFrame loginFrame = new LoginFrame(); // Tạo một instance của LoginFrame
+        loginFrame.setVisible(true); // Hiển thị LoginFrame
+        dispose();
+    }//GEN-LAST:event_panel_logoutBtnMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -367,6 +392,7 @@ public class CashierFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -385,9 +411,9 @@ public class CashierFrame extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_userIcon;
     private com.nhom08.bookstore.GUI.FunctionalPanels.main_CashierPanel mainPanel;
     private com.nhom08.bookstore.GUI.PanelCustom panelCustom1;
-    private com.nhom08.bookstore.GUI.FunctionalPanels.Panel_BookItem panel_BookItem1;
     private javax.swing.JPanel panel_Header;
     private com.nhom08.bookstore.GUI.PanelCustom panel_cancelBtn;
+    private com.nhom08.bookstore.GUI.PanelCustom panel_logoutBtn;
     private com.nhom08.bookstore.GUI.TextFieldCustom textFieldCustom1;
     private com.nhom08.bookstore.GUI.TextFieldCustom tf_gia;
     private com.nhom08.bookstore.GUI.TextFieldCustom tf_manxb;
