@@ -103,6 +103,11 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame implements Printabl
                 DefaultTableModel model = (DefaultTableModel) tb_list.getModel();
                 DecimalFormat df = new DecimalFormat("#,###");
                 boolean exists = false;
+
+                if (item.getQuantity() <= 0) {
+                    JOptionPane.showMessageDialog(null, "Mặt hàng này đã hết hàng", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                    return; // Không thêm vào bảng nếu số lượng là 0 hoặc âm
+                }
                 for (int i = 0; i < model.getRowCount(); i++) {
                     if (model.getValueAt(i, 1).equals(item.getName())) {
                         int quantity = (int) model.getValueAt(i, 2);
@@ -512,10 +517,9 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame implements Printabl
 
 //            Cashier_ReceiptFrame receiptFrame = new Cashier_ReceiptFrame(maHoaDon);
 //            receiptFrame.setVisible(false);
-
             CashierFrame cs = new CashierFrame();
             cs.setVisible(true);
-            
+
             dispose();
         }
     }//GEN-LAST:event_btn_exportActionPerformed
@@ -684,12 +688,21 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame implements Printabl
                 if (selectedRow != -1) {
                     try {
                         int quantity = (int) model.getValueAt(selectedRow, 2);
+                        int currentQuantity = getCurrentQuantity(selectedRow); // Lấy số lượng hiện có của mặt hàng
+
                         if (quantity <= 0) {
                             // Hiển thị thông báo và đặt lại giá trị số lượng về 1
                             JOptionPane.showMessageDialog(null, "Số lượng không thể là số nhỏ hơn hoặc bằng 0", "Error", JOptionPane.ERROR_MESSAGE);
                             model.setValueAt(1, selectedRow, 2);
                             return;
                         }
+
+                        if (quantity > currentQuantity) {
+                            // Hiển thị thông báo lỗi nếu số lượng nhập vào lớn hơn số lượng hiện có
+                            JOptionPane.showMessageDialog(null, "Số lượng nhập vào lớn hơn số lượng hiện có của mặt hàng", "Error", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+
                         String priceStr = (String) model.getValueAt(selectedRow, 3);
                         // Loại bỏ dấu "," từ chuỗi số giá
                         priceStr = priceStr.replaceAll(",", "");
@@ -710,6 +723,18 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame implements Printabl
                         //JOptionPane.showMessageDialog(null, "Số lượng phải là một số nguyên", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
+            }
+
+            private int getCurrentQuantity(int selectedRow) {
+                DefaultTableModel model = (DefaultTableModel) tb_list.getModel();
+                String itemId = (String) model.getValueAt(selectedRow, 5); // Lấy ID từ cột số 5
+                int currentQuantity = 0;
+
+                // Sử dụng BookDAO để lấy số lượng hiện có của mặt hàng với ID là itemId
+                BookDAO bookDao = new BookDAO();
+                currentQuantity = bookDao.getQuantityById(itemId);
+
+                return currentQuantity;
             }
         });
     }

@@ -230,4 +230,36 @@ public class BookDAO {
         return success;
     }
 
+    public int getQuantityById(String id) {
+        int quantity = 0;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+
+        try {
+            String query = "SELECT SoLuongSach FROM Sach WHERE MaSach = ?";
+            statement = con.prepareStatement(query);
+            statement.setString(1, id);
+            rs = statement.executeQuery();
+
+            if (rs.next()) {
+                quantity = rs.getInt("SoLuongSach");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return quantity;
+    }
+
 }
