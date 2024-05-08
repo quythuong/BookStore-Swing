@@ -515,11 +515,13 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame implements Printabl
                 }
             }
 
-            Cashier_ReceiptFrame receiptFrame = new Cashier_ReceiptFrame(maHoaDon);
-            receiptFrame.setVisible(false);
+//            Cashier_ReceiptFrame receiptFrame = new Cashier_ReceiptFrame(maHoaDon);
+//            receiptFrame.setVisible(false);
 
             CashierFrame cs = new CashierFrame();
             cs.setVisible(true);
+            
+            dispose();
         }
     }//GEN-LAST:event_btn_exportActionPerformed
 
@@ -646,6 +648,10 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame implements Printabl
                 deleteReceipt(maHoaDon);
                 JOptionPane.showMessageDialog(null, "Hủy hóa đơn thành công", "Success", JOptionPane.INFORMATION_MESSAGE);
 
+                CashierFrame cashierFrame = new CashierFrame();
+                cashierFrame.setVisible(true);
+                // Đóng Cashier_ReceiptFrame
+                dispose();
 //                Cashier_ReceiptFrame receiptFrame = new Cashier_ReceiptFrame(maHoaDon);
 //                receiptFrame.setVisible(false);
             }
@@ -694,6 +700,12 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame implements Printabl
                 if (selectedRow != -1) {
                     try {
                         int quantity = (int) model.getValueAt(selectedRow, 2);
+                        if (quantity <= 0) {
+                            // Hiển thị thông báo và đặt lại giá trị số lượng về 1
+                            JOptionPane.showMessageDialog(null, "Số lượng không thể là số nhỏ hơn hoặc bằng 0", "Error", JOptionPane.ERROR_MESSAGE);
+                            model.setValueAt(1, selectedRow, 2);
+                            return;
+                        }
                         String priceStr = (String) model.getValueAt(selectedRow, 3);
                         // Loại bỏ dấu "," từ chuỗi số giá
                         priceStr = priceStr.replaceAll(",", "");

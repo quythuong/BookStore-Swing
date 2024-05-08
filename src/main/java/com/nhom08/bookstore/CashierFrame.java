@@ -62,9 +62,9 @@ public class CashierFrame extends javax.swing.JFrame {
             private void chuyenSangReceiptFrame() {
                 Cashier_ReceiptFrame receiptFrame = new Cashier_ReceiptFrame(maHoaDon);
                 receiptFrame.setVisible(true);
-
-                CashierFrame cs = new CashierFrame();
-                cs.setVisible(false);
+                dispose();
+//                CashierFrame cs = new CashierFrame();
+//                cs.setVisible(false);
             }
         });
 
