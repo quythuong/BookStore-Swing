@@ -678,6 +678,12 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame implements Printabl
                 if (selectedRow != -1) {
                     try {
                         int quantity = (int) model.getValueAt(selectedRow, 2);
+                        if (quantity <= 0) {
+                            // Hiển thị thông báo và đặt lại giá trị số lượng về 1
+                            JOptionPane.showMessageDialog(null, "Số lượng không thể là số nhỏ hơn hoặc bằng 0", "Error", JOptionPane.ERROR_MESSAGE);
+                            model.setValueAt(1, selectedRow, 2);
+                            return;
+                        }
                         String priceStr = (String) model.getValueAt(selectedRow, 3);
                         // Loại bỏ dấu "," từ chuỗi số giá
                         priceStr = priceStr.replaceAll(",", "");
@@ -854,7 +860,6 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame implements Printabl
         return iL;
     }
 
-    
     public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
         double totalAmount = 0.0;
         double change = 0.0;
@@ -891,7 +896,7 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame implements Printabl
                 y += yShift;
                 g2d.drawString(lb_date.getText(), 10, y);
                 y += yShift;
-                g2d.drawString("ID: "+lb_mahoadon.getText(), 10, y);
+                g2d.drawString("ID: " + lb_mahoadon.getText(), 10, y);
                 y += yShift;
                 g2d.drawString("--------------------------------------------------------", 10, y);
                 y += headerRectHeight;
@@ -916,15 +921,15 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame implements Printabl
 
                 g2d.drawString("--------------------------------------------------------", 10, y);
                 y += yShift;
-                g2d.drawString(" Total   :                                  " + String.valueOf(total1) +" VND" +"   ", 10, y);
+                g2d.drawString(" Total   :                                  " + String.valueOf(total1) + " VND" + "   ", 10, y);
                 y += yShift;
                 g2d.drawString("--------------------------------------------------------", 10, y);
                 y += yShift;
-                g2d.drawString(" Cash    :                                  " + String.valueOf(df.format(cash))+" VND" + "   ", 10, y);
+                g2d.drawString(" Cash    :                                  " + String.valueOf(df.format(cash)) + " VND" + "   ", 10, y);
                 y += yShift;
                 g2d.drawString("--------------------------------------------------------", 10, y);
                 y += yShift;
-                g2d.drawString(" Change  :                                  " + String.valueOf(change1) +" VND"+ "   ", 10, y);
+                g2d.drawString(" Change  :                                  " + String.valueOf(change1) + " VND" + "   ", 10, y);
                 y += yShift;
                 y += yShift;
                 y += yShift;
@@ -943,6 +948,6 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame implements Printabl
         }
         return result;
     }
-    
+
     private DecimalFormat df = new DecimalFormat("#,###");
 }
