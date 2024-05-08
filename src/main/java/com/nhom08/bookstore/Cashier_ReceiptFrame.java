@@ -39,6 +39,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.print.PageFormat;
+import java.awt.print.Paper;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
@@ -714,6 +715,38 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame {
         });
     }
 
+//    private void printRecord(JPanel panelToPrint) {
+//
+//        btn_export.setVisible(false);
+//        lb_cancle.setVisible(false);
+//
+//        PrinterJob printerJob = PrinterJob.getPrinterJob();
+//        printerJob.setJobName("Print record");
+//        printerJob.setPrintable(new Printable() {
+//            @Override
+//            public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
+//                pageFormat.setOrientation(PageFormat.LANDSCAPE);
+//                if (pageIndex > 0) {
+//                    return Printable.NO_SUCH_PAGE;
+//                }
+//                Graphics2D graphics2D = (Graphics2D) graphics;
+////                graphics2D.translate(pageFormat.getImageableX()*2,pageFormat.getImageableY()*2);
+////                graphics2D.scale(0.5,0.5);
+//                graphics2D.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
+//                graphics2D.scale(0.47, 0.47);
+//                panelToPrint.paint(graphics2D);
+//                return Printable.PAGE_EXISTS;
+//            }
+//        });
+//        boolean returningResult = printerJob.printDialog();
+//        if (returningResult) {
+//            try {
+//                printerJob.print();
+//            } catch (PrinterException printerException) {
+//                JOptionPane.showMessageDialog(this, "Print Error: " + printerException.getMessage());
+//            }
+//        }
+//    }
     private void printRecord(JPanel panelToPrint) {
 
         btn_export.setVisible(false);
@@ -724,19 +757,29 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame {
         printerJob.setPrintable(new Printable() {
             @Override
             public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
+                // Thiết lập kích thước giấy thành A4
                 pageFormat.setOrientation(PageFormat.LANDSCAPE);
+                pageFormat.setPaper(getA4Paper());
+
+                // Kiểm tra nếu không có trang nào được yêu cầu hoặc chỉ yêu cầu trang đầu tiên
                 if (pageIndex > 0) {
                     return Printable.NO_SUCH_PAGE;
                 }
+
                 Graphics2D graphics2D = (Graphics2D) graphics;
-//                graphics2D.translate(pageFormat.getImageableX()*2,pageFormat.getImageableY()*2);
-//                graphics2D.scale(0.5,0.5);
+                // Dịch chuyển và quy mô để vẽ toàn bộ nội dung trên trang
                 graphics2D.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
-                graphics2D.scale(0.47, 0.47);
+                double scaleX = pageFormat.getImageableWidth() / panelToPrint.getWidth();
+                double scaleY = pageFormat.getImageableHeight() / panelToPrint.getHeight();
+                double scale = Math.min(scaleX, scaleY);
+                graphics2D.scale(scale, scale);
+
+                // Vẽ nội dung của panelToPrint
                 panelToPrint.paint(graphics2D);
                 return Printable.PAGE_EXISTS;
             }
         });
+
         boolean returningResult = printerJob.printDialog();
         if (returningResult) {
             try {
@@ -745,6 +788,16 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Print Error: " + printerException.getMessage());
             }
         }
+    }
+
+// Phương thức để lấy kích thước giấy A4
+    private Paper getA4Paper() {
+        double width = 8.3 * 72; // inch to points
+        double height = 11.7 * 72; // inch to points
+        Paper paper = new Paper();
+        paper.setSize(width, height);
+        paper.setImageableArea(0, 0, width, height);
+        return paper;
     }
 
     private void updateTotalInHoaDon(String maHoaDon, double total) {
