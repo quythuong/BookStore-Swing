@@ -8,6 +8,7 @@ import com.nhom08.bookstore.DAO.DBConnection;
 import com.nhom08.bookstore.DAO.EmployeeDAO;
 import com.nhom08.bookstore.ManagerFrame;
 import com.nhom08.bookstore.Models.EmployeeModel;
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -478,6 +479,9 @@ public class panel_employees extends javax.swing.JPanel {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
         int selectedRow = jTable1.getSelectedRow();
+        txt_tenTaiKhoan.setBackground(new Color(204,204,204));
+        txt_tenTaiKhoan.setEditable(false);
+        
         if (selectedRow != -1) {
             btn_edit.setEnabled(true);
             btn_delete.setEnabled(true);

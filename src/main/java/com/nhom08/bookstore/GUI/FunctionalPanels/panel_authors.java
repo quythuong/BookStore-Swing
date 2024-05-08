@@ -437,7 +437,7 @@ public class panel_authors extends javax.swing.JPanel {
 
     private void save() throws SQLException {
         try {
-            if (tf_authorid.getText().isEmpty() || tf_authorname.getText().isEmpty() || tf_publisherid.getText().isEmpty()) {
+            if (tf_authorid.getText().isEmpty() || tf_authorname.getText().isEmpty() || cb_publisherid.getSelectedItem()==null) {
                 JOptionPane.showMessageDialog(this, "Không được để trống các trường!");
                 return;
             }
