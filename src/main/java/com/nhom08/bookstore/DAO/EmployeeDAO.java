@@ -70,7 +70,7 @@ public class EmployeeDAO {
 
             hasResultSet = statement.execute();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Lỗi khi thêm nhân viên: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
         return hasResultSet;
@@ -93,7 +93,7 @@ public class EmployeeDAO {
 
             hasResultSet = statement.execute();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Lỗi khi cập nhật nhân viên: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
         return hasResultSet;
@@ -106,7 +106,7 @@ public class EmployeeDAO {
             statement.setInt(1, id); // Sử dụng setInt để gán giá trị kiểu int
             hasResultSet = statement.execute();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Lỗi khi xóa nhân viên: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
 

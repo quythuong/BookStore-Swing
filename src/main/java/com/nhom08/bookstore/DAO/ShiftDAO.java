@@ -40,7 +40,7 @@ public class ShiftDAO {
 
             hasResultSet = statement.execute();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null,e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
         return hasResultSet;
@@ -76,7 +76,7 @@ public class ShiftDAO {
             statement.setString(3, Thu);
             hasResultSet = statement.execute();
         } catch (SQLException e) {
-           JOptionPane.showMessageDialog(null, e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
         return hasResultSet;
@@ -88,17 +88,7 @@ public class ShiftDAO {
         ResultSet rs = null;
 
         try {
-            // Thực hiện truy vấn và sắp xếp kết quả theo trường "Thu"
-            statement = con.prepareStatement("SELECT MaNV, TenNV, Ca, Thu, ChucVu FROM View_XemCaLam ORDER BY "
-                    + "CASE "
-                    + "WHEN Thu = 'Mon' THEN 1 "
-                    + "WHEN Thu = 'Tue' THEN 2 "
-                    + "WHEN Thu = 'Wed' THEN 3 "
-                    + "WHEN Thu = 'Thu' THEN 4 "
-                    + "WHEN Thu = 'Fri' THEN 5 "
-                    + "WHEN Thu = 'Sat' THEN 6 "
-                    + "WHEN Thu = 'Sun' THEN 7 "
-                    + "END");
+            statement = con.prepareStatement("EXEC Proc_XemCaLam");
             rs = statement.executeQuery();
             while (rs.next()) {
                 ShiftModel shift = new ShiftModel();

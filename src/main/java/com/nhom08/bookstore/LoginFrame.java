@@ -25,8 +25,13 @@ public class LoginFrame extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         scale();
+        reset();
     }
-
+    public void reset() {
+        txt_username.setText("");
+        txt_password.setText("");
+        // Mở và xóa các text field khác ở đây tương tự
+    }
     public void scale() {
 //        ImageIcon icon = new javax.swing.ImageIcon(getClass().getResource("/images/Login Background1280_800.png"));
 //        Image img = icon.getImage();

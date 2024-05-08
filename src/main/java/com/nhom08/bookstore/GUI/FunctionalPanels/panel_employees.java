@@ -259,6 +259,11 @@ public class panel_employees extends javax.swing.JPanel {
                 txt_maNVActionPerformed(evt);
             }
         });
+        txt_maNV.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_maNVKeyTyped(evt);
+            }
+        });
         jPanel1.add(txt_maNV, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 210, 44));
 
         jLabel4.setFont(new java.awt.Font("Lexend", 0, 15)); // NOI18N
@@ -504,6 +509,14 @@ public class panel_employees extends javax.swing.JPanel {
         // Xóa nội dung của các trường nhập liệu
         reset();
     }//GEN-LAST:event_btn_huyMouseClicked
+
+    private void txt_maNVKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_maNVKeyTyped
+        // TODO add your handling code here:
+        char c=evt.getKeyChar();
+        if(!Character.isDigit(c)){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txt_maNVKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
