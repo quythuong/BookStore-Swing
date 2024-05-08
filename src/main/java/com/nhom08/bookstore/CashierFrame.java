@@ -297,7 +297,7 @@ public class CashierFrame extends javax.swing.JFrame {
         panelCustom1.add(panel_cancelBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 530, 50, 50));
 
         getContentPane().add(panelCustom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(953, 85, 305, 700));
-        getContentPane().add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 940, 720));
+        getContentPane().add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 950, 720));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -385,7 +385,6 @@ public class CashierFrame extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_userIcon;
     private com.nhom08.bookstore.GUI.FunctionalPanels.main_CashierPanel mainPanel;
     private com.nhom08.bookstore.GUI.PanelCustom panelCustom1;
-    private com.nhom08.bookstore.GUI.FunctionalPanels.Panel_BookItem panel_BookItem1;
     private javax.swing.JPanel panel_Header;
     private com.nhom08.bookstore.GUI.PanelCustom panel_cancelBtn;
     private com.nhom08.bookstore.GUI.TextFieldCustom textFieldCustom1;

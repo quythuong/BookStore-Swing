@@ -54,12 +54,7 @@ public class LoginFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel9 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
         btn_login = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txt_username = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -71,23 +66,6 @@ public class LoginFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel9.setFont(new java.awt.Font("Lexend SemiBold", 0, 12)); // NOI18N
-        jLabel9.setText("Request now");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(661, 630, -1, -1));
-
-        jLabel8.setFont(new java.awt.Font("Lexend Light", 0, 12)); // NOI18N
-        jLabel8.setText("Dont have an account ?");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(523, 630, -1, -1));
-
-        jTextField2.setFont(new java.awt.Font("Lexend Thin", 0, 12)); // NOI18N
-        jTextField2.setText("Phone Number");
-        jTextField2.setPreferredSize(new java.awt.Dimension(345, 31));
-        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(468, 569, -1, -1));
-
-        jLabel7.setFont(new java.awt.Font("Lexend Light", 0, 16)); // NOI18N
-        jLabel7.setText("— Or login with —");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(574, 520, -1, -1));
-
         btn_login.setBackground(new java.awt.Color(255, 216, 156));
         btn_login.setFont(new java.awt.Font("Lexend Medium", 0, 16)); // NOI18N
         btn_login.setText("Login");
@@ -97,15 +75,11 @@ public class LoginFrame extends javax.swing.JFrame {
                 btn_loginActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(593, 447, -1, -1));
-
-        jLabel6.setFont(new java.awt.Font("Lexend Thin", 0, 12)); // NOI18N
-        jLabel6.setText("Forgot password ?");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(711, 391, -1, -1));
+        getContentPane().add(btn_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 480, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Lexend Light", 0, 16)); // NOI18N
         jLabel4.setText("Username:");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(467, 291, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 330, -1, -1));
 
         txt_username.setFont(new java.awt.Font("Lexend Thin", 0, 12)); // NOI18N
         txt_username.setForeground(new java.awt.Color(157, 157, 157));
@@ -117,11 +91,11 @@ public class LoginFrame extends javax.swing.JFrame {
                 txt_usernameActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(574, 285, 239, 31));
+        getContentPane().add(txt_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 320, 239, 31));
 
         jLabel5.setFont(new java.awt.Font("Lexend Light", 0, 16)); // NOI18N
         jLabel5.setText("Password:");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(467, 354, -1, -1));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 390, -1, -1));
 
         txt_password.setFont(new java.awt.Font("Lexend Thin", 0, 24)); // NOI18N
         txt_password.setForeground(new java.awt.Color(157, 157, 157));
@@ -133,15 +107,15 @@ public class LoginFrame extends javax.swing.JFrame {
                 txt_passwordActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(574, 348, 239, 31));
+        getContentPane().add(txt_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 390, 239, 31));
 
         jLabel3.setFont(new java.awt.Font("Lexend Light", 0, 16)); // NOI18N
         jLabel3.setText("Hi, login to get access to your roles");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(508, 203, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 220, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Lexend SemiBold", 0, 35)); // NOI18N
         jLabel1.setText("LOGIN");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(579, 142, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 170, -1, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Login Background1280_800.png"))); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -276,11 +250,6 @@ public class LoginFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JPasswordField txt_password;
     private javax.swing.JTextField txt_username;
     // End of variables declaration//GEN-END:variables

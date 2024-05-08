@@ -854,36 +854,52 @@ BEGIN
         RAISERROR ('Tài khoản không tồn tại!', 16, 1);
     END
 END
-
 GO
 CREATE PROCEDURE Proc_SuaThongTinCaNhan
     @TenNV NVARCHAR(50),
     @GioiTinh NVARCHAR(10),
     @DiaChi NVARCHAR(255),
     @MatKhauMoi VARCHAR(50)
-	--@CapMoi INT,
-	--@ChucVu NVARCHAR(50) = '',
 AS
 BEGIN
+    SET NOCOUNT ON;
     DECLARE @TenTaiKhoan VARCHAR(50);
+    DECLARE @MatKhauHienTai VARCHAR(50);
+    DECLARE @sqlString NVARCHAR(2000);
+
     SET @TenTaiKhoan = ORIGINAL_LOGIN();
 
     IF EXISTS (SELECT 1 FROM NhanVien WHERE TenTaiKhoan = @TenTaiKhoan)
     BEGIN
+        -- Lấy mật khẩu hiện tại của người dùng
+        SELECT @MatKhauHienTai = MatKhau FROM NhanVien WHERE TenTaiKhoan = @TenTaiKhoan;
+
+        -- Cập nhật thông tin cá nhân
         UPDATE NhanVien
         SET TenNV = @TenNV,
             GioiTinh = @GioiTinh,
-            DiaChi = @DiaChi,
-            MatKhau = @MatKhauMoi
---            Cap = @CapMoi,
---            ChucVu = @ChucVu,
+            DiaChi = @DiaChi
         WHERE TenTaiKhoan = @TenTaiKhoan;
+
+        -- Kiểm tra nếu có mật khẩu mới và khác với mật khẩu hiện tại
+        IF @MatKhauMoi IS NOT NULL AND @MatKhauMoi <> @MatKhauHienTai
+        BEGIN
+            -- Cập nhật mật khẩu mới trong bảng NhanVien
+            UPDATE NhanVien
+            SET MatKhau = @MatKhauMoi
+            WHERE TenTaiKhoan = @TenTaiKhoan;
+
+            -- Cập nhật mật khẩu cho tài khoản SQL Server
+            SET @sqlString = 'ALTER LOGIN [' + @TenTaiKhoan + '] WITH PASSWORD = ''' + @MatKhauMoi + '''';
+            EXEC (@sqlString);
+        END;
     END
     ELSE
     BEGIN
         RAISERROR ('Tài khoản không tồn tại!', 16, 1);
     END
-END
+END;
+
 -- ==================== PHẦN CÁC FUNCTION============================
 go
 -- Tạo Func tìm kiếm sách

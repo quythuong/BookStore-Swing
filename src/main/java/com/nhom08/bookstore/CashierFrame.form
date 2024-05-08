@@ -423,7 +423,7 @@
     <Container class="com.nhom08.bookstore.GUI.FunctionalPanels.main_CashierPanel" name="mainPanel">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="0" y="60" width="940" height="720"/>
+          <AbsoluteConstraints x="0" y="60" width="950" height="720"/>
         </Constraint>
       </Constraints>
 
