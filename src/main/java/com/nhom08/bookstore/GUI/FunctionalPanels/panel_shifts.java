@@ -371,6 +371,8 @@ public class panel_shifts extends javax.swing.JPanel {
         String shift = (String) cb_ca.getSelectedItem();
         String date = (String) cb_thu.getSelectedItem();
         String position = (String) txt_chucVu.getText();
+        String name = (String) txt_tenNV.getText();
+        
         try {
             // Gọi phương thức addShift của ShiftDAO để thêm ca làm mới vào CSDL
             shiftDAO.updateShift(id, shift, date, position);
@@ -381,6 +383,8 @@ public class panel_shifts extends javax.swing.JPanel {
                 jTable1.getModel().setValueAt(id, selectedRow, 0); // ID của ca làm
                 jTable1.getModel().setValueAt(shift, selectedRow, 2); // Ca làm
                 jTable1.getModel().setValueAt(date, selectedRow, 3); // Ngày làm
+                jTable1.getModel().setValueAt(name,selectedRow, 1);
+                jTable1.getModel().setValueAt(position,selectedRow, 5);
             }
 
         } catch (SQLException ex) {
@@ -388,6 +392,7 @@ public class panel_shifts extends javax.swing.JPanel {
             ex.printStackTrace(); // In stack trace của lỗi để xác định vấn đề cụ thể
             // Hiển thị thông báo lỗi cho người dùng
         }
+
 
     }//GEN-LAST:event_btn_editActionPerformed
 
@@ -418,6 +423,7 @@ public class panel_shifts extends javax.swing.JPanel {
             // Không có dòng nào được chọn
             return;
         }
+        cb_maNV.setEnabled(false);
         btn_edit.setEnabled(true);
         btn_delete.setEnabled(true);
         // Lấy thông tin từ dòng được chọn và hiển thị lên các ô nhập liệu

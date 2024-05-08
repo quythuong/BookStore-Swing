@@ -17,7 +17,7 @@ public class PictureBox extends JLayeredPane {
         return image;
     }
 
-    public void setImage(Icon image) {
+    public void setImage(ImageIcon image) {
         this.image = image;
     }
 

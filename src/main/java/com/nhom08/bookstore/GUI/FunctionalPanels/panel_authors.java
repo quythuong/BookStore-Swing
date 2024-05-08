@@ -10,10 +10,12 @@ import com.nhom08.bookstore.DAO.PublisherDAO;
 import com.nhom08.bookstore.Models.AuthorModel;
 import com.nhom08.bookstore.Models.PublisherModel;
 import com.nhom08.bookstore.Utils.showMessageDialogs;
+import java.awt.Color;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -394,6 +396,8 @@ public class panel_authors extends javax.swing.JPanel {
     private void editAuthor() throws SQLException {
         status = 2;
         enableText();
+        tf_authorid.setBackground(new Color(204,204,204));
+        tf_authorid.setEditable(false);
     }
 
     private void deleteAuthor() throws SQLException {
@@ -417,7 +421,7 @@ public class panel_authors extends javax.swing.JPanel {
         cb_publisherid.setSelectedItem(model.getValueAt(row, 1).toString());
         tf_authorname.setText(model.getValueAt(row, 2).toString());
         tf_contact.setText(model.getValueAt(row, 3).toString());
-        
+
         disabletext();
     }
 
@@ -433,6 +437,10 @@ public class panel_authors extends javax.swing.JPanel {
 
     private void save() throws SQLException {
         try {
+            if (tf_authorid.getText().isEmpty() || tf_authorname.getText().isEmpty() || cb_publisherid.getSelectedItem()==null) {
+                JOptionPane.showMessageDialog(this, "Không được để trống các trường!");
+                return;
+            }
             // add
             if (status == 1) {
                 choice = new showMessageDialogs().saveMessage("author");
@@ -476,19 +484,25 @@ public class panel_authors extends javax.swing.JPanel {
     }
 
     private void disabletext() {
-        tf_authorid.enable(false);
-        tf_authorname.enable(false);
-        tf_publisherid.enable(false);
-        tf_contact.enable(false);
-        cb_publisherid.enable(false);
+        tf_authorid.setBackground(new Color(204, 204, 204));
+        tf_authorname.setBackground(new Color(204, 204, 204));
+        tf_contact.setBackground(new Color(204, 204, 204));
+        tf_publisherid.setBackground(new Color(204, 204, 204));
+        tf_authorid.setEditable(false);
+        tf_authorname.setEditable(false);
+        tf_contact.setEditable(false);
+        cb_publisherid.setEditable(false);
     }
 
     private void enableText() {
-        tf_authorid.enable(true);
-        tf_authorname.enable(true);
-        tf_publisherid.enable(true);
-        tf_contact.enable(true);
-        cb_publisherid.enable(true);
+        tf_authorid.setBackground(Color.WHITE);
+        tf_authorname.setBackground(Color.WHITE);
+        tf_contact.setBackground(Color.WHITE);
+        tf_publisherid.setBackground(Color.WHITE);
+        tf_authorid.setEditable(true);
+        tf_authorname.setEditable(true);
+        tf_contact.setEditable(true);
+        cb_publisherid.setEditable(true);
     }
 
     private void resetText() {

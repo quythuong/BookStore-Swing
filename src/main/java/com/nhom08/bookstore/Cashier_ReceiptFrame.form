@@ -83,7 +83,7 @@
     <Container class="com.nhom08.bookstore.GUI.FunctionalPanels.main_CashierPanel" name="mainPanel">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="0" y="70" width="700" height="700"/>
+          <AbsoluteConstraints x="0" y="70" width="710" height="700"/>
         </Constraint>
       </Constraints>
 
@@ -122,12 +122,12 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="panelCustom2" min="-2" pref="80" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="panelCustom2" min="-2" pref="98" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="jScrollPane2" min="-2" pref="157" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="panelCustom4" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="16" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -165,7 +165,11 @@
                           </Group>
                           <Group type="102" attributes="0">
                               <Component id="lb_date" min="-2" max="-2" attributes="0"/>
+<<<<<<< HEAD
                               <EmptySpace pref="160" max="32767" attributes="0"/>
+=======
+                              <EmptySpace pref="149" max="32767" attributes="0"/>
+>>>>>>> 47c750e938b5acfe37b86946441f722c1ba69068
                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="lb_mahoadon" min="-2" pref="167" max="-2" attributes="0"/>
@@ -188,7 +192,7 @@
                           <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lb_mahoadon" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="18" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -291,6 +295,9 @@
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tb_listKeyTyped"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

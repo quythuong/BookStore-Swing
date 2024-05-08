@@ -32,6 +32,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.nhom08.bookstore.DAO.ReceiptDAO;
 import com.nhom08.bookstore.DAO.ReceiptDetailsDAO;
 import com.nhom08.bookstore.Models.ModelItemSell;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyAdapter;
@@ -39,6 +40,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.print.PageFormat;
+import java.awt.print.Paper;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
@@ -53,14 +55,19 @@ import javax.swing.table.DefaultTableCellRenderer;
 import lombok.Getter;
 import lombok.Setter;
 import net.sf.jasperreports.components.table.util.TableUtil;
+import com.nhom08.bookstore.Models.Item;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import static java.awt.print.Printable.NO_SUCH_PAGE;
+import static java.awt.print.Printable.PAGE_EXISTS;
+import javax.swing.ImageIcon;
 
 /**
  *
  * @author Admin
  */
-@Getter
-@Setter
-public class Cashier_ReceiptFrame extends javax.swing.JFrame {
+
+public class Cashier_ReceiptFrame extends javax.swing.JFrame implements Printable {
 
     private FormHome home;
     private String maHoaDon;
@@ -99,6 +106,11 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame {
                 DefaultTableModel model = (DefaultTableModel) tb_list.getModel();
                 DecimalFormat df = new DecimalFormat("#,###");
                 boolean exists = false;
+
+                if (item.getQuantity() <= 0) {
+                    JOptionPane.showMessageDialog(null, "Mặt hàng này đã hết hàng", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                    return; // Không thêm vào bảng nếu số lượng là 0 hoặc âm
+                }
                 for (int i = 0; i < model.getRowCount(); i++) {
                     if (model.getValueAt(i, 1).equals(item.getName())) {
                         int quantity = (int) model.getValueAt(i, 2);
@@ -196,7 +208,7 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame {
         panel_Header.add(textFieldCustom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 11, 338, 41));
 
         getContentPane().add(panel_Header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 60));
-        getContentPane().add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 700, 700));
+        getContentPane().add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 710, 700));
 
         panelCustom2.setPreferredSize(new java.awt.Dimension(532, 87));
         panelCustom2.setRoundBottomLeft(30);
@@ -236,7 +248,7 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame {
                                 .addGap(161, 161, 161))))
                     .addGroup(panelCustom2Layout.createSequentialGroup()
                         .addComponent(lb_date)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lb_mahoadon, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -254,7 +266,7 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame {
                     .addComponent(lb_date)
                     .addComponent(jLabel4)
                     .addComponent(lb_mahoadon))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         tb_list.setModel(new javax.swing.table.DefaultTableModel(
@@ -281,6 +293,11 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame {
             }
         });
         tb_list.setRowHeight(23);
+        tb_list.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tb_listKeyTyped(evt);
+            }
+        });
         jScrollPane2.setViewportView(tb_list);
         if (tb_list.getColumnModel().getColumnCount() > 0) {
             tb_list.getColumnModel().getColumn(0).setPreferredWidth(0);
@@ -463,12 +480,12 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame {
             panelToPrintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelToPrintLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelCustom2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panelCustom2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelCustom4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(panelToPrint, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 70, 560, 460));
@@ -489,15 +506,42 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame {
             addChiTietHoaDon(maHoaDon, maSach, soLuongBan, gia);
             updateTotalInHoaDon(maHoaDon, total);
 
-            printRecord(panelToPrint);
+            createItemList();
+//        Float change = Float.parseFloat(jTextFieldCash.getText()) - Float.parseFloat(jTextFieldTotal.getText());
+//        jTextFieldChange.setText(df.format(change));
 
-            Cashier_ReceiptFrame receiptFrame = new Cashier_ReceiptFrame(maHoaDon);
-            receiptFrame.setVisible(false);
+            PrinterJob pj = PrinterJob.getPrinterJob();
+            pj.setPrintable((Printable) this, getPageFormat(pj));
 
+//      there's dialog
+            pj.setPrintable((Printable) this);
+            boolean ok = pj.printDialog();
+            if (ok) {
+                try {
+                    pj.print();
+                } catch (PrinterException ex) {
+                }
+            }
+
+//            Cashier_ReceiptFrame receiptFrame = new Cashier_ReceiptFrame(maHoaDon);
+//            receiptFrame.setVisible(false);
             CashierFrame cs = new CashierFrame();
             cs.setVisible(true);
+
+            dispose();
         }
     }//GEN-LAST:event_btn_exportActionPerformed
+
+    private void tb_listKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tb_listKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+//        if (c == '-') {
+//            evt.consume();
+//        }
+        if (!Character.isDigit(c)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_tb_listKeyTyped
 
     /**
      * @param args the command line arguments
@@ -611,6 +655,10 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame {
                 deleteReceipt(maHoaDon);
                 JOptionPane.showMessageDialog(null, "Hủy hóa đơn thành công", "Success", JOptionPane.INFORMATION_MESSAGE);
 
+                CashierFrame cashierFrame = new CashierFrame();
+                cashierFrame.setVisible(true);
+                // Đóng Cashier_ReceiptFrame
+                dispose();
 //                Cashier_ReceiptFrame receiptFrame = new Cashier_ReceiptFrame(maHoaDon);
 //                receiptFrame.setVisible(false);
             }
@@ -659,6 +707,21 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame {
                 if (selectedRow != -1) {
                     try {
                         int quantity = (int) model.getValueAt(selectedRow, 2);
+                        int currentQuantity = getCurrentQuantity(selectedRow); // Lấy số lượng hiện có của mặt hàng
+
+                        if (quantity <= 0) {
+                            // Hiển thị thông báo và đặt lại giá trị số lượng về 1
+                            JOptionPane.showMessageDialog(null, "Số lượng không thể là số nhỏ hơn hoặc bằng 0", "Error", JOptionPane.ERROR_MESSAGE);
+                            model.setValueAt(1, selectedRow, 2);
+                            return;
+                        }
+
+                        if (quantity > currentQuantity) {
+                            // Hiển thị thông báo lỗi nếu số lượng nhập vào lớn hơn số lượng hiện có
+                            JOptionPane.showMessageDialog(null, "Số lượng nhập vào lớn hơn số lượng hiện có của mặt hàng", "Error", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+
                         String priceStr = (String) model.getValueAt(selectedRow, 3);
                         // Loại bỏ dấu "," từ chuỗi số giá
                         priceStr = priceStr.replaceAll(",", "");
@@ -679,6 +742,18 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame {
                         //JOptionPane.showMessageDialog(null, "Số lượng phải là một số nguyên", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
+            }
+
+            private int getCurrentQuantity(int selectedRow) {
+                DefaultTableModel model = (DefaultTableModel) tb_list.getModel();
+                String itemId = (String) model.getValueAt(selectedRow, 5); // Lấy ID từ cột số 5
+                int currentQuantity = 0;
+
+                // Sử dụng BookDAO để lấy số lượng hiện có của mặt hàng với ID là itemId
+                BookDAO bookDao = new BookDAO();
+                currentQuantity = bookDao.getQuantityById(itemId);
+
+                return currentQuantity;
             }
         });
     }
@@ -718,37 +793,87 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame {
         });
     }
 
-    private void printRecord(JPanel panelToPrint) {
+//    private void printRecord(JPanel panelToPrint) {
+//
+//        btn_export.setVisible(false);
+//        lb_cancle.setVisible(false);
+//
+//        PrinterJob printerJob = PrinterJob.getPrinterJob();
+//        printerJob.setJobName("Print record");
+//        printerJob.setPrintable(new Printable() {
+//            @Override
+//            public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
+//                pageFormat.setOrientation(PageFormat.LANDSCAPE);
+//                if (pageIndex > 0) {
+//                    return Printable.NO_SUCH_PAGE;
+//                }
+//                Graphics2D graphics2D = (Graphics2D) graphics;
+////                graphics2D.translate(pageFormat.getImageableX()*2,pageFormat.getImageableY()*2);
+////                graphics2D.scale(0.5,0.5);
+//                graphics2D.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
+//                graphics2D.scale(0.47, 0.47);
+//                panelToPrint.paint(graphics2D);
+//                return Printable.PAGE_EXISTS;
+//            }
+//        });
+//        boolean returningResult = printerJob.printDialog();
+//        if (returningResult) {
+//            try {
+//                printerJob.print();
+//            } catch (PrinterException printerException) {
+//                JOptionPane.showMessageDialog(this, "Print Error: " + printerException.getMessage());
+//            }
+//        }
+//    }
+//    private void printRecord(JPanel panelToPrint) {
+//
+//        createItemList();
+////        Float change = Float.parseFloat(jTextFieldCash.getText()) - Float.parseFloat(jTextFieldTotal.getText());
+////        jTextFieldChange.setText(df.format(change));
+//
+//        PrinterJob pj = PrinterJob.getPrinterJob();
+//        pj.setPrintable((Printable) this, getPageFormat(pj));
+//
+////      there's dialog
+//        pj.setPrintable((Printable) this);
+//        boolean ok = pj.printDialog();
+//        if (ok) {
+//            try {
+//                pj.print();
+//            } catch (PrinterException ex) {
+//            }
+//        }
+//    }
+    public PageFormat getPageFormat(PrinterJob pj) {
 
-        btn_export.setVisible(false);
-        lb_cancle.setVisible(false);
+        PageFormat pf = pj.defaultPage();
+        Paper paper = pf.getPaper();
 
-        PrinterJob printerJob = PrinterJob.getPrinterJob();
-        printerJob.setJobName("Print record");
-        printerJob.setPrintable(new Printable() {
-            @Override
-            public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
-                pageFormat.setOrientation(PageFormat.LANDSCAPE);
-                if (pageIndex > 0) {
-                    return Printable.NO_SUCH_PAGE;
-                }
-                Graphics2D graphics2D = (Graphics2D) graphics;
-//                graphics2D.translate(pageFormat.getImageableX()*2,pageFormat.getImageableY()*2);
-//                graphics2D.scale(0.5,0.5);
-                graphics2D.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
-                graphics2D.scale(0.47, 0.47);
-                panelToPrint.paint(graphics2D);
-                return Printable.PAGE_EXISTS;
-            }
-        });
-        boolean returningResult = printerJob.printDialog();
-        if (returningResult) {
-            try {
-                printerJob.print();
-            } catch (PrinterException printerException) {
-                JOptionPane.showMessageDialog(this, "Print Error: " + printerException.getMessage());
-            }
-        }
+        double width = pf.getImageableWidth();
+        double height = pf.getImageableHeight();
+        paper.setSize(width, height);
+        paper.setImageableArea(0, 10, width, height - cm_to_pp(1));
+        pf.setOrientation(PageFormat.PORTRAIT);
+        pf.setPaper(paper);
+        return pf;
+    }
+
+    protected static double cm_to_pp(double cm) {
+        return toPPI(cm * 0.393600787);
+    }
+
+    protected static double toPPI(double inch) {
+        return inch * 58d;
+    }
+
+// Phương thức để lấy kích thước giấy A4
+    private Paper getA4Paper() {
+        double width = 8.3 * 72; // inch to points
+        double height = 11.7 * 72; // inch to points
+        Paper paper = new Paper();
+        paper.setSize(width, height);
+        paper.setImageableArea(0, 0, width, height);
+        return paper;
     }
 
     private void updateTotalInHoaDon(String maHoaDon, double total) {
@@ -772,4 +897,107 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame {
 
     }
 
+    private java.util.ArrayList<Item> createItemList() {
+        java.util.ArrayList<Item> iL = new java.util.ArrayList<Item>();
+        Item itm = null;
+        for (int i = 0; i < tb_list.getRowCount(); i++) {
+            String item = tb_list.getValueAt(i, 1).toString();
+            String qty = tb_list.getValueAt(i, 2).toString();
+            String price = tb_list.getValueAt(i, 3).toString().replace(",", ".");
+            itm = new Item(item, qty, price);
+            iL.add(itm);
+        }
+        return iL;
+    }
+
+    public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
+        double totalAmount = 0.0;
+        double change = 0.0;
+        //String readFile = System.getProperty("user.dir") + "/src/main/resources/images/my pic.png";
+        //ImageIcon icon = new ImageIcon(readFile);
+        int result = NO_SUCH_PAGE;
+        if (pageIndex == 0) {
+
+            Graphics2D g2d = (Graphics2D) graphics;
+            double width = pageFormat.getImageableWidth();
+            g2d.translate((int) pageFormat.getImageableX(), (int) pageFormat.getImageableY());
+
+            FontMetrics metrics = g2d.getFontMetrics(new Font("Arial", Font.BOLD, 7));
+            try {
+                int y = 15;
+                int yShift = 10;
+                int headerRectHeight = 15;
+                g2d.translate((int) pageFormat.getImageableX(), (int) pageFormat.getImageableY());
+                double wh = pageFormat.getImageableWidth();
+                double ht = pageFormat.getImageableHeight();
+                g2d.drawImage(null, 0, 0, (int) wh, (int) ht, null);
+
+                g2d.setFont(new Font("Monospaced", Font.PLAIN, 9));
+                //g2d.drawImage(icon.getImage(), 75, 20, 30, 30, rootPane);
+                y += yShift + 30;
+                g2d.drawString("--------------------------------------------------------", 10, y);
+                y += yShift;
+                g2d.drawString("  Quan Ly Nha Sach ", 100, y);
+                y += yShift;
+                g2d.drawString("  So 1 VVN, Thu Duc ", 100, y);
+                y += yShift;
+                g2d.drawString("  Ho Chi Minh City ", 100, y);
+                y += yShift;
+                y += yShift;
+                g2d.drawString(lb_date.getText(), 10, y);
+                y += yShift;
+                g2d.drawString("ID: " + lb_mahoadon.getText(), 10, y);
+                y += yShift;
+                g2d.drawString("--------------------------------------------------------", 10, y);
+                y += headerRectHeight;
+
+                g2d.drawString(" Item                                       Price  ", 10, y);
+                y += yShift;
+                g2d.drawString("--------------------------------------------------------", 10, y);
+                y += headerRectHeight;
+
+                for (Item item : createItemList()) {
+                    g2d.drawString(" " + item.getItem() + "                              ", 10, y);
+                    y += yShift;
+                    g2d.drawString("     " + item.getQty() + " x " + item.getPrice(), 5, y);
+                    g2d.drawString(String.valueOf((Double.parseDouble(item.getQty()) * (Double.parseDouble(item.getPrice())))), 250, y);
+                    y += yShift;
+                    totalAmount = totalAmount + (Double.parseDouble(item.getQty())) * (Double.parseDouble(item.getPrice()));
+
+                }
+                double cash = Double.parseDouble(tf_received.getText().replace(",", "."));
+                double total1 = Double.parseDouble(lb_total.getText().replace("VND", "").replace(",", "."));
+                double change1 = Double.parseDouble(lb_changed.getText().replace("VND", "").replace(",", "."));
+
+                g2d.drawString("--------------------------------------------------------", 10, y);
+                y += yShift;
+                g2d.drawString(" Total   :                                  " + String.valueOf(total1) + " VND" + "   ", 10, y);
+                y += yShift;
+                g2d.drawString("--------------------------------------------------------", 10, y);
+                y += yShift;
+                g2d.drawString(" Cash    :                                  " + String.valueOf(df.format(cash)) + " VND" + "   ", 10, y);
+                y += yShift;
+                g2d.drawString("--------------------------------------------------------", 10, y);
+                y += yShift;
+                g2d.drawString(" Change  :                                  " + String.valueOf(change1) + " VND" + "   ", 10, y);
+                y += yShift;
+                y += yShift;
+                y += yShift;
+
+                g2d.drawString("*********************************************************", 10, y);
+                y += yShift;
+                g2d.drawString("    THANK YOU, COME AGAIN!!    ", 90, y);
+                y += yShift;
+                g2d.drawString("*********************************************************", 10, y);
+                y += yShift;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            result = PAGE_EXISTS;
+        }
+        return result;
+    }
+
+    private DecimalFormat df = new DecimalFormat("#,###");
 }

@@ -44,7 +44,7 @@ public class BookDAO {
                 book.setQuantity(rs.getInt(5));
                 book.setPrice(rs.getDouble(6));
                 book.setType(rs.getString(7));
-
+                book.setImage(rs.getString(8));
                 bookList.add(book);
             }
         } catch (SQLException e) {
@@ -60,7 +60,7 @@ public class BookDAO {
         ResultSet rs = null;
 
         try {
-            statement = con.prepareStatement("select MaSach,TenSach,SoLuongSach,Gia from Sach");
+            statement = con.prepareStatement("select MaSach,TenSach,SoLuongSach,Gia,Anh from Sach");
             rs = statement.executeQuery();
             while (rs.next()) {
                 //byte[] anh = rs.getBytes("Anh");
@@ -68,7 +68,8 @@ public class BookDAO {
                 String tenSach = rs.getString("TenSach");
                 int soLuong = rs.getInt("SoLuongSach");
                 double gia = rs.getDouble("Gia");
-                BookModel book = new BookModel(maSach, tenSach, soLuong, gia);
+                String img = rs.getString("Anh");
+                BookModel book = new BookModel(maSach, tenSach, soLuong, gia, img);
                 books.add(book);
             }
         } catch (SQLException e) {
@@ -94,6 +95,7 @@ public class BookDAO {
                 book.setQuantity(rs.getInt(5));
                 book.setPrice(rs.getDouble(6));
                 book.setType(rs.getString(7));
+                book.setImage(rs.getString(8));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -124,7 +126,7 @@ public class BookDAO {
         boolean hasResultSet = false;
 
         try {
-            statement = con.prepareCall("{ call Proc_ThemSach(?,?,?,?,?,?,?) }");
+            statement = con.prepareCall("{ call Proc_ThemSach(?,?,?,?,?,?,?,?) }");
             statement.setString(1, book.getId());
             statement.setString(2, book.getAuthorId());
             statement.setString(3, book.getPublisherId());
@@ -132,7 +134,7 @@ public class BookDAO {
             statement.setInt(5, book.getQuantity());
             statement.setDouble(6, book.getPrice());
             statement.setString(7, book.getType());
-            //statement.setString(8, book.get());
+            statement.setString(8, book.getImage());
 
             hasResultSet = statement.execute();
 
@@ -148,7 +150,7 @@ public class BookDAO {
         boolean hasResultSet = false;
 
         try {
-            statement = con.prepareCall("{ call Proc_SuaSach(?,?,?,?,?,?,?) }");
+            statement = con.prepareCall("{ call Proc_SuaSach(?,?,?,?,?,?,?,?) }");
             statement.setString(1, book.getId());
             statement.setString(2, book.getAuthorId());
             statement.setString(3, book.getPublisherId());
@@ -156,7 +158,7 @@ public class BookDAO {
             statement.setInt(5, book.getQuantity());
             statement.setDouble(6, book.getPrice());
             statement.setString(7, book.getType());
-            //statement.setString(8, book.get());
+            statement.setString(8, book.getImage());
 
             hasResultSet = statement.execute();
 
@@ -228,6 +230,38 @@ public class BookDAO {
         }
 
         return success;
+    }
+
+    public int getQuantityById(String id) {
+        int quantity = 0;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+
+        try {
+            String query = "SELECT SoLuongSach FROM Sach WHERE MaSach = ?";
+            statement = con.prepareStatement(query);
+            statement.setString(1, id);
+            rs = statement.executeQuery();
+
+            if (rs.next()) {
+                quantity = rs.getInt("SoLuongSach");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return quantity;
     }
 
 }

@@ -12,13 +12,18 @@ import com.nhom08.bookstore.Models.BookModel;
 import com.nhom08.bookstore.Models.PublisherModel;
 import com.nhom08.bookstore.Utils.changeIconSize;
 import com.nhom08.bookstore.Utils.showMessageDialogs;
+import java.awt.Color;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.File;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.stage.FileChooser;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -39,9 +44,9 @@ public class panel_books extends javax.swing.JPanel {
      */
     public panel_books() {
         initComponents();
-        
+
         resizeicon();
-        
+
         try {
             disabletext();
             updateTable();
@@ -95,6 +100,7 @@ public class panel_books extends javax.swing.JPanel {
         jPanel9 = new javax.swing.JPanel();
         tf_image = new com.nhom08.bookstore.GUI.TextFieldCustom();
         jLabel12 = new javax.swing.JLabel();
+        buttonCustom1 = new Custom.ButtonCustom();
         btn_save = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 254, 251));
@@ -296,6 +302,11 @@ public class panel_books extends javax.swing.JPanel {
                 tf_quantityActionPerformed(evt);
             }
         });
+        tf_quantity.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tf_quantityKeyTyped(evt);
+            }
+        });
         jPanel6.add(tf_quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 210, 40));
 
         jLabel8.setFont(new java.awt.Font("Lexend", 0, 15)); // NOI18N
@@ -310,6 +321,11 @@ public class panel_books extends javax.swing.JPanel {
         tf_price.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tf_priceActionPerformed(evt);
+            }
+        });
+        tf_price.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tf_priceKeyTyped(evt);
             }
         });
         jPanel7.add(tf_price, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 210, 40));
@@ -357,6 +373,16 @@ public class panel_books extends javax.swing.JPanel {
         jLabel12.setFont(new java.awt.Font("Lexend", 0, 15)); // NOI18N
         jLabel12.setText("Image");
         jPanel9.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
+
+        buttonCustom1.setText("buttonCustom1");
+        buttonCustom1.setBorderColor(new java.awt.Color(255, 255, 255));
+        buttonCustom1.setBorderPainted(false);
+        buttonCustom1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCustom1ActionPerformed(evt);
+            }
+        });
+        jPanel9.add(buttonCustom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 20, 20));
 
         panelCustom3.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 500, -1, -1));
 
@@ -451,6 +477,44 @@ public class panel_books extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_tb_bookPropertyChange
 
+    private void buttonCustom1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCustom1ActionPerformed
+        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+        int returnValue = fileChooser.showOpenDialog(null);
+
+        // Kiểm tra xem người dùng đã chọn tệp hay không
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            // Lấy tệp được chọn
+            File selectedFile = fileChooser.getSelectedFile();
+            String imagePath = selectedFile.getAbsolutePath();
+
+            // Gán đường dẫn hình ảnh cho text field
+            tf_image.setText(imagePath);
+        } else {
+            System.out.println("No file selected");
+        }
+    }//GEN-LAST:event_buttonCustom1ActionPerformed
+
+    private void tf_quantityKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_quantityKeyTyped
+        char c = evt.getKeyChar();
+//        if (c == '-') {
+//            return;
+//        }
+        if (!Character.isDigit(c)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_tf_quantityKeyTyped
+
+    private void tf_priceKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_priceKeyTyped
+        char c = evt.getKeyChar();
+//        if (c == '-') {
+//            return;
+//        }
+        if (!Character.isDigit(c)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_tf_priceKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Custom.ButtonCustom btn_add;
@@ -458,6 +522,7 @@ public class panel_books extends javax.swing.JPanel {
     private Custom.ButtonCustom btn_delete;
     private Custom.ButtonCustom btn_edit;
     private javax.swing.JLabel btn_save;
+    private Custom.ButtonCustom buttonCustom1;
     private javax.swing.JComboBox<String> cb_authorid;
     private javax.swing.JComboBox<String> cb_publisherid;
     private javax.swing.JLabel jLabel10;
@@ -505,9 +570,9 @@ public class panel_books extends javax.swing.JPanel {
             int quantity = book.getQuantity();
             double price = book.getPrice();
             String genre = book.getType();
-            //String img = book.getImage();
+            String img = book.getImage();
 
-            model.addRow(new Object[]{id, authorid, publisherid, name, quantity, price, genre});
+            model.addRow(new Object[]{id, authorid, publisherid, name, quantity, price, genre, img});
         }
         loadPublisherComboBox();
         loadAuthorComboBox();
@@ -552,7 +617,12 @@ public class panel_books extends javax.swing.JPanel {
         tf_quantity.setText(model.getValueAt(row, 4).toString());
         tf_price.setText(model.getValueAt(row, 5).toString());
         tf_genre.setText(model.getValueAt(row, 6).toString());
-        //tf_image.setText(model.getValueAt(row, 7).toString());
+        try {
+            tf_image.setText(model.getValueAt(row, 7).toString());
+        } catch (Exception e) {
+            tf_image.setText("");
+        }
+
     }
 
     private void loadPublisherComboBox() throws SQLException {
@@ -626,6 +696,11 @@ public class panel_books extends javax.swing.JPanel {
 
     private void save() {
         try {
+            if (tf_bookid.getText().isEmpty() || tf_bookname.getText().isEmpty() || tf_price.getText().isEmpty()
+                    || tf_price.getText().isEmpty() || tf_quantity.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Không được để trống các trường!");
+                return;
+            }
             // add
             if (status == 1) {
                 choice = new showMessageDialogs().saveMessage("author");
@@ -638,9 +713,9 @@ public class panel_books extends javax.swing.JPanel {
                     int quantity = Integer.parseInt(tf_quantity.getText().toString());
                     double price = Double.parseDouble(tf_price.getText().toString());
                     String genre = tf_genre.getText().toString();
-                    //String img = book.getImage();
+                    String img = tf_image.getText().toString();
 
-                    bookModel = new BookModel(id, authorid, publisherid, name, quantity, price, genre);
+                    bookModel = new BookModel(id, authorid, publisherid, name, quantity, price, genre, img);
                     bookDAO.save(bookModel);
                     updateTable();
                 }
@@ -657,9 +732,9 @@ public class panel_books extends javax.swing.JPanel {
                     int quantity = Integer.parseInt(tf_quantity.getText().toString());
                     double price = Double.parseDouble(tf_price.getText().toString());
                     String genre = tf_genre.getText().toString();
-                    //String img = book.getImage();
+                    String img = tf_image.getText().toString();
 
-                    bookModel = new BookModel(id, authorid, publisherid, name, quantity, price, genre);
+                    bookModel = new BookModel(id, authorid, publisherid, name, quantity, price, genre, img);
                     bookDAO.update(bookModel);
                     updateTable();
                 }
@@ -677,29 +752,41 @@ public class panel_books extends javax.swing.JPanel {
     }
 
     private void disabletext() {
-        tf_bookid.enable(false);
-        tf_publisherid.enable(false);
-        tf_bookname.enable(false);
-        tf_authorid.enable(false);
-        tf_genre.enable(false);
-        tf_quantity.enable(false);
-        tf_price.enable(false);
-        tf_image.enable(false);
-        cb_authorid.enable(false);
-        cb_publisherid.enable(false);
+        tf_bookid.setBackground(new Color(204, 204, 204));
+        tf_bookname.setBackground(new Color(204, 204, 204));
+        tf_genre.setBackground(new Color(204, 204, 204));
+        tf_quantity.setBackground(new Color(204, 204, 204));
+        tf_price.setBackground(new Color(204, 204, 204));
+        tf_image.setBackground(new Color(204, 204, 204));
+        cb_authorid.setBackground(new Color(204, 204, 204));
+        cb_publisherid.setBackground(new Color(204, 204, 204));
+        tf_bookid.setEditable(false);
+        tf_bookname.setEditable(false);
+        tf_genre.setEditable(false);
+        tf_quantity.setEditable(false);
+        tf_price.setEditable(false);
+        tf_image.setEditable(false);
+        cb_authorid.setEditable(false);
+        cb_publisherid.setEditable(false);
     }
 
     private void enableText() {
-        tf_bookid.enable(true);
-        tf_publisherid.enable(true);
-        tf_bookname.enable(true);
-        tf_authorid.enable(true);
-        tf_genre.enable(true);
-        tf_quantity.enable(true);
-        tf_price.enable(true);
-        tf_image.enable(true);
-        cb_authorid.enable(true);
-        cb_publisherid.enable(true);
+        tf_bookid.setBackground(Color.WHITE);
+        tf_bookname.setBackground(Color.WHITE);
+        tf_genre.setBackground(Color.WHITE);
+        tf_quantity.setBackground(Color.WHITE);
+        tf_price.setBackground(Color.WHITE);
+        tf_image.setBackground(Color.WHITE);
+        cb_authorid.setBackground(Color.WHITE);
+        cb_publisherid.setBackground(Color.WHITE);
+        tf_bookid.setEditable(true);
+        tf_bookname.setEditable(true);
+        tf_genre.setEditable(true);
+        tf_quantity.setEditable(true);
+        tf_price.setEditable(true);
+        tf_image.setEditable(true);
+        cb_authorid.setEditable(true);
+        cb_publisherid.setEditable(true);
     }
 
     private void resetText() {

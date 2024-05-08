@@ -1,5 +1,6 @@
 package com.nhom08.bookstore.DAO;
 
+import com.nhom08.bookstore.Models.BookModel;
 import com.nhom08.bookstore.Models.EmployeeModel;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -51,7 +52,6 @@ public class EmployeeDAO {
         }
         return employeeList;
     }
-
     public boolean addEmployee(EmployeeModel employee) throws SQLException {
         CallableStatement statement = null;
         ResultSet rs = null;
@@ -70,7 +70,7 @@ public class EmployeeDAO {
 
             hasResultSet = statement.execute();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Lỗi khi thêm nhân viên: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
         return hasResultSet;
@@ -93,7 +93,7 @@ public class EmployeeDAO {
 
             hasResultSet = statement.execute();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Lỗi khi cập nhật nhân viên: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
         return hasResultSet;
@@ -106,11 +106,34 @@ public class EmployeeDAO {
             statement.setInt(1, id); // Sử dụng setInt để gán giá trị kiểu int
             hasResultSet = statement.execute();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Lỗi khi xóa nhân viên: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
 
         return hasResultSet;
     }
+    public EmployeeModel getEmployeeByUsername(String username) {
+	EmployeeModel employee = new EmployeeModel();
+        PreparedStatement statement = null;
+        ResultSet rs = null;
 
+        try {
+            statement = con.prepareStatement("select * from NhanVien where TenTaiKhoan=?");
+            statement.setString(1, username);
+            rs = statement.executeQuery();
+            while (rs.next()) {
+                employee.setId(rs.getInt(1));
+                employee.setName(rs.getString(2));
+                employee.setSex(rs.getString(3));
+                employee.setAddress(rs.getString(4));
+                employee.setAccount(rs.getString(5));
+                employee.setPass(rs.getString(6));
+                employee.setLevel(rs.getInt(7));
+		employee.setPosition(rs.getString(8));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return employee;
+    }
 }
