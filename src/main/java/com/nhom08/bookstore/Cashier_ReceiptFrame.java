@@ -32,6 +32,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.nhom08.bookstore.DAO.ReceiptDAO;
 import com.nhom08.bookstore.DAO.ReceiptDetailsDAO;
 import com.nhom08.bookstore.Models.ModelItemSell;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyAdapter;
@@ -52,12 +53,18 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import net.sf.jasperreports.components.table.util.TableUtil;
+import com.nhom08.bookstore.Models.Item;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import static java.awt.print.Printable.NO_SUCH_PAGE;
+import static java.awt.print.Printable.PAGE_EXISTS;
+import javax.swing.ImageIcon;
 
 /**
  *
  * @author Admin
  */
-public class Cashier_ReceiptFrame extends javax.swing.JFrame {
+public class Cashier_ReceiptFrame extends javax.swing.JFrame implements Printable {
 
     private FormHome home;
     private String maHoaDon;
@@ -486,7 +493,22 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame {
             addChiTietHoaDon(maHoaDon, maSach, soLuongBan, gia);
             updateTotalInHoaDon(maHoaDon, total);
 
-            printRecord(panelToPrint);
+            createItemList();
+//        Float change = Float.parseFloat(jTextFieldCash.getText()) - Float.parseFloat(jTextFieldTotal.getText());
+//        jTextFieldChange.setText(df.format(change));
+
+            PrinterJob pj = PrinterJob.getPrinterJob();
+            pj.setPrintable((Printable) this, getPageFormat(pj));
+
+//      there's dialog
+            pj.setPrintable((Printable) this);
+            boolean ok = pj.printDialog();
+            if (ok) {
+                try {
+                    pj.print();
+                } catch (PrinterException ex) {
+                }
+            }
 
             Cashier_ReceiptFrame receiptFrame = new Cashier_ReceiptFrame(maHoaDon);
             receiptFrame.setVisible(false);
@@ -747,47 +769,45 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame {
 //            }
 //        }
 //    }
-    private void printRecord(JPanel panelToPrint) {
+//    private void printRecord(JPanel panelToPrint) {
+//
+//        createItemList();
+////        Float change = Float.parseFloat(jTextFieldCash.getText()) - Float.parseFloat(jTextFieldTotal.getText());
+////        jTextFieldChange.setText(df.format(change));
+//
+//        PrinterJob pj = PrinterJob.getPrinterJob();
+//        pj.setPrintable((Printable) this, getPageFormat(pj));
+//
+////      there's dialog
+//        pj.setPrintable((Printable) this);
+//        boolean ok = pj.printDialog();
+//        if (ok) {
+//            try {
+//                pj.print();
+//            } catch (PrinterException ex) {
+//            }
+//        }
+//    }
+    public PageFormat getPageFormat(PrinterJob pj) {
 
-        btn_export.setVisible(false);
-        lb_cancle.setVisible(false);
+        PageFormat pf = pj.defaultPage();
+        Paper paper = pf.getPaper();
 
-        PrinterJob printerJob = PrinterJob.getPrinterJob();
-        printerJob.setJobName("Print record");
-        printerJob.setPrintable(new Printable() {
-            @Override
-            public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
-                // Thiết lập kích thước giấy thành A4
-                pageFormat.setOrientation(PageFormat.LANDSCAPE);
-                pageFormat.setPaper(getA4Paper());
+        double width = pf.getImageableWidth();
+        double height = pf.getImageableHeight();
+        paper.setSize(width, height);
+        paper.setImageableArea(0, 10, width, height - cm_to_pp(1));
+        pf.setOrientation(PageFormat.PORTRAIT);
+        pf.setPaper(paper);
+        return pf;
+    }
 
-                // Kiểm tra nếu không có trang nào được yêu cầu hoặc chỉ yêu cầu trang đầu tiên
-                if (pageIndex > 0) {
-                    return Printable.NO_SUCH_PAGE;
-                }
+    protected static double cm_to_pp(double cm) {
+        return toPPI(cm * 0.393600787);
+    }
 
-                Graphics2D graphics2D = (Graphics2D) graphics;
-                // Dịch chuyển và quy mô để vẽ toàn bộ nội dung trên trang
-                graphics2D.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
-                double scaleX = pageFormat.getImageableWidth() / panelToPrint.getWidth();
-                double scaleY = pageFormat.getImageableHeight() / panelToPrint.getHeight();
-                double scale = Math.min(scaleX, scaleY);
-                graphics2D.scale(scale, scale);
-
-                // Vẽ nội dung của panelToPrint
-                panelToPrint.paint(graphics2D);
-                return Printable.PAGE_EXISTS;
-            }
-        });
-
-        boolean returningResult = printerJob.printDialog();
-        if (returningResult) {
-            try {
-                printerJob.print();
-            } catch (PrinterException printerException) {
-                JOptionPane.showMessageDialog(this, "Print Error: " + printerException.getMessage());
-            }
-        }
+    protected static double toPPI(double inch) {
+        return inch * 58d;
     }
 
 // Phương thức để lấy kích thước giấy A4
@@ -821,4 +841,108 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame {
 
     }
 
+    private java.util.ArrayList<Item> createItemList() {
+        java.util.ArrayList<Item> iL = new java.util.ArrayList<Item>();
+        Item itm = null;
+        for (int i = 0; i < tb_list.getRowCount(); i++) {
+            String item = tb_list.getValueAt(i, 1).toString();
+            String qty = tb_list.getValueAt(i, 2).toString();
+            String price = tb_list.getValueAt(i, 3).toString().replace(",", ".");
+            itm = new Item(item, qty, price);
+            iL.add(itm);
+        }
+        return iL;
+    }
+
+    
+    public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
+        double totalAmount = 0.0;
+        double change = 0.0;
+        //String readFile = System.getProperty("user.dir") + "/src/main/resources/images/my pic.png";
+        //ImageIcon icon = new ImageIcon(readFile);
+        int result = NO_SUCH_PAGE;
+        if (pageIndex == 0) {
+
+            Graphics2D g2d = (Graphics2D) graphics;
+            double width = pageFormat.getImageableWidth();
+            g2d.translate((int) pageFormat.getImageableX(), (int) pageFormat.getImageableY());
+
+            FontMetrics metrics = g2d.getFontMetrics(new Font("Arial", Font.BOLD, 7));
+            try {
+                int y = 15;
+                int yShift = 10;
+                int headerRectHeight = 15;
+                g2d.translate((int) pageFormat.getImageableX(), (int) pageFormat.getImageableY());
+                double wh = pageFormat.getImageableWidth();
+                double ht = pageFormat.getImageableHeight();
+                g2d.drawImage(null, 0, 0, (int) wh, (int) ht, null);
+
+                g2d.setFont(new Font("Monospaced", Font.PLAIN, 9));
+                //g2d.drawImage(icon.getImage(), 75, 20, 30, 30, rootPane);
+                y += yShift + 30;
+                g2d.drawString("--------------------------------------------------------", 10, y);
+                y += yShift;
+                g2d.drawString("  Quan Ly Nha Sach ", 100, y);
+                y += yShift;
+                g2d.drawString("  So 1 VVN, Thu Duc ", 100, y);
+                y += yShift;
+                g2d.drawString("  Ho Chi Minh City ", 100, y);
+                y += yShift;
+                y += yShift;
+                g2d.drawString(lb_date.getText(), 10, y);
+                y += yShift;
+                g2d.drawString("ID: "+lb_mahoadon.getText(), 10, y);
+                y += yShift;
+                g2d.drawString("--------------------------------------------------------", 10, y);
+                y += headerRectHeight;
+
+                g2d.drawString(" Item                                       Price  ", 10, y);
+                y += yShift;
+                g2d.drawString("--------------------------------------------------------", 10, y);
+                y += headerRectHeight;
+
+                for (Item item : createItemList()) {
+                    g2d.drawString(" " + item.getItem() + "                              ", 10, y);
+                    y += yShift;
+                    g2d.drawString("     " + item.getQty() + " x " + item.getPrice(), 5, y);
+                    g2d.drawString(String.valueOf((Double.parseDouble(item.getQty()) * (Double.parseDouble(item.getPrice())))), 250, y);
+                    y += yShift;
+                    totalAmount = totalAmount + (Double.parseDouble(item.getQty())) * (Double.parseDouble(item.getPrice()));
+
+                }
+                double cash = Double.parseDouble(tf_received.getText().replace(",", "."));
+                double total1 = Double.parseDouble(lb_total.getText().replace("VND", "").replace(",", "."));
+                double change1 = Double.parseDouble(lb_changed.getText().replace("VND", "").replace(",", "."));
+
+                g2d.drawString("--------------------------------------------------------", 10, y);
+                y += yShift;
+                g2d.drawString(" Total   :                                  " + String.valueOf(total1) +" VND" +"   ", 10, y);
+                y += yShift;
+                g2d.drawString("--------------------------------------------------------", 10, y);
+                y += yShift;
+                g2d.drawString(" Cash    :                                  " + String.valueOf(df.format(cash))+" VND" + "   ", 10, y);
+                y += yShift;
+                g2d.drawString("--------------------------------------------------------", 10, y);
+                y += yShift;
+                g2d.drawString(" Change  :                                  " + String.valueOf(change1) +" VND"+ "   ", 10, y);
+                y += yShift;
+                y += yShift;
+                y += yShift;
+
+                g2d.drawString("*********************************************************", 10, y);
+                y += yShift;
+                g2d.drawString("    THANK YOU, COME AGAIN!!    ", 90, y);
+                y += yShift;
+                g2d.drawString("*********************************************************", 10, y);
+                y += yShift;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            result = PAGE_EXISTS;
+        }
+        return result;
+    }
+    
+    private DecimalFormat df = new DecimalFormat("#,###");
 }
