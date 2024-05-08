@@ -413,6 +413,7 @@ public class panel_iReceipt extends javax.swing.JPanel {
 			}
 		} catch (ParseException | SQLException ex) {
 			Logger.getLogger(panel_iReceipt.class.getName()).log(Level.SEVERE, null, ex);			JOptionPane.showMessageDialog(this, "Thất bại");
+			return;
 		}
 		if("add".equals(Mode)) {
 			JOptionPane.showMessageDialog(this, "Thêm phiếu nhập thành công");
@@ -452,6 +453,7 @@ public class panel_iReceipt extends javax.swing.JPanel {
 			} catch (SQLException ex) {
 				Logger.getLogger(panel_iReceipt.class.getName()).log(Level.SEVERE, null, ex);
 				JOptionPane.showMessageDialog(this, "Xoá phiếu nhập thất bại");
+				return;
 			}
 			JOptionPane.showMessageDialog(this, "Xoá phiếu nhập thành công");
 			loadTable();
