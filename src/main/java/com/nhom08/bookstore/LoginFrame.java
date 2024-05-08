@@ -5,6 +5,7 @@
 package com.nhom08.bookstore;
 
 import com.nhom08.bookstore.DAO.DBConnection;
+import com.nhom08.bookstore.DAO.EmployeeDAO;
 import com.nhom08.bookstore.DAO.LoginDAO;
 import java.awt.Image;
 import java.sql.Connection;
@@ -154,6 +155,7 @@ public class LoginFrame extends javax.swing.JFrame {
         DBConnection dbConnection = new DBConnection();
         Connection con = dbConnection.GetDBConnection();
         LoginDAO loginDAO = new LoginDAO(con);
+	EmployeeDAO employeeDAO = new EmployeeDAO();
         try {
             int cap = loginDAO.dangNhap(tenDangNhap, matKhau);
             if (cap > 0) {
@@ -161,12 +163,18 @@ public class LoginFrame extends javax.swing.JFrame {
                 if (cap == 1) {
                     ManagerFrame managerFrame = new ManagerFrame(); // Tạo đối tượng ManagerFrame
                     managerFrame.setVisible(true); // Hiển thị ManagerFrame
+		    managerFrame.setEmployee(employeeDAO.getEmployeeByUsername(tenDangNhap));
+		    managerFrame.getLbl_accountName().setText(employeeDAO.getEmployeeByUsername(tenDangNhap).getAccount());
                 } else if (cap == 2) {
                     CashierFrame cashierFrame = new CashierFrame(); // Tạo đối tượng CashierFrame
                     cashierFrame.setVisible(true);
+		    cashierFrame.setEmployeeId(employeeDAO.getEmployeeByUsername(tenDangNhap));
+		    cashierFrame.getLbl_accountName().setText(employeeDAO.getEmployeeByUsername(tenDangNhap).getAccount());
                 } else if (cap == 3) {
                     StorageManagerFrame storagemanagerFrame = new StorageManagerFrame(); // Tạo đối tượng storagemanagerFrame
                     storagemanagerFrame.setVisible(true);
+		    storagemanagerFrame.setEmployee(employeeDAO.getEmployeeByUsername(tenDangNhap));
+		    storagemanagerFrame.getLbl_accountName().setText(employeeDAO.getEmployeeByUsername(tenDangNhap).getAccount());
                 }
                 // Đăng nhập thành công, ẩn LoginFrame và hiển thị Frame
 
