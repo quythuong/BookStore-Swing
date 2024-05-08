@@ -8,10 +8,14 @@ import com.nhom08.bookstore.DAO.DBConnection;
 import com.nhom08.bookstore.DAO.EmployeeDAO;
 import com.nhom08.bookstore.DAO.LoginDAO;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.SQLException;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTabbedPane;
 
 /**
  *
@@ -156,6 +160,8 @@ public class LoginFrame extends javax.swing.JFrame {
         Connection con = dbConnection.GetDBConnection();
         LoginDAO loginDAO = new LoginDAO(con);
 	EmployeeDAO employeeDAO = new EmployeeDAO();
+	JLabel lbl_accountName = null;
+	JTabbedPane TabbedPane = null;
         try {
             int cap = loginDAO.dangNhap(tenDangNhap, matKhau);
             if (cap > 0) {
@@ -164,18 +170,22 @@ public class LoginFrame extends javax.swing.JFrame {
                     ManagerFrame managerFrame = new ManagerFrame(); // Tạo đối tượng ManagerFrame
                     managerFrame.setVisible(true); // Hiển thị ManagerFrame
 		    managerFrame.setEmployee(employeeDAO.getEmployeeByUsername(tenDangNhap));
-		    managerFrame.getLbl_accountName().setText(employeeDAO.getEmployeeByUsername(tenDangNhap).getAccount());
+		    managerFrame.getLbl_accountName().setText(employeeDAO.getEmployeeByUsername(tenDangNhap).getAccount()); // user account trên header
+		    lbl_accountName = managerFrame.getLbl_accountName();
                 } else if (cap == 2) {
                     CashierFrame cashierFrame = new CashierFrame(); // Tạo đối tượng CashierFrame
                     cashierFrame.setVisible(true);
 		    cashierFrame.setEmployeeId(employeeDAO.getEmployeeByUsername(tenDangNhap));
 		    cashierFrame.getLbl_accountName().setText(employeeDAO.getEmployeeByUsername(tenDangNhap).getAccount());
+		    lbl_accountName = cashierFrame.getLbl_accountName();
                 } else if (cap == 3) {
                     StorageManagerFrame storagemanagerFrame = new StorageManagerFrame(); // Tạo đối tượng storagemanagerFrame
                     storagemanagerFrame.setVisible(true);
 		    storagemanagerFrame.setEmployee(employeeDAO.getEmployeeByUsername(tenDangNhap));
 		    storagemanagerFrame.getLbl_accountName().setText(employeeDAO.getEmployeeByUsername(tenDangNhap).getAccount());
+		    lbl_accountName = storagemanagerFrame.getLbl_accountName();
                 }
+		
                 // Đăng nhập thành công, ẩn LoginFrame và hiển thị Frame
 
             } else {
@@ -187,7 +197,7 @@ public class LoginFrame extends javax.swing.JFrame {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_btn_loginActionPerformed
-
+    
     /**
      * @param args the command line arguments
      */

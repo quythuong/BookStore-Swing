@@ -284,6 +284,11 @@ public class panel_iReceipt extends javax.swing.JPanel {
                                 tf_dateActionPerformed(evt);
                         }
                 });
+                tf_date.addKeyListener(new java.awt.event.KeyAdapter() {
+                        public void keyTyped(java.awt.event.KeyEvent evt) {
+                                tf_dateKeyTyped(evt);
+                        }
+                });
                 jPanel4.add(tf_date, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 210, 40));
 
                 jLabel6.setFont(new java.awt.Font("Lexend", 0, 15)); // NOI18N
@@ -452,6 +457,15 @@ public class panel_iReceipt extends javax.swing.JPanel {
 			loadTable();
 		}
         }//GEN-LAST:event_btn_deleteMouseClicked
+
+        private void tf_dateKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_dateKeyTyped
+                // TODO add your handling code here:
+		  char c = evt.getKeyChar();
+		if(c == '-') return;
+		if(!Character.isDigit(c)) {
+		    evt.consume();
+		}
+        }//GEN-LAST:event_tf_dateKeyTyped
 
 
         // Variables declaration - do not modify//GEN-BEGIN:variables
