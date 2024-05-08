@@ -267,7 +267,7 @@ BEGIN
 			UPDATE Sach
 			SET SoLuongSach = SoLuongSach + (SELECT SoLuongNhap FROM inserted WHERE MaPhieuNhap = @MaPhieuNhap AND MaSach = @MaSach)
 			WHERE MaSach = @MaSach
-			RAISERROR('Đã tăng số lượng sách', 16, 1)
+			Print('Đã tăng số lượng sách')
 			-- Chèn dữ liệu vào bảng ChiTietPhieuNhap
 			INSERT INTO ChiTietPhieuNhap (MaPhieuNhap, MaSach, SoLuongNhap)
 			SELECT MaPhieuNhap, MaSach, SoLuongNhap FROM inserted
