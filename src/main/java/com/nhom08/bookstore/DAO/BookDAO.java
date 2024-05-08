@@ -60,7 +60,7 @@ public class BookDAO {
         ResultSet rs = null;
 
         try {
-            statement = con.prepareStatement("select MaSach,TenSach,SoLuongSach,Gia from Sach");
+            statement = con.prepareStatement("select MaSach,TenSach,SoLuongSach,Gia,Anh from Sach");
             rs = statement.executeQuery();
             while (rs.next()) {
                 //byte[] anh = rs.getBytes("Anh");
@@ -68,7 +68,8 @@ public class BookDAO {
                 String tenSach = rs.getString("TenSach");
                 int soLuong = rs.getInt("SoLuongSach");
                 double gia = rs.getDouble("Gia");
-                BookModel book = new BookModel(maSach, tenSach, soLuong, gia);
+                String img = rs.getString("Anh");
+                BookModel book = new BookModel(maSach, tenSach, soLuong, gia, img);
                 books.add(book);
             }
         } catch (SQLException e) {

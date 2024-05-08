@@ -696,8 +696,8 @@ public class panel_books extends javax.swing.JPanel {
 
     private void save() {
         try {
-            if (tf_authorid.getText().isEmpty() || tf_bookid.getText().isEmpty() || tf_bookname.getText().isEmpty() || tf_price.getText().isEmpty()
-                    || tf_price.getText().isEmpty() || tf_quantity.getText().isEmpty() || tf_publisherid.getText().isEmpty()) {
+            if (tf_bookid.getText().isEmpty() || tf_bookname.getText().isEmpty() || tf_price.getText().isEmpty()
+                    || tf_price.getText().isEmpty() || tf_quantity.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Không được để trống các trường!");
                 return;
             }

@@ -5,12 +5,16 @@
 package com.nhom08.bookstore.GUI.FunctionalPanels;
 
 import com.nhom08.bookstore.Models.BookModel;
+import com.nhom08.bookstore.Utils.ImageConverter;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.RenderingHints;
 import java.text.DecimalFormat;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 /**
  *
  * @author Admin
@@ -49,11 +53,16 @@ public class Panel_BookItem extends javax.swing.JPanel {
     }
 
     private BookModel data;
-    
+    private ImageConverter imgConvert;
     public void setData(BookModel data){
         this.data = data;
         String image = data.getImage();
-        //pictureBook.setImage();
+        imgConvert = new ImageConverter();
+//        Image img = imgConvert.loadImage(image);
+        
+        ImageIcon img = new ImageIcon(image);
+        
+        pictureBook.setImage(img);
         lbl_masach.setText(data.getId());
         lbl_bookName.setText(data.getName());
         lbl_quantity.setText(String.valueOf(data.getQuantity()));
@@ -114,7 +123,7 @@ public class Panel_BookItem extends javax.swing.JPanel {
         add(jLabel42, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 270, -1, -1));
 
         pictureBook.setImage(new javax.swing.ImageIcon(getClass().getResource("/images/Home - Bookimage550-550.png"))); // NOI18N
-        add(pictureBook, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 170, 150));
+        add(pictureBook, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 20, 170, 150));
 
         lbl_masach.setText("jLabel1");
         add(lbl_masach, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 250, -1, -1));
