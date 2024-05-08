@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -395,6 +396,8 @@ public class panel_authors extends javax.swing.JPanel {
     private void editAuthor() throws SQLException {
         status = 2;
         enableText();
+        tf_authorid.setBackground(new Color(204,204,204));
+        tf_authorid.setEditable(false);
     }
 
     private void deleteAuthor() throws SQLException {
@@ -434,6 +437,10 @@ public class panel_authors extends javax.swing.JPanel {
 
     private void save() throws SQLException {
         try {
+            if (tf_authorid.getText().isEmpty() || tf_authorname.getText().isEmpty() || tf_publisherid.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Không được để trống các trường!");
+                return;
+            }
             // add
             if (status == 1) {
                 choice = new showMessageDialogs().saveMessage("author");

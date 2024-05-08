@@ -7,10 +7,12 @@ package com.nhom08.bookstore.GUI.FunctionalPanels;
 import com.nhom08.bookstore.DAO.PublisherDAO;
 import com.nhom08.bookstore.Models.PublisherModel;
 import com.nhom08.bookstore.Utils.showMessageDialogs;
+import java.awt.Color;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -368,6 +370,8 @@ public class panel_publishers extends javax.swing.JPanel {
     private void editPublisher() throws SQLException {
         status = 2;
         enableText();
+        tf_publisherid.setBackground(new Color(204, 204, 204));
+        tf_publisherid.setEditable(false);
     }
 
     private void deletePublisher() throws SQLException {
@@ -394,6 +398,11 @@ public class panel_publishers extends javax.swing.JPanel {
 
     private void save() throws SQLException {
         try {
+            if (tf_contact.getText().isEmpty() || tf_publisherid.getText().isEmpty() || tf_publishername.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Không được để trống các trường!");
+                return;
+            }
+
             // add
             if (status == 1) {
                 choice = new showMessageDialogs().saveMessage("author");
@@ -461,7 +470,7 @@ public class panel_publishers extends javax.swing.JPanel {
         tf_address.enable(true);
         tf_contact.enable(true);
     }
-    
+
     private void resetText() {
         tf_publisherid.setText("");
         tf_publishername.setText("");

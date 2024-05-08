@@ -113,7 +113,7 @@ public class Panel_BookItem extends javax.swing.JPanel {
         add(jLabel42, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 270, -1, -1));
 
         pictureBook.setImage(new javax.swing.ImageIcon(getClass().getResource("/images/Home - Bookimage550-550.png"))); // NOI18N
-        add(pictureBook, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 170, 150));
+        add(pictureBook, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 170, 150));
 
         lbl_masach.setText("jLabel1");
         add(lbl_masach, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 250, -1, -1));

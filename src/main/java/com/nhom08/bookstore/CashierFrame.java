@@ -316,7 +316,7 @@ public class CashierFrame extends javax.swing.JFrame {
         panelCustom1.add(panel_cancelBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 530, 50, 50));
 
         getContentPane().add(panelCustom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(953, 85, 305, 700));
-        getContentPane().add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 940, 720));
+        getContentPane().add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 950, 720));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

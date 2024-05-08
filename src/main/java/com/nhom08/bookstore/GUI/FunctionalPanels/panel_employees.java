@@ -11,6 +11,7 @@ import com.nhom08.bookstore.Models.EmployeeModel;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
@@ -372,7 +373,11 @@ public class panel_employees extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addActionPerformed
-        // Lấy thông tin từ các trường nhập liệu
+        if (txt_tenTaiKhoan.getText().isEmpty() || txt_matKhau.getText().isEmpty() || txt_tenNV.getText().isEmpty() || txt_maNV.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Không được để trống các trường!");
+            return;
+        }
+// Lấy thông tin từ các trường nhập liệu
         int id = Integer.parseInt(txt_maNV.getText());
         String name = txt_tenNV.getText();
         String sex = (String) cb_gioiTinh.getSelectedItem();
@@ -476,7 +481,7 @@ public class panel_employees extends javax.swing.JPanel {
         if (selectedRow != -1) {
             btn_edit.setEnabled(true);
             btn_delete.setEnabled(true);
-            
+
             // Lấy thông tin từ dòng được chọn và hiển thị lên các ô nhập liệu
             txt_maNV.setText(jTable1.getValueAt(selectedRow, 0).toString());
             txt_tenNV.setText(jTable1.getValueAt(selectedRow, 1).toString());
@@ -512,8 +517,8 @@ public class panel_employees extends javax.swing.JPanel {
 
     private void txt_maNVKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_maNVKeyTyped
         // TODO add your handling code here:
-        char c=evt.getKeyChar();
-        if(!Character.isDigit(c)){
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c)) {
             evt.consume();
         }
     }//GEN-LAST:event_txt_maNVKeyTyped
