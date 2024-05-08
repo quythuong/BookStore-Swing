@@ -16,9 +16,9 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import lombok.Getter;
 import lombok.Setter;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -60,7 +60,7 @@ public class panel_iReceipt extends javax.swing.JPanel {
     public void clearText() {
         this.cb_publisherId.setSelectedItem(null);
         this.tf_iReceiptId.setText("");
-        this.tf_date.setText("");
+//        this.tf_date.setText("");
     }
 
     public void disableText() {
@@ -397,6 +397,9 @@ public class panel_iReceipt extends javax.swing.JPanel {
 
             enableText();
             iReceiptId = null;
+            Date currentDate = new Date();
+            String formattedDate = formatter.format(currentDate);
+            tf_date.setText(formattedDate);
 
             this.clearText();
         }//GEN-LAST:event_btn_addMouseClicked

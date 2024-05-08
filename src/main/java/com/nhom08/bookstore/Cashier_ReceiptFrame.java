@@ -285,6 +285,11 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame implements Printabl
             }
         });
         tb_list.setRowHeight(23);
+        tb_list.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tb_listKeyTyped(evt);
+            }
+        });
         jScrollPane2.setViewportView(tb_list);
         if (tb_list.getColumnModel().getColumnCount() > 0) {
             tb_list.getColumnModel().getColumn(0).setPreferredWidth(0);
@@ -517,6 +522,17 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame implements Printabl
             cs.setVisible(true);
         }
     }//GEN-LAST:event_btn_exportActionPerformed
+
+    private void tb_listKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tb_listKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+//        if (c == '-') {
+//            evt.consume();
+//        }
+        if (!Character.isDigit(c)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_tb_listKeyTyped
 
     /**
      * @param args the command line arguments
@@ -854,7 +870,6 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame implements Printabl
         return iL;
     }
 
-    
     public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
         double totalAmount = 0.0;
         double change = 0.0;
@@ -891,7 +906,7 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame implements Printabl
                 y += yShift;
                 g2d.drawString(lb_date.getText(), 10, y);
                 y += yShift;
-                g2d.drawString("ID: "+lb_mahoadon.getText(), 10, y);
+                g2d.drawString("ID: " + lb_mahoadon.getText(), 10, y);
                 y += yShift;
                 g2d.drawString("--------------------------------------------------------", 10, y);
                 y += headerRectHeight;
@@ -916,15 +931,15 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame implements Printabl
 
                 g2d.drawString("--------------------------------------------------------", 10, y);
                 y += yShift;
-                g2d.drawString(" Total   :                                  " + String.valueOf(total1) +" VND" +"   ", 10, y);
+                g2d.drawString(" Total   :                                  " + String.valueOf(total1) + " VND" + "   ", 10, y);
                 y += yShift;
                 g2d.drawString("--------------------------------------------------------", 10, y);
                 y += yShift;
-                g2d.drawString(" Cash    :                                  " + String.valueOf(df.format(cash))+" VND" + "   ", 10, y);
+                g2d.drawString(" Cash    :                                  " + String.valueOf(df.format(cash)) + " VND" + "   ", 10, y);
                 y += yShift;
                 g2d.drawString("--------------------------------------------------------", 10, y);
                 y += yShift;
-                g2d.drawString(" Change  :                                  " + String.valueOf(change1) +" VND"+ "   ", 10, y);
+                g2d.drawString(" Change  :                                  " + String.valueOf(change1) + " VND" + "   ", 10, y);
                 y += yShift;
                 y += yShift;
                 y += yShift;
@@ -943,6 +958,6 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame implements Printabl
         }
         return result;
     }
-    
+
     private DecimalFormat df = new DecimalFormat("#,###");
 }
