@@ -720,6 +720,7 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame implements Printabl
                         if (quantity > currentQuantity) {
                             // Hiển thị thông báo lỗi nếu số lượng nhập vào lớn hơn số lượng hiện có
                             JOptionPane.showMessageDialog(null, "Số lượng nhập vào lớn hơn số lượng hiện có của mặt hàng", "Error", JOptionPane.ERROR_MESSAGE);
+                            model.setValueAt(1, selectedRow, 2);
                             return;
                         }
 
