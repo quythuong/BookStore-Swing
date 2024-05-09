@@ -361,6 +361,7 @@ public class CashierFrame extends javax.swing.JFrame {
 
     private void lbl_accountNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_accountNameMouseClicked
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_lbl_accountNameMouseClicked
 
     /**

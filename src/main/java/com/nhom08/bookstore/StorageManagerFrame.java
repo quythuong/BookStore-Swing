@@ -7,6 +7,7 @@ package com.nhom08.bookstore;
 import com.nhom08.bookstore.GUI.FunctionalPanels.panel_IReceiptAndIReceiptDetail;
 import com.nhom08.bookstore.GUI.FunctionalPanels.panel_authors;
 import com.nhom08.bookstore.GUI.FunctionalPanels.panel_books;
+import com.nhom08.bookstore.GUI.FunctionalPanels.panel_employeeDetails;
 import com.nhom08.bookstore.GUI.FunctionalPanels.panel_home;
 import com.nhom08.bookstore.GUI.FunctionalPanels.panel_iReceipt;
 import com.nhom08.bookstore.GUI.FunctionalPanels.panel_iReceiptDetail;
@@ -14,6 +15,9 @@ import com.nhom08.bookstore.GUI.PanelCustom;
 import com.nhom08.bookstore.Models.EmployeeModel;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTabbedPane;
 import lombok.Getter;
 import lombok.Setter;
@@ -214,6 +218,11 @@ public class StorageManagerFrame extends javax.swing.JFrame {
         lbl_accountName.setFont(new java.awt.Font("Lexend SemiBold", 0, 20)); // NOI18N
         lbl_accountName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_accountName.setText("Account name");
+        lbl_accountName.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbl_accountNameMouseClicked(evt);
+            }
+        });
         panel_Header.add(lbl_accountName, new org.netbeans.lib.awtextra.AbsoluteConstraints(1098, 18, -1, -1));
 
         getContentPane().add(panel_Header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 60));
@@ -285,6 +294,25 @@ public class StorageManagerFrame extends javax.swing.JFrame {
         loginFrame.setVisible(true); // Hiển thị LoginFrame
         dispose();
     }//GEN-LAST:event_panel_logoutBtnMouseClicked
+
+    private void lbl_accountNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_accountNameMouseClicked
+        // TODO add your handling code here:
+        try {
+            String tenDangNhap = lbl_accountName.getText();
+            System.out.println(tenDangNhap);
+            
+            // Tạo một instance mới của panel_employeeDetails
+            panel_employeeDetails panelEmployeeDetails = new panel_employeeDetails(tenDangNhap);
+            
+            // Thêm panel_employeeDetails vào TabbedPane của ManagerFrame
+            TabbedPane.addTab("EmployeeDetails", panelEmployeeDetails);
+            
+            // Chuyển sang tab mới được thêm vào
+            TabbedPane.setSelectedComponent(panelEmployeeDetails);
+        } catch (SQLException ex) {
+            Logger.getLogger(ManagerFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_lbl_accountNameMouseClicked
 
     /**
      * @param args the command line arguments
