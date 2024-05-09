@@ -158,8 +158,6 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame implements Printabl
 
         panel_Header = new javax.swing.JPanel();
         lbl_userIcon = new javax.swing.JLabel();
-        lbl_accountName = new javax.swing.JLabel();
-        textFieldCustom1 = new com.nhom08.bookstore.GUI.TextFieldCustom();
         mainPanel = new com.nhom08.bookstore.GUI.FunctionalPanels.main_CashierPanel();
         panelToPrint = new javax.swing.JPanel();
         panelCustom2 = new Custom.PanelCustom();
@@ -196,13 +194,7 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame implements Printabl
 
         lbl_userIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_userIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user_filled.png"))); // NOI18N
-        panel_Header.add(lbl_userIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 12, 40, 40));
-
-        lbl_accountName.setFont(new java.awt.Font("Lexend SemiBold", 0, 20)); // NOI18N
-        lbl_accountName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_accountName.setText("Account name");
-        panel_Header.add(lbl_accountName, new org.netbeans.lib.awtextra.AbsoluteConstraints(1098, 18, -1, -1));
-        panel_Header.add(textFieldCustom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 11, 338, 41));
+        panel_Header.add(lbl_userIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(1220, 10, 40, 40));
 
         getContentPane().add(panel_Header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 60));
         getContentPane().add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 700, 700));
@@ -580,7 +572,6 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame implements Printabl
     private javax.swing.JLabel lb_sale;
     private javax.swing.JLabel lb_sub;
     private javax.swing.JLabel lb_total;
-    private javax.swing.JLabel lbl_accountName;
     private javax.swing.JLabel lbl_userIcon;
     private com.nhom08.bookstore.GUI.FunctionalPanels.main_CashierPanel mainPanel;
     private Custom.PanelCustom panelCustom1;
@@ -589,7 +580,6 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame implements Printabl
     private javax.swing.JPanel panelToPrint;
     private javax.swing.JPanel panel_Header;
     private javax.swing.JTable tb_list;
-    private com.nhom08.bookstore.GUI.TextFieldCustom textFieldCustom1;
     private javax.swing.JTextField tf_received;
     // End of variables declaration//GEN-END:variables
 
