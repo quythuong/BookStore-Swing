@@ -458,17 +458,27 @@ public class panel_publishers extends javax.swing.JPanel {
     }
 
     private void disabletext() {
-        tf_publishername.enable(false);
-        tf_publisherid.enable(false);
-        tf_address.enable(false);
-        tf_contact.enable(false);
+        tf_publisherid.setBackground(new Color(204, 204, 204));
+        tf_publishername.setBackground(new Color(204, 204, 204));
+        tf_contact.setBackground(new Color(204, 204, 204));
+        tf_address.setBackground(new Color(204, 204, 204));
+
+        tf_address.setEditable(false);
+        tf_contact.setEditable(false);
+        tf_publisherid.setEditable(false);
+        tf_publishername.setEditable(false);
     }
 
     private void enableText() {
-        tf_publishername.enable(true);
-        tf_publisherid.enable(true);
-        tf_address.enable(true);
-        tf_contact.enable(true);
+        tf_publisherid.setBackground(Color.WHITE);
+        tf_publishername.setBackground(Color.WHITE);
+        tf_contact.setBackground(Color.WHITE);
+        tf_address.setBackground(Color.WHITE);
+
+        tf_address.setEditable(true);
+        tf_contact.setEditable(true);
+        tf_publisherid.setEditable(true);
+        tf_publishername.setEditable(true);
     }
 
     private void resetText() {

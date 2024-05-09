@@ -76,6 +76,7 @@ public class Cashier_ReceiptFrame extends javax.swing.JFrame implements Printabl
 
     public Cashier_ReceiptFrame(String maHoaDon) {
         initComponents();
+        setLocationRelativeTo(null);
         //setBackground(new Color(0,0,0,0));
         init();
         this.maHoaDon = maHoaDon;

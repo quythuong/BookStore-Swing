@@ -44,6 +44,7 @@ public class CashierFrame extends javax.swing.JFrame {
     public CashierFrame() {
         initComponents();
         init();
+        setLocationRelativeTo(null);
 
         //BookDAO bookDao = new BookDAO();
         bookDao = new BookDAO();
