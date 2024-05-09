@@ -121,7 +121,6 @@ public class CashierFrame extends javax.swing.JFrame {
         panel_Header = new javax.swing.JPanel();
         lbl_userIcon = new javax.swing.JLabel();
         lbl_accountName = new javax.swing.JLabel();
-        textFieldCustom1 = new com.nhom08.bookstore.GUI.TextFieldCustom();
         panel_logoutBtn = new com.nhom08.bookstore.GUI.PanelCustom();
         jLabel13 = new javax.swing.JLabel();
         panelCustom1 = new com.nhom08.bookstore.GUI.PanelCustom();
@@ -164,8 +163,12 @@ public class CashierFrame extends javax.swing.JFrame {
         lbl_accountName.setFont(new java.awt.Font("Lexend SemiBold", 0, 20)); // NOI18N
         lbl_accountName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_accountName.setText("Account name");
+        lbl_accountName.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbl_accountNameMouseClicked(evt);
+            }
+        });
         panel_Header.add(lbl_accountName, new org.netbeans.lib.awtextra.AbsoluteConstraints(1098, 18, -1, -1));
-        panel_Header.add(textFieldCustom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 11, 338, 41));
 
         panel_logoutBtn.setBackground(new java.awt.Color(219, 235, 247));
         panel_logoutBtn.setRoundBottomLeft(20);
@@ -356,6 +359,10 @@ public class CashierFrame extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_panel_logoutBtnMouseClicked
 
+    private void lbl_accountNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_accountNameMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lbl_accountNameMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -415,7 +422,6 @@ public class CashierFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panel_Header;
     private com.nhom08.bookstore.GUI.PanelCustom panel_cancelBtn;
     private com.nhom08.bookstore.GUI.PanelCustom panel_logoutBtn;
-    private com.nhom08.bookstore.GUI.TextFieldCustom textFieldCustom1;
     private com.nhom08.bookstore.GUI.TextFieldCustom tf_gia;
     private com.nhom08.bookstore.GUI.TextFieldCustom tf_manxb;
     private com.nhom08.bookstore.GUI.TextFieldCustom tf_masach;

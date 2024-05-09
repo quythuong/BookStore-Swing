@@ -81,8 +81,7 @@ public class LoginFrame extends javax.swing.JFrame {
         jLabel4.setText("Username:");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 330, -1, -1));
 
-        txt_username.setFont(new java.awt.Font("Lexend Thin", 0, 12)); // NOI18N
-        txt_username.setForeground(new java.awt.Color(157, 157, 157));
+        txt_username.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
         txt_username.setText("Username");
         txt_username.setMinimumSize(new java.awt.Dimension(239, 31));
         txt_username.setPreferredSize(new java.awt.Dimension(239, 31));
@@ -97,8 +96,7 @@ public class LoginFrame extends javax.swing.JFrame {
         jLabel5.setText("Password:");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 390, -1, -1));
 
-        txt_password.setFont(new java.awt.Font("Lexend Thin", 0, 24)); // NOI18N
-        txt_password.setForeground(new java.awt.Color(157, 157, 157));
+        txt_password.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
         txt_password.setText("password");
         txt_password.setMinimumSize(new java.awt.Dimension(239, 31));
         txt_password.setPreferredSize(new java.awt.Dimension(239, 31));

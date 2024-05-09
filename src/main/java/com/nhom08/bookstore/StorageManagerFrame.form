@@ -357,13 +357,6 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="com.nhom08.bookstore.GUI.TextFieldCustom" name="textFieldCustom1">
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="640" y="11" width="338" height="41"/>
-            </Constraint>
-          </Constraints>
-        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JTabbedPane" name="TabbedPane">

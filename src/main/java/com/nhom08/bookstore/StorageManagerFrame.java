@@ -77,7 +77,6 @@ public class StorageManagerFrame extends javax.swing.JFrame {
         panel_Header = new javax.swing.JPanel();
         lbl_userIcon = new javax.swing.JLabel();
         lbl_accountName = new javax.swing.JLabel();
-        textFieldCustom1 = new com.nhom08.bookstore.GUI.TextFieldCustom();
         TabbedPane = new javax.swing.JTabbedPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -216,7 +215,6 @@ public class StorageManagerFrame extends javax.swing.JFrame {
         lbl_accountName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_accountName.setText("Account name");
         panel_Header.add(lbl_accountName, new org.netbeans.lib.awtextra.AbsoluteConstraints(1098, 18, -1, -1));
-        panel_Header.add(textFieldCustom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 11, 338, 41));
 
         getContentPane().add(panel_Header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 60));
 
@@ -345,6 +343,5 @@ public class StorageManagerFrame extends javax.swing.JFrame {
     private com.nhom08.bookstore.GUI.PanelCustom panel_homeBtn;
     private com.nhom08.bookstore.GUI.PanelCustom panel_iReceiptBtn;
     private com.nhom08.bookstore.GUI.PanelCustom panel_logoutBtn;
-    private com.nhom08.bookstore.GUI.TextFieldCustom textFieldCustom1;
     // End of variables declaration//GEN-END:variables
 }
