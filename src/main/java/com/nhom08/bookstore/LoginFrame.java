@@ -157,6 +157,7 @@ public class LoginFrame extends javax.swing.JFrame {
 		    cashierFrame.setEmployeeId(employeeDAO.getEmployeeByUsername(tenDangNhap));
 		    cashierFrame.getLbl_accountName().setText(employeeDAO.getEmployeeByUsername(tenDangNhap).getAccount());
 		    lbl_accountName = cashierFrame.getLbl_accountName();
+                    
                 } else if (cap == 3) {
                     StorageManagerFrame storagemanagerFrame = new StorageManagerFrame(); // Tạo đối tượng storagemanagerFrame
                     storagemanagerFrame.setVisible(true);
@@ -171,6 +172,7 @@ public class LoginFrame extends javax.swing.JFrame {
                 // Đăng nhập thất bại, hiển thị thông báo cho người dùng
                 JOptionPane.showMessageDialog(LoginFrame.this, "Tên đăng nhập hoặc mật khẩu không đúng", "Đăng nhập không thành công", JOptionPane.ERROR_MESSAGE);
             }
+            
         } catch (SQLException ex) {
             // Xử lý khi có lỗi xảy ra
             ex.printStackTrace();

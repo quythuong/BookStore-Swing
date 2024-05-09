@@ -7,6 +7,10 @@ package com.nhom08.bookstore.GUI.FunctionalPanels;
 import com.nhom08.bookstore.DAO.EmployeeDetailDAO;
 import com.nhom08.bookstore.DAO.ShiftDAO;
 import com.nhom08.bookstore.Models.EmployeeModel;
+import com.nhom08.bookstore.Models.ShiftModel;
+import java.sql.SQLException;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,9 +23,35 @@ public class panel_employeeDetails extends javax.swing.JPanel {
      */
     private EmployeeDetailDAO employeeDetailDAO;
     private ShiftDAO shiftDAO;
-    public panel_employeeDetails() {
+    public String tenDangNhap;
+    public panel_employeeDetails(String tenDangNhap) throws SQLException {
+        this.tenDangNhap = tenDangNhap;
         initComponents();
-        displayData();
+        employeeDetailDAO = new EmployeeDetailDAO();
+        shiftDAO = new ShiftDAO();
+        displayData(tenDangNhap);
+        displayShiftData();
+    }
+    private void displayShiftData() throws SQLException {
+        // Lấy danh sách các ca làm từ ShiftDAO
+        reset();
+        List<ShiftModel> shifts = shiftDAO.getAllShifts();
+
+        // Tạo một DefaultTableModel để lưu trữ dữ liệu
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        // Xóa tất cả các dòng hiện có trong bảng
+        model.setRowCount(0);
+
+        // Lặp qua danh sách các ca làm và thêm chúng vào bảng
+        for (ShiftModel shift : shifts) {
+            model.addRow(new Object[]{
+                shift.getId(),
+                shift.getName(),
+                shift.getShift(),
+                shift.getDate(),
+                shift.getPosition()
+            });
+        }
     }
 
     private void reset(){
@@ -335,6 +365,7 @@ public class panel_employeeDetails extends javax.swing.JPanel {
 
     private void btn_saveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_saveMouseClicked
         // Lấy thông tin từ các trường nhập liệu
+        String tenDangNhap = txt_tenTaiKhoan.getText();
         String tenNV = txt_tenNV.getText();
         String gioiTinh = (String) cb_gioiTinh.getSelectedItem();
         String diaChi = txt_diaChi.getText();
@@ -342,8 +373,8 @@ public class panel_employeeDetails extends javax.swing.JPanel {
 
         try {
             // Gọi phương thức updatePersonalInfo của PersonalInfoDAO để cập nhật thông tin cá nhân trong CSDL
-            employeeDetailDAO.updateInfo(tenNV, gioiTinh, diaChi, matKhauMoi);
-            displayData();
+            employeeDetailDAO.updateInfo(tenDangNhap, tenNV, gioiTinh, diaChi, matKhauMoi);
+            displayData(tenDangNhap);
             reset();
         } 
         catch (Exception ex){
@@ -391,12 +422,14 @@ public class panel_employeeDetails extends javax.swing.JPanel {
     private com.nhom08.bookstore.GUI.TextFieldCustom txt_tenTaiKhoan;
     // End of variables declaration//GEN-END:variables
 
-    private void displayData() {
-        EmployeeModel employee = employeeDetailDAO.getInfo();
+    private void displayData(String tenDangNhap) {
+        
+        EmployeeModel employee = employeeDetailDAO.getInfo(tenDangNhap);
+        txt_maNV.setText(Integer.toString(employee.getId()));
         txt_chucVu.setText(employee.getPosition());
-        txt_tenNV.setText(employee.getPosition());
-        txt_maNV.setText(employee.getPosition());
-        txt_matKhau.setText(employee.getPosition());
+        txt_tenNV.setText(employee.getName());
+        
+        txt_matKhau.setText(employee.getPass());
         cb_gioiTinh.setSelectedItem(employee.getSex());
         txt_diaChi.setText(employee.getAddress());
         txt_tenTaiKhoan.setText(employee.getAccount());

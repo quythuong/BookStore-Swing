@@ -24,26 +24,24 @@ public class EmployeeDetailDAO {
         con = (new DBConnection()).GetDBConnection();
     }
 
-    public EmployeeModel getInfo() {
+    public EmployeeModel getInfo(String tenDangNhap) {
         EmployeeModel employee = new EmployeeModel();
         CallableStatement statement = null;
         ResultSet rs = null;
         boolean hasResultSet = false;
 
         try {
-            statement = con.prepareCall("{call Proc_XemThongTinCaNhan}");
-            hasResultSet = statement.execute();
-            if (hasResultSet) {
-                rs = statement.getResultSet();
-                if (rs.next()) {
-                    employee.setId(rs.getInt("MaNV"));
-                    employee.setName(rs.getString("TenNV"));
-                    employee.setSex(rs.getString("GioiTinh"));
-                    employee.setAddress(rs.getString("DiaChi"));
-                    employee.setAccount(rs.getString("TenTaiKhoan"));
-                    employee.setPass(rs.getString("MatKhau"));
-                    employee.setPosition(rs.getString("ChucVu"));
-                }
+            statement = con.prepareCall("{call Proc_XemThongTinCaNhan(?)}");
+            statement.setString(1, tenDangNhap);
+            rs = statement.executeQuery();
+            if (rs.next()) {
+                employee.setId(rs.getInt("MaNV"));
+                employee.setName(rs.getString("TenNV"));
+                employee.setSex(rs.getString("GioiTinh"));
+                employee.setAddress(rs.getString("DiaChi"));
+                employee.setAccount(rs.getString("TenTaiKhoan"));
+                employee.setPass(rs.getString("MatKhau"));
+                employee.setPosition(rs.getString("ChucVu"));
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
@@ -63,18 +61,19 @@ public class EmployeeDetailDAO {
         return employee;
     }
 
-    public boolean updateInfo(String tenNV, String gioiTinh, String diaChi, String matKhauMoi) {
+    public boolean updateInfo(String tenDangNhap, String tenNV, String gioiTinh, String diaChi, String matKhauMoi) {
         CallableStatement statement = null;
         ResultSet rs = null;
         boolean hasResultSet = false;
         boolean success = false;
 
         try {
-            statement = con.prepareCall("{call Proc_SuaThongTinCaNhan(?, ?, ?, ?)}");
-            statement.setString(1, tenNV);
-            statement.setString(2, gioiTinh);
-            statement.setString(3, diaChi);
-            statement.setString(4, matKhauMoi);
+            statement = con.prepareCall("{call Proc_SuaThongTinCaNhan(?, ?, ?, ?, ?)}");
+            statement.setString(1, tenDangNhap);
+            statement.setString(2, tenNV);
+            statement.setString(3, gioiTinh);
+            statement.setString(4, diaChi);
+            statement.setString(5, matKhauMoi);
 
             hasResultSet = statement.execute();
             if (!hasResultSet) {

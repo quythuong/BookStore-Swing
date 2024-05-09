@@ -836,16 +836,16 @@ END
 GO
 
 go
+DROP PROCEDURE IF EXISTS Proc_XemThongTinCaNhan;
+go
 -- Proc_XemThongTinCaNhan
 CREATE PROCEDURE Proc_XemThongTinCaNhan
+    @TenTaiKhoan VARCHAR(50)
 AS
 BEGIN
-    DECLARE @TenTaiKhoan VARCHAR(50);
-    SET @TenTaiKhoan = ORIGINAL_LOGIN()
-
     IF EXISTS (SELECT 1 FROM NhanVien WHERE TenTaiKhoan = @TenTaiKhoan)
     BEGIN
-        SELECT MaNV, TenNV, GioiTinh, DiaChi, TenTaiKhoan, MatKhau, Cap, ChucVu
+        SELECT MaNV, TenNV, GioiTinh, DiaChi, TenTaiKhoan, MatKhau, ChucVu
         FROM NhanVien
         WHERE TenTaiKhoan = @TenTaiKhoan;
     END
@@ -853,9 +853,14 @@ BEGIN
     BEGIN
         RAISERROR ('Tài khoản không tồn tại!', 16, 1);
     END
-END
+END;
 GO
+
+DROP PROCEDURE IF EXISTS Proc_SuaThongTinCaNhan;
+go
+-- Proc_SuaThongTinCaNhan
 CREATE PROCEDURE Proc_SuaThongTinCaNhan
+    @TenTaiKhoan VARCHAR(50),
     @TenNV NVARCHAR(50),
     @GioiTinh NVARCHAR(10),
     @DiaChi NVARCHAR(255),
@@ -863,14 +868,12 @@ CREATE PROCEDURE Proc_SuaThongTinCaNhan
 AS
 BEGIN
     SET NOCOUNT ON;
-    DECLARE @TenTaiKhoan VARCHAR(50);
-    DECLARE @MatKhauHienTai VARCHAR(50);
-    DECLARE @sqlString NVARCHAR(2000);
-
-    SET @TenTaiKhoan = ORIGINAL_LOGIN();
 
     IF EXISTS (SELECT 1 FROM NhanVien WHERE TenTaiKhoan = @TenTaiKhoan)
     BEGIN
+        DECLARE @MatKhauHienTai VARCHAR(50);
+        DECLARE @sqlString NVARCHAR(2000);
+
         -- Lấy mật khẩu hiện tại của người dùng
         SELECT @MatKhauHienTai = MatKhau FROM NhanVien WHERE TenTaiKhoan = @TenTaiKhoan;
 
@@ -899,6 +902,7 @@ BEGIN
         RAISERROR ('Tài khoản không tồn tại!', 16, 1);
     END
 END;
+
 
 -- ==================== PHẦN CÁC FUNCTION============================
 go
